@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 
 
 /**
- * <t>A testing framework for {@link Graph} instances.</t>
+ * <p>A testing framework for {@link Graph} instances.</p>
  * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  * @see Graph
  * @see AdjacencyMatrixGraph

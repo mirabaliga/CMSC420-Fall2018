@@ -48,7 +48,7 @@ public class AdjacencyListGraph implements Graph {
     }
 
     @Override
-    public List<Integer> shortestPath() {
+    public List<Integer> shortestPath(int source, int target) {
         return null;
     }
 
