@@ -5,10 +5,9 @@ import demos.bags.*;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-/** <b>IntegerTimingClient</b> tests all implementations of {@link Bag} in the task of retrieving all
- * of their Integer contents.
+/** <p><tt>IntegerTimingClient</tt> tests all implementations of {@link Bag} in the task of retrieving all
+ * of their Integer contents.</p>
  * @author jason
- * @since 1.1
  */
 public class IntegerTimingClient {
 
@@ -16,6 +15,10 @@ public class IntegerTimingClient {
     private static final int NUM_INTS = 100000;
     private static int[] ints = IntStream.rangeClosed(1, NUM_INTS).toArray();
 
+    /**
+     * <p>Runner method.</p>
+     * @param args  cmd args
+     */
     public static void main(String[] args){
         Bag[] bags = {
                 new StaticallyPerturbedBag<Integer>(),
