@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * <p>{@link Graph} is an abstraction over directed and weighted graphs. It supports insertion of nodes, insertion
- * and removal of edges, queries of connectedness, simple accessors, as well as shortest path computation using
- * Dijkstra's algorithm. </p>
+ * and removal of edges, queries of connectedness, simple accessors, as well as shortest path computation. </p>
+ *
  * <p>Nodes in {@link Graph} are simplistic in that they are characterized just by an increasing index. So, the first node
  * inserted would be considered node 0 (zero), the second one node 1 and so on and so forth. For this reason, removal
  * of <b>nodes</b> from a {@link Graph} instance is <b>not</b> supported, otherwise inconsistencies with the internal
@@ -36,6 +36,9 @@ public interface Graph {
      * <p>If either <tt>source</tt> or <tt>target</tt> don't exist in the graph, the behavior is <i>undefined</i>. This
      * means that you can do <b>whatever</b> you want, as long as you don't store extra edges or nodes in the graph. You
      * can throw a {@link RuntimeException}, return null, print a message, anything. We do <b>not</b> test for this case.</p>
+     *
+     * <p>We treat the addition of a weight with zero weight exactly the same way we would treat the deletion of an edge
+     * through {@link #deleteEdge(int, int)}. So, the calls <tt>add(i, j, 0)</tt> and deleteEdge(i, j) are equivalent. </p>
      *
      * @param source The source node of the edge.
      * @param target The &quot;sink&quot; node of the edge.
@@ -72,12 +75,12 @@ public interface Graph {
     int getEdgeWeight(int source, int target);
 
     /**
-     * <p>Retrieves the &quot;neighbor&quot; nodes of the provided node, i.e all the nodes to which it is connected. If the node does <b>not</b>
-     * exist in the graph,* the behavior is <b>undefined</b>; you can do whatever you want (and that helps you debug!) and we don't test for it.
-     * If the node <b>does</b> exist in the graph but it has no neighbors, the returned {@link Set} should be
-     * non-<tt>null</tt>, but <b>empty (size 0)</b>.</p>
+     * <p>Retrieves the &quot;neighbor&quot; nodes of the provided node, i.e all the nodes to which it is connected (whether it is the source <b>OR</b>
+     * sink). If the node does <b>not</b> exist in the graph, the behavior is <b>undefined</b>; you can do whatever you want (and that helps you debug!)
+     * and we don't test for it. If the node <b>does</b> exist in the graph but it has no neighbors, the returned {@link Set} should be non-<tt>null</tt>,
+     * but  <b>empty (size 0)</b>.</p>
      * @param node The node to retrieve the neighbors of.
-     * @return A {@link Set} of all nodes to which <tt>node</tt> is incident.
+     * @return A {@link Set} of all nodes to which <tt>node</tt> is incident (whether it is the source <b>OR</b> sink).
      */
     Set<Integer> getNeighbors(int node);
 
@@ -102,11 +105,11 @@ public interface Graph {
      * <p>If either <tt>source</tt> or <tt>target</tt> are not part of the graph, the behavior is <b>undefined</b>
      * (we don't test for this case).</p>
      *
-     * <p><b>An important note</b>: since this class represents <b>directed graphs</b>, if <tt>source == target</tt>, there <b>may
+     * <p><b>An important note</b>: since this class represents <b>directed graphs</b>, even if <tt>source == target</tt>, there <b>may
      * not even exist</b> a path that connects <tt>source</tt> and <tt>target</tt>.</p>
      *
-     * @param source The source  node of the edge.
-     * @param target The &quot; sink &quot; of the edge.
+     * @param source The source node of the edge.
+     * @param target The &quot; sink &quot; node of the edge.
      * @return A {@link List}
      */
     List<Integer> shortestPath(int source, int target);

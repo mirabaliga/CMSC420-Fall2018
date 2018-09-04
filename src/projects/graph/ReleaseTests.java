@@ -24,7 +24,7 @@ public class ReleaseTests {
     }
 
     /* We will make calls to the same helper methods, defined below, from all of our possible
-     * Graph objects.
+     * Graph instances.
      */
 
     private void testAddNode(Graph graph){
