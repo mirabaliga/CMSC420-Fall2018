@@ -38,7 +38,7 @@ public class JLinkedListClient {
             System.out.println("List getCount retrieved was: " + l.countStack() + ".");
             System.out.println("Custom stack-based counting took " + (currentTimeMillis() - start)  + " ms. \n");
         } catch(Throwable t){
-            System.err.println("While generating the stack-based getCount, we received a " +
+            System.out.println("While generating the stack-based getCount, we received a " +
                     t.getClass().getSimpleName() + " with message: " + t.getMessage() + ".");
         }
 
@@ -50,7 +50,7 @@ public class JLinkedListClient {
             System.out.println("List getCount retrieved was: " + l.countRec() + ".");
             System.out.println("System stack-based traversal took " + (currentTimeMillis() - start) + " ms.\n");
         }catch(Throwable t){
-            System.err.println("While generating the recursive getCount, we received a " +
+            System.out.println("While generating the recursive getCount, we received a " +
                     t.getClass().getSimpleName() + " with message: " + t.getMessage() + ".");
         }
 
