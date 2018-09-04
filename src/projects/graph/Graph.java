@@ -105,11 +105,11 @@ public interface Graph {
      * <p>If either <tt>source</tt> or <tt>target</tt> are not part of the graph, the behavior is <b>undefined</b>
      * (we don't test for this case).</p>
      *
-     * <p><b>An important note</b>: since this class represents <b>directed graphs</b>, if <tt>source == target</tt>, there <b>may
+     * <p><b>An important note</b>: since this class represents <b>directed graphs</b>, even if <tt>source == target</tt>, there <b>may
      * not even exist</b> a path that connects <tt>source</tt> and <tt>target</tt>.</p>
      *
-     * @param source The source  node of the edge.
-     * @param target The &quot; sink &quot; of the edge.
+     * @param source The source node of the edge.
+     * @param target The &quot; sink &quot; node of the edge.
      * @return A {@link List}
      */
     List<Integer> shortestPath(int source, int target);
