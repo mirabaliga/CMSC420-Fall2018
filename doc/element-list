@@ -1,4 +1,4 @@
-
+unnamed package
 demos.bags
 demos.bags.clients
 demos.bags.testcases
@@ -8,8 +8,10 @@ projects.pqueue
 projects.pqueue.fifoqueues
 projects.pqueue.fifoqueues.test
 projects.pqueue.heaps
+projects.pqueue.heaps.test
 projects.pqueue.lists
 projects.pqueue.lists.test
 projects.pqueue.priorityqueues
+projects.pqueue.priorityqueues.test
 projects.pqueue.trees
 projects.pqueue.trees.test

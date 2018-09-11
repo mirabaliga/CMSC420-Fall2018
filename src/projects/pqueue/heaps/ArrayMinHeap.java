@@ -1,121 +1,241 @@
-package projects.pqueue.heaps; // ******* <---  DO NOT ERASE THIS LINE!!!! *******
+package projects.pqueue.heaps;
 
-/* *****************************************************************************************
- * THE FOLLOWING IMPORT IS NECESSARY FOR THE ITERATOR() METHOD'S SIGNATURE. FOR THIS
- * REASON, YOU SHOULD NOT ERASE IT! YOUR CODE WILL BE UNCOMPILABLE IF YOU DO!
- * ********************************************************************************** */
-
+import projects.pqueue.InvalidCapacityException;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 /**
- * <p><tt>ArrayMinHeap</tt> is a {@link MinHeap} implemented using an internal array. Since projects.pqueue.heaps are <b>complete</b>
- * binary projects.pqueue.trees, using contiguous storage to store them is an excellent idea, since with such storage we avoid
- * wasting bytes per <tt>null</tt> pointer in a linked implementation.</p>
+ * <p>Model implementation of <tt>ArrayMinHeap</tt> for the first project of
+ * CMSC420: Data Structures, CS UMD, Fall 2018. </p>
  *
- * <p>You <b>must</b> edit this class! To receive <b>any</b> credit for the unit tests related to this class,
- * your implementation <b>must</b> be a <b>contiguous storage</b> implementation based on a linear {@link java.util.Collection}
- * or a raw Java array.</p>
- *
- * @author -- YOUR NAME HERE ---
+ * @author <a href = "mailto:jasonfil@cs.umd.edu">Jason Filippou</a>
  *
  * @see MinHeap
- * @see ArrayMinHeap
-  */
-public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> { // *** <-- DO NOT CHANGE THIS LINE!!! ***
+ * @see LinkedMinHeap
+ */
+@SuppressWarnings("unchecked")
+public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 
-	private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
-
-	/* *********************************************
-	 * PLACE YOUR PRIVATE AND PROTECTED FIELDS HERE!
-	 * YOU MIGHT ALSO WANT TO PUT PRIVATE METHODS AND/OR CLASSES HERE!
-	 * THE DESIGN CHOICE IS YOURS ENTIRELY.
-	 * ******************************************** */
-
-
-
-	/* ***********************************************************************************
-	 * YOU SHOULD IMPLEMENT THE FOLLOWING METHODS. BESIDES THE INTERFACE METHODS,
-	 * THOSE INCLUDE CONSTRUCTORS (DEFAULT, NON-DEFAULT, COPY) AS WELL AS EQUALS().
-	 * PLEASE MAKE SURE YOU RECALL HOW ONE SHOULD MAKE A CLASS-SAFE EQUALS() FROM EARLIER
-	 * JAVA COURSES!
-	 *
-	 * YOU SHOULD NOT CHANGE *ANY* METHOD SIGNATURES! IF YOU DO, YOUR CODE WILL NOT RUN
-	 * AGAINST OUR TESTS!
-	 * ********************************************************************************** */
-
+	private Object[] data;
+	private int last;
+	private static final int INIT_CAPACITY = 10;
+	protected boolean modificationFlag;
 
 	/**
-	 *  Default constructor.
+	 * Expands the capacity of the ArrayMinHeap. This method is typically
+	 * called by insert(T element) when we're trying to insert an element in an already
+	 * full heap.
+	 * {@link #insert(Comparable)}
 	 */
-	public ArrayMinHeap(){
-		/* FILL THIS IN WITH YOUR IMPLEMENTATION OF A DEFAULT CONSTRUCTOR, IF ANY. */
+	private void expandCapacity(){
+		Object[] temp = new Object[2*data.length];
+		for(int i = 0; i < data.length; i++)
+			temp[i] = data[i];
+		data = temp;
 	}
 
 	/**
-	 *  Second, non-default constructor.
-	 *  @param rootElement the element to create the root with.
+	 * Default constructor initializes the data structure with the default
+	 * capacity.
 	 */
-	public ArrayMinHeap(T rootElement){
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+	public ArrayMinHeap(){
+		data = new Object[INIT_CAPACITY];
+		last = 0;
+		modificationFlag = false;
+	}
+
+	/**
+	 * Second constructor initializes the data structure with the provided capacity.
+	 * @param capacity The capacity to initialize the ArrayMinHeap with.
+	 * @throws InvalidCapacityException If the capacity provided is negative.
+	 */
+	public ArrayMinHeap(int capacity) throws InvalidCapacityException{
+		if(capacity < 0)
+			throw new InvalidCapacityException("Invalid capacity provided!");
+		data = new Object[capacity];
+		last = 0;
+		modificationFlag = false;
 	}
 
 	/**
 	 * Copy constructor initializes the current MinHeap as a carbon
 	 * copy of the parameter.
 	 *
-	 * @param other The MinHeap to copy the elements from.
+	 * @param other The MinHeap object to base construction of the current object on.
 	 */
 	public ArrayMinHeap(MinHeap<T> other){
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		if(other== null)
+			return;
+		if(other.size() == 0){
+			data = new Object[INIT_CAPACITY];
+			last = 0;
+		}else
+			for(T el: other)
+				insert(el);
+		modificationFlag = false;
 	}
 
 	/**
 	 * Standard equals() method.
-	 *
-	 * @return true If the parameter Object and the current MinHeap
-	 * are identical Objects.
+	 * @return true if the current object and the parameter object
+	 * are equal, with the code providing the equality contract.
 	 */
 	@Override
 	public boolean equals(Object other){
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		if(other == null || !(other instanceof MinHeap<?>))
+			return false;
+		MinHeap<?> oheap = null;
+		try {
+			oheap = (MinHeap<?>)other;
+		} catch(ClassCastException cce){
+			return false;
+		}
+		Iterator<?> itThis = iterator();
+		Iterator<?> ito = oheap.iterator();
+		while(itThis.hasNext())
+			if(!itThis.next().equals(ito.next()))
+				return false;
+		return true;
 	}
 
-
-	@Override
-	public boolean isEmpty() {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+	/**
+	 * Returns the minimum child among the two children indices provided as parameters.
+	 * @param indLeft the index of the left child
+	 * @param indRight the index of the right child
+	 * @return the index of the minimum child.
+	 */
+	private int findMinChild(int indLeft, int indRight){
+		int retVal;
+		if(indLeft >= last)
+			retVal = -1;
+		else if(indRight >= last)
+			retVal = indLeft;
+		else{
+			if(((T) data[indLeft]).compareTo((T) data[indRight]) > 0)
+				retVal = indRight;
+			else
+				retVal = indLeft;
+		}
+		return retVal;
 	}
-
-	@Override
-	public int size() {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
-	}
-
-	@Override
-	public void clear() {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
-	}
-
-
 
 	@Override
 	public void insert(T element) {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
-	}
-
-	@Override
-	public T getMin() throws EmptyHeapException {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		// To insert an element in the minheap, we insert it as the last element,
+		// and then we keep swapping it with its parent until the minheap
+		// identity is maintained.
+		if(last == data.length)
+			expandCapacity();
+		data[last] = element;
+		int current = last, parent = current / 2;
+		// While you need to switch, switch
+		while(((T) data[parent]).compareTo((T)data[current]) > 0){
+			Object temp = data[current];
+			data[current] = data[parent];
+			data[parent] = temp;
+			current = parent;
+			parent = parent/ 2;
+		}
+		last++;
+		modificationFlag = true;
 	}
 
 	@Override
 	public T deleteMin() throws EmptyHeapException {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		// To delete the minimum element, we delete the root,
+		// and then swap the smallest child of the root with the root
+		// and keep on doing that until the heap identity is maintained.
+		if(data[0] == null)
+			throw new EmptyHeapException("deleteMin(): Heap is empty!");
+		T retVal = (T)data[0];
+		data[0] = data[last - 1];
+		int current = 0, minChild = findMinChild(1, 2);
+		// While you have to switch, switch.
+		while(minChild != -1 && ((T) data[minChild]).compareTo((T)data[current]) < 0){
+			Object temp = data[current];
+			data[current] = data[minChild];
+			data[minChild] = temp;
+			current = minChild;
+			minChild = findMinChild(2*current, 2*current + 1);
+		}
+		data[--last] = null;
+		return retVal;
 	}
 
+	@Override
+	public T getMin() throws EmptyHeapException {
+		if(data[0] == null)
+			throw new EmptyHeapException("getMin(): heap is empty!");
+		return (T)data[0];
+	}
 
+	@Override
+	public int size() {
+		return last;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return last == 0;
+	}
+
+	@Override
+	public void clear() {
+		for(int i = 0; i < last; i++)
+			data[i] = null;
+		last = 0;
+	}
 
 	@Override
 	public Iterator<T> iterator() {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		return new ArrayMinHeapIterator();
+	}
+
+	/**
+	 * An implementation of a fail-fast max-getFirst Iterator for MinHeaps.
+	 * @author <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>
+	 */
+	class ArrayMinHeapIterator implements Iterator<T>{
+
+		private MinHeap<T> tempHeap;
+
+		public ArrayMinHeapIterator(){
+			tempHeap = new ArrayMinHeap<T>();
+			for(Object el: data)
+				if(el != null) // Recall that an array-based Heap might have null references...
+					tempHeap.insert((T)el);
+			modificationFlag = false;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return !tempHeap.isEmpty();
+		}
+
+		@Override
+		public T next() throws ConcurrentModificationException, NoSuchElementException{
+			if(modificationFlag)
+				throw new ConcurrentModificationException("next(): "
+						+ "attempted to traverse the heap through an Iterator after extraneous modifications.");
+			T retVal = null;
+			try {
+				retVal = tempHeap.deleteMin();
+			} catch(EmptyHeapException e){
+				throw new NoSuchElementException("next(): heap is empty.");
+			}
+			return retVal;
+		}
+
+		/**
+		 * delete() is an unsupported operation. It does not make sense to provide
+		 * a MaxHeap with the ability to delete an arbitrary element.
+		 * @throws UnsupportedOperationException always.
+		 */
+		@Override
+		public void remove() throws UnsupportedOperationException{
+			throw new UnsupportedOperationException("Removal of arbitrary elements is not supported for MaxHeaps.");
+
+		}
+
 	}
 }

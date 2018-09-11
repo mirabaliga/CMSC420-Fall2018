@@ -1,97 +1,166 @@
 package projects.pqueue.priorityqueues; // ******* <---  DO NOT ERASE THIS LINE!!!! *******
 
 
-/* *****************************************************************************************
- * THE FOLLOWING IMPORTS WILL BE NEEDED BY YOUR CODE, BECAUSE WE REQUIRE THAT YOU USE
- * ANY ONE OF YOUR EXISTING MINHEAP IMPLEMENTATIONS TO IMPLEMENT THIS CLASS. TO ACCESS
- * YOUR MINHEAP'S METHODS YOU NEED THEIR SIGNATURES, WHICH ARE DECLARED IN THE MINHEAP
- * INTERFACE. ALSO, SINCE THE PRIORITYQUEUE INTERFACE THAT YOU EXTEND IS ITERABLE, THE IMPORT OF ITERATOR
- * IS NEEDED IN ORDER TO MAKE YOUR CODE COMPILABLE.
- ** ********************************************************************************** */
-
 import projects.pqueue.InvalidPriorityException;
-import projects.pqueue.heaps.MinHeap;
-
+import projects.pqueue.heaps.*;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
- * <p><tt>MinHeapPriorityQueue</tt> is a {@link PriorityQueue} implemented using a {@link MinHeap}.</p>
+ *<p> Model implementation of <tt>MinHeapPriorityQueue</tt> for the first project of
+ *   CMSC420: Data Structures, CS UMD, Fall 2018. </p>
  *
- * <p>You  <b>must</b> implement the methods in this file! To receive <b>any credit</b> for the unit tests related to this class, your implementation <b>must</b>
- * use <b>whichever</b> {@link MinHeap} implementation among the two that you should have implemented you choose!</p>
- *
- * @author  ---- YOUR NAME HERE ----
+ * <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>
  *
  * @param <T> The Type held by the container.
  *
  * @see LinearPriorityQueue
  * @see MinHeap
  */
-public class MinHeapPriorityQueue<T> implements PriorityQueue<T>{ // *** <-- DO NOT CHANGE THIS LINE!!! ***
+public class MinHeapPriorityQueue<T> implements PriorityQueue<T> {
 
-	private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
-
-	/* *********************************************
-	 * PLACE YOUR PRIVATE AND PROTECTED FIELDS HERE!
-	 * YOU MIGHT ALSO WANT TO PUT PRIVATE METHODS AND/OR CLASSES HERE!
-	 * THE DESIGN CHOICE IS YOURS ENTIRELY.
-	 * ******************************************** */
-
-
-
-	/* ***********************************************************************************
-	 * YOU SHOULD IMPLEMENT THE FOLLOWING METHODS. BESIDES THE INTERFACE METHODS,
-	 * THOSE INCLUDE A SIMPLE DEFAULT CONSTRUCTOR. FOR THE PRIORITY QUEUE CLASSES, YOU
-	 * WILL *NOT* NEED TO IMPLEMENT COPY CONSTRUCTORS AND EQUALS(), BUT IF YOU WOULD LIKE TO
-	 * IMPLEMENT THOSE TO FACILITATE YOUR OWN TESTS AND CLIENT CODE, PLEASE FEEL FREE TO DO SO!
-	 * THE CHOICE IS YOURS.
-	 *
-	 * YOU SHOULD NOT CHANGE *ANY* METHOD SIGNATURES! IF YOU DO, YOUR CODE WILL NOT RUN
-	 * AGAINST OUR TESTS!
-	 * ********************************************************************************** */
+	private int orderCounter;
+	private MinHeap<PriorityQueueNode> data;
+	private boolean modificationFlag;
 
 	/**
 	 * Simple default constructor.
 	 */
-	public MinHeapPriorityQueue(){
-		/* FILL THIS IN WITH YOUR IMPLEMENTATION OF A DEFAULT CONSTRUCTOR, IF ANY. */
+	public MinHeapPriorityQueue() {
+		orderCounter = 0;
+		data = new LinkedMinHeap<>(); // Any MinHeap can be used.
+		modificationFlag = false;
 	}
 
 	@Override
-	public void enqueue(T element, int priority) throws InvalidPriorityException{
-			throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+	public void enqueue(T element, int priority) throws InvalidPriorityException {
+		if (priority < 1)
+			throw new InvalidPriorityException("Invalid priority " + priority + " provided.");
+		data.insert(new PriorityQueueNode(element, priority));
+		modificationFlag = true;
 	}
 
 
 	@Override
 	public T dequeue() throws EmptyPriorityQueueException {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		T retVal;
+		try {
+			retVal = data.deleteMin().data;
+		} catch (EmptyHeapException e) {
+			throw new EmptyPriorityQueueException("dequeue(): FIFOQueue is empty!");
+		}
+		modificationFlag = true;
+		return retVal;
 	}
 
 	@Override
 	public T getFirst() throws EmptyPriorityQueueException {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		// TODO Auto-generated method stub
+		try {
+			return data.getMin().data;
+		} catch (EmptyHeapException e) {
+			throw new EmptyPriorityQueueException("getFirst(): FIFOQueue is empty!");
+		}
 	}
 
-	@Override
 	public Iterator<T> iterator() {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		return new MinHeapPQIterator();
+	}
+
+	private class MinHeapPQIterator implements Iterator<T> {
+
+
+		private Iterator<PriorityQueueNode> currentIt;
+
+		public MinHeapPQIterator() {
+			currentIt = data.iterator(); // falling back to MinHeap's iterator().
+			modificationFlag = false; // Necessary otherwise next() will never work.
+		}
+
+		@Override
+		public boolean hasNext() {
+			return currentIt.hasNext();
+		}
+
+		@Override
+		public T next() throws ConcurrentModificationException, NoSuchElementException {
+			if(!currentIt.hasNext())
+				throw new NoSuchElementException("next(): No further elements!");
+			if(modificationFlag)
+				throw new ConcurrentModificationException("next(): modification of MinHeap detected while " +
+						" iterating through it.");
+			return currentIt.next().data;
+		}
+
+
 	}
 
 	@Override
 	public int size() {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		return data.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		// TODO Auto-generated method stub
+		return data.size() == 0;
 	}
 
 	@Override
 	public void clear() {
-		throw UNIMPL_METHOD; /* ERASE THIS LINE AFTER IMPLEMENTING THE METHOD. */
+		data.clear();
+		orderCounter = 0;
 	}
-	
+
+	/**
+	 * A PriorityQueueNode is a Comparable type which is used to wrap around
+	 * the (data, priority) pairs. Its overriding of the compareTo() method
+	 * allows the contained MinHeap in the priority queue to disambiguate between
+	 * the same priority elements, thus establishing a strict ordering in the heap,
+	 * such that the root is always uniquely defined.
+	 *
+	 * @author <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>
+	 */
+	private class PriorityQueueNode implements Comparable<PriorityQueueNode> {
+
+		private T data;
+		private int priority;
+		private int orderInserted;
+
+		public PriorityQueueNode(T data, int priority) {
+			this.data = data;
+			this.priority = priority;
+			orderInserted = orderCounter++;
+		}
+
+		public PriorityQueueNode(T data) {
+			this(data, -1);
+		}
+
+		public PriorityQueueNode() {
+			this(null);
+		}
+
+		@Override
+		public int compareTo(PriorityQueueNode o) {
+			// Remember that a numerically smaller priority
+			// is actually considered larger in priority
+			// queue terms. Also recall that we are using a
+			// MinHeap, so the smallest elements ascend to the top,
+			// not the largest.
+			if (priority < o.priority)
+				return -1;
+			else if (priority > o.priority)
+				return 1;
+			else {
+				if (orderInserted < o.orderInserted)
+					return -1;
+				else
+					return 1;
+			}
+		}
+
+	}
 
 }
