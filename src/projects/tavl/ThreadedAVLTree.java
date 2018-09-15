@@ -9,13 +9,19 @@ import java.util.Iterator;      // You need this import because of the interface
  *       <li>Perform a full inorder traversal in <em>O(n)</em> time, by virtue of being threaded trees.</li>
  * </ol>
  * <p>Hence, two powerful ideas that we have talked about in lecture will now be combined in one data structure. </p>
- * <p>To get more than 50&#37; credit for this project, you <b>must</b> attempt to implement your tree as a <b>threaded</b>
+ *
+ *  <p>To get more than 50&#37; credit for this project, you <b>must</b> attempt to implement your tree as a <b>threaded</b>
  * tree, as discussed in lecture. We have access to your source code after submission and we <b>will</b> be checking to
  * make sure that you have been appropriately updating the tree's threads every time you must! You are also required to
  * implement a method for generating the inorder traversal over such a tree, and this method needs to be functioning
  * <b>entirely stacklesssly!</b>Read the project description for more in-depth information.</p>
  *
+ * <p>Finally, for this project, <b>we assume that there are no duplicate keys in your data structure. </b> This means that, in our unit tests,
+ * whenever we delete a key from your tree, <b>we expect it to no longer be found in the tree.</b> You may deal with this
+ * invariant in any way you please, e.g. throw an exception if a duplicate is inserted, or delete all instances of a key when we ask for a deletion.</p>
+ *
  * @author ------- PUT YOUR NAME HERE! ------
+ * @see #inorderTraversal()
  * @param <T> The {@link java.lang.Comparable} type held by the data structure.
  */
 public class ThreadedAVLTree<T extends Comparable<T>> {
