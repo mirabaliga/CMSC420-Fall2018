@@ -1,4 +1,4 @@
-package projects.tavl;     // YOU WILL NEED TO ERASE THIS LINE BEFORE SUBMISSION
+package projects.tavl;
 import java.util.Iterator;      // You need this import because of the interface method inorderTraversal()'s return type.
 
 /**<p> {@link ThreadedAVLTree} implements threaded <a href="https://en.wikipedia.org/wiki/AVL_tree">Adelson-Velsky-Landis (AVL) trees</a>
