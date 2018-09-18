@@ -119,7 +119,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
 
     /**
      * Return the key at the tree's root node.
-     * @return The key at the tree's root node.
+     * @return The key at the tree's root node, or <tt>null</tt> if the tree is empty.
      */
     public T getRoot(){
         /*
