@@ -1,6 +1,7 @@
 package projects.tavl;
 import java.util.Iterator;    // You need this import because of the interface method inorderTraversal()'s return type.
 
+
 /**<p> {@link ThreadedAVLTree} implements threaded <a href="https://en.wikipedia.org/wiki/AVL_tree">Adelson-Velsky-Landis (AVL) trees</a>
  * (shorthand: TAVL trees). These trees:</p>
  * <ol>
@@ -14,7 +15,11 @@ import java.util.Iterator;    // You need this import because of the interface m
  * tree, as discussed in lecture. We have access to your source code after submission and we <b>will</b> be checking to
  * make sure that you have been appropriately updating the tree's threads every time you must! You are also required to
  * implement a method for generating the inorder traversal over such a tree, and this method needs to be functioning
+<<<<<<< HEAD
  * <b>entirely stacklesssly!</b>Read the project description for more in-depth information.</p>
+=======
+ * <b>entirely stacklessly!</b>Read the project description for more in-depth information.</p>
+>>>>>>> skeleton
  *
  * <p>Finally, for this project, <b>we assume that there are no duplicate keys in your data structure. </b> This means that, in our unit tests,
  * whenever we delete a key from your tree, <b>we expect it to no longer be found in the tree.</b> You may deal with this
@@ -22,6 +27,10 @@ import java.util.Iterator;    // You need this import because of the interface m
  *
  * @author ------- PUT YOUR NAME HERE! ------
  * @see #inorderTraversal()
+<<<<<<< HEAD
+=======
+ * @see StudentTests
+>>>>>>> skeleton
  * @param <T> The {@link java.lang.Comparable} type held by the data structure.
  */
 public class ThreadedAVLTree<T extends Comparable<T>> {
@@ -48,7 +57,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
         /*
          *  Fill-in the code here!
          */
-        throw new RuntimeException(UNIMPL_MSG);
+        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
 
         /* Note: Depending on how you handle things. it might be completely ok
          * to have nothing in your constructor. That is, the only thing you'd need to do
@@ -63,7 +72,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
         /*
          *  Fill-in the code here!
          */
-        throw new RuntimeException(UNIMPL_MSG);
+        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
     }
 
     /**
@@ -76,7 +85,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
         /*
          *  Fill-in the code here!
          */
-        throw new RuntimeException(UNIMPL_MSG);
+        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
     }
 
     /**
@@ -89,7 +98,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
         /*
          *  Fill-in the code here!
          */
-        throw new RuntimeException(UNIMPL_MSG);
+        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
     }
 
 
@@ -103,7 +112,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
         /*
          *  Fill-in the code here!
          */
-        throw new RuntimeException(UNIMPL_MSG);
+        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
     }
 
     /**
@@ -114,7 +123,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
         /*
          *  Fill-in the code here!
          */
-        throw new RuntimeException(UNIMPL_MSG);
+        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
     }
 
     /**
@@ -125,7 +134,8 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
         /*
          *  Fill-in the code here!
          */
-        throw new RuntimeException(UNIMPL_MSG);
+        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
+
     }
 
     /**
@@ -138,6 +148,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * @return An {@link Iterator} over <tt>T</tt>s, which exposes the elements in
      * ascending order. If the tree is empty, the {@link Iterator}'s first call to {@link Iterator#hasNext()}
      * will return <tt>false</tt> The behavior of {@link Iterator#remove()} is <b>undefined</b>; we do <b>not</b> test
+     * will return <tt>false</tt>. The behavior of {@link Iterator#remove()} is <b>undefined</b>; we do <b>not</b> test
      * for removal of elements through the returned {@link Iterator}, so you can implement {@link Iterator#remove()} in
      * <b>any way you please</b>.
      */
@@ -145,6 +156,6 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
         /*
          *  Fill-in the code here!
          */
-        throw new RuntimeException(UNIMPL_MSG);
+        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
     }
 }
