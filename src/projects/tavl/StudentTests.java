@@ -20,7 +20,7 @@ public class StudentTests {
     private static final long SEED=47; // To allow for reproducibility of your test cases.
     private static Random r = new Random(SEED); // Or don't provide a seed for full pseudo-randomness (but you lose the reproducibility)
     private static final int UPPER_BOUND = 1000; // Upper bound of integers to generate.
-    private static final int NUM_INTS = 2000; // Number of integers to generate in stress tests.
+    private static final int NUM_INTS = 200; // Number of integers to generate in stress tests.
 
     // Note that if NUM_INTS > UPPER_BOUND, by pigeonhole principle, you *WILL* generate duplicate integers through calls to Random::nextInt(). For
     // example, if you want to generate ints between 1 and 10 inclusive uniformly at random and you perform this experiment 11 times, you are guaranteed

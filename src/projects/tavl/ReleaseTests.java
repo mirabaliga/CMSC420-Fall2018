@@ -64,7 +64,7 @@ public class ReleaseTests {
 
         // Look up the key through the search() method.
         assertEquals("Looking up the single inserted key in the tree failed.",
-                ZERO, intTree.search(ZERO));
+                ZERO, intTree.lookup(ZERO));
 
         // Delete the tree and make it back into a stub.
         assertEquals("Deleting the single key should return the key itself.",
@@ -102,7 +102,7 @@ public class ReleaseTests {
         assertEquals("Incorrect key detected at root: Are you performing " +
                 "unnecessary rotations?", new Integer(-1), intTree.getRoot());
         assertEquals("Looking up the key we just inserted should return a reference " +
-                "to the key itself.", new Integer(-2), intTree.search(-2));
+                "to the key itself.", new Integer(-2), intTree.lookup(-2));
         assertFalse("The code tells us that a tree where we inserted two keys is empty.",
                 intTree.isEmpty());
 
@@ -123,7 +123,7 @@ public class ReleaseTests {
         assertEquals("Tree not re-balanced properly.", 1, intTree.height());
         assertEquals("Incorrect key detected at root: are you rotating *right* properly?", new Integer(-2), intTree.getRoot());
         assertEquals("Looking up the key we just inserted should return a reference " +
-                "to the key itself.",	new Integer(-5), intTree.search(-5));
+                "to the key itself.",	new Integer(-5), intTree.lookup(-5));
         assertFalse("The code tells us that a tree where we inserted three keys is empty.",
                 intTree.isEmpty());
 
@@ -146,7 +146,7 @@ public class ReleaseTests {
         assertEquals("Incorrect key detected at root: Are you performing " +
                 "unnecessary rotations?", "fad", stringTree.getRoot());
         assertEquals("Looking up the key we just inserted should return a reference " +
-                "to the key itself.", "hom", stringTree.search("hom"));
+                "to the key itself.", "hom", stringTree.lookup("hom"));
         assertFalse("The code tells us that a tree where we inserted two keys is empty.",
                 stringTree.isEmpty());
         stringTree.insert("qer");
@@ -166,7 +166,7 @@ public class ReleaseTests {
         assertEquals("Incorrect key detected at root: are you rotating *left* properly?",
                 "hom", stringTree.getRoot());
         assertEquals("Looking up the key we just inserted should return a reference " +
-                "to the key itself.","qer", stringTree.search("qer"));
+                "to the key itself.","qer", stringTree.lookup("qer"));
         assertFalse("The code tells us tells us that a tree where we inserted " +
                 "three keys is empty.", stringTree.isEmpty());
 
@@ -409,7 +409,7 @@ public class ReleaseTests {
          */
 
         assertEquals("Removing a leaf node should return itself to the caller.", ZERO, intTree.delete(ZERO));
-        assertTrue("Once we remove a key, we should no longer be able to find it " + "in the tree.", intTree.search(ZERO) == null);
+        assertTrue("Once we remove a key, we should no longer be able to find it " + "in the tree.", intTree.lookup(ZERO) == null);
         assertEquals("After this particular deletion, the tree's height should remain " +
                 "the same.", 1, intTree.height());
 
@@ -418,7 +418,7 @@ public class ReleaseTests {
         assertEquals("Removing a leaf node should return itself to the caller.",
                 new Integer(5), intTree.delete(5));
         assertTrue("Once we remove a key, we should no longer be able to find it " +
-                "in the tree.", intTree.search(5) == null);
+                "in the tree.", intTree.lookup(5) == null);
         assertEquals("Incorrect tree height detected after deletions.", 0, intTree.height());
 
         /* After all these deletions, the root should be 3. We will make sure of this. */
@@ -455,7 +455,7 @@ public class ReleaseTests {
 
         intTree.delete(1); // No more need to check return values here.
         assertTrue("Once we remove a key, we should no longer be able to find it " +
-                "in the tree.", intTree.search(1) == null);
+                "in the tree.", intTree.lookup(1) == null);
         assertEquals("Incorrect tree root. Are you rotating *left* correctly " +
                 "after deletions?", new Integer(5), intTree.getRoot());
         assertEquals("Incorrect tree height. Are you " +
@@ -489,7 +489,7 @@ public class ReleaseTests {
 
         stringTree.delete("Matt");
         assertTrue("Once we remove a key, we should no longer be able to find it " +
-                "in the tree.", stringTree.search("Matt") == null);
+                "in the tree.", stringTree.lookup("Matt") == null);
         assertEquals("Incorrect tree root. Are you rotating *right* correctly after deletions?",
                 "George", stringTree.getRoot());
         assertEquals("Incorrect tree height. Are you re-balancing correctly after deletions?",
@@ -523,7 +523,7 @@ public class ReleaseTests {
             intTree.insert(k);
         intTree.delete(15);
         assertTrue("Once we remove a key, we should no longer be able to find it " +
-                "in the tree.", intTree.search(15) == null);
+                "in the tree.", intTree.lookup(15) == null);
         assertEquals("Incorrect tree root. Are you rotating *LR* correctly after deletions?",
                 new Integer(7), intTree.getRoot());
         assertEquals("Incorrect tree height. Are you re-balancing correctly after deletions?",
@@ -555,7 +555,7 @@ public class ReleaseTests {
             stringTree.insert(k);
         stringTree.delete("Jake");
         assertTrue("Once we remove a key, we should no longer be able to find it " +
-                "in the tree.", stringTree.search("Jake") == null);
+                "in the tree.", stringTree.lookup("Jake") == null);
         assertEquals("Incorrect tree root. Are you rotating *RL* correctly after deletions?",
                 "Lauren", stringTree.getRoot());
         assertEquals("Incorrect tree height. Are you re-balancing correctly after deletions?",
@@ -593,7 +593,7 @@ public class ReleaseTests {
             intTree.insert(k);
         intTree.delete(10);
         assertTrue("Once we remove a key, we should no longer be able to find it " +
-                "in the tree.", intTree.search(10) == null);
+                "in the tree.", intTree.lookup(10) == null);
         assertEquals("Tree root should not have changed after the last deletion. " +
                         "Are you perhaps rotating too aggressively after deletions?" ,
                 new Integer(45), intTree.getRoot());
@@ -628,7 +628,7 @@ public class ReleaseTests {
             stringTree.insert(k);
         stringTree.delete("zed");
         assertTrue("Once we remove a key, we should no longer be able to find it " +
-                "in the tree.", stringTree.search("zed") == null);
+                "in the tree.", stringTree.lookup("zed") == null);
         assertEquals("Tree root should not have changed after this deletion. " +
                         "Are you perhaps rotating too aggressively after deletions?" ,
                 "kal", stringTree.getRoot());
@@ -796,7 +796,7 @@ public class ReleaseTests {
                         collector.get(i), retVal);
                 assertTrue("In iteration " + i +", after deleting key " + retVal +
                                 ", search() determined the key to still exist inside the tree.",
-                        intTree.search(retVal) == null);
+                        intTree.lookup(retVal) == null);
             }catch(Throwable t){
                 fail("Caught a " + t.getClass() + " with message: " + t.getMessage() +
                         " in iteration " + i + ", with the key " + collector.get(i) + ".");
