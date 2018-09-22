@@ -59,7 +59,7 @@ public class JLinkedListClient {
         try {
             start = currentTimeMillis();
             System.out.println("List getCount retrieved was: " + l.countTailRec() + ".");
-            System.out.println("System stack-based traversal took " + (currentTimeMillis() - start) + " ms.\n");
+            System.out.println("Tail-recursive traversal took " + (currentTimeMillis() - start) + " ms.\n");
         }catch(Throwable t){
             System.out.println("While generating the tail - recursive getCount, we received a " +
                     t.getClass().getSimpleName() + " with message: " + t.getMessage() + ".");
