@@ -7,32 +7,14 @@ import java.util.Iterator;
 /**<p> {@link ThreadedAVLTree} implements threaded <a href="https://en.wikipedia.org/wiki/AVL_tree">Adelson-Velsky-Landis (AVL) trees</a>
  * (shorthand: TAVL trees). These trees:</p>
  * <ol>
- *      <li> Allow for efficient lookup, insertion and deletion in <em>O(logn)</em> time, by virtue
+ *      <li> Allow for efficient search, insertion and deletion in <em>O(logn)</em> time, by virtue
  *       of being AVL trees.</li>
  *       <li>Perform a full inorder traversal in <em>O(n)</em> time, by virtue of being threaded trees.</li>
  * </ol>
  * <p>Hence, two powerful ideas that we have talked about in lecture will now be combined in one data structure. </p>
  *
- *  <p>To get more than 50&#37; credit for this project, you <b>must</b> attempt to implement your tree as a <b>threaded</b>
- * tree, as discussed in lecture. We have access to your source code after submission and we <b>will</b> be checking to
- * make sure that you have been appropriately updating the tree's threads every time you must! You are also required to
- * implement a method for generating the inorder traversal over such a tree, and this method needs to be functioning
-<<<<<<< HEAD
- * <b>entirely stacklesssly!</b>Read the project description for more in-depth information.</p>
-=======
- * <b>entirely stacklessly!</b>Read the project description for more in-depth information.</p>
->>>>>>> skeleton
- *
- * <p>Finally, for this project, <b>we assume that there are no duplicate keys in your data structure. </b> This means that, in our unit tests,
- * whenever we delete a key from your tree, <b>we expect it to no longer be found in the tree.</b> You may deal with this
- * invariant in any way you please, e.g. throw an exception if a duplicate is inserted, or delete all instances of a key when we ask for a deletion.</p>
- *
- * @author ------- PUT YOUR NAME HERE! ------
- * @see #inorderTraversal()
-<<<<<<< HEAD
-=======
+ * @author <a href = "mailto:jason.filippou@gmail.com">Jason Filippou</a>
  * @see StudentTests
->>>>>>> skeleton
  * @param <T> The {@link java.lang.Comparable} type held by the data structure.
  */
 public class ThreadedAVLTree<T extends Comparable<T>> {
@@ -386,19 +368,19 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
         return n;
     }
 
-    /* Recursive lookup method. Standard BST-like implementation,
+    /* Recursive search method. Standard BST-like implementation,
      * enhanced to terminate search if a thread is reached. */
-    private T lookup(Node n, T key){
+    private T search(Node n, T key){
         if(key.compareTo(n.key) < 0)
             if(n.isLeftSet())
                 return null;
             else
-                return lookup(n.left, key);
+                return search(n.left, key);
         else if(key.compareTo(n.key) > 0)
             if(n.isRightSet())
                 return null;
             else
-                return lookup(n.right, key);
+                return search(n.right, key);
         else
             return n.key;
 
@@ -450,9 +432,9 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
          * This makes successful deletions slower by a logarithmic parameter, yet
          * it also makes for cleaner deletion code. It also speeds up unsuccessful
          * deletions, i.e deletions of keys that are not in the tree (but any reasonable
-         * application would lookup keys first anyway).
+         * application would search keys first anyway).
          */
-        T retVal = lookup(key);
+        T retVal = search(key);
         if(retVal != null)
             root = delete(root, null, null, null, key);
         return retVal; // null or otherwise.
@@ -461,13 +443,14 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
     /**
      * Search for <tt>key</tt> in the tree. Return a reference to it if it's in there,
      * or <tt>null</tt> otherwise.
+     * @param key The key of type <tt>T</tt> to look for in the tree.
      * @return <tt>key</tt> if <tt>key</tt> is in the tree, or <tt>null</tt> otherwise.
      */
-    public T lookup(T key){
+    public T search(T key){
         if(isEmpty())
             return null;
         else
-            return lookup(root, key);
+            return search(root, key);
     }
 
 
