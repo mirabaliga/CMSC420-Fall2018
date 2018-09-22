@@ -4,14 +4,13 @@ import java.util.stream.IntStream;
 
 import static java.lang.System.*;
 
-/**<p><tt>JLinkedListClient</tt> is a timing client for {@link JLinkedList}. It also monitors the throwing of
+/**<p>{@link JLinkedListClient} is a timing client for {@link JLinkedList}. It also monitors the throwing of
  * potential stack overflow / Out of memory exceptions.</p>
 
- * @author jason
- * @since 1.2
+ * @author <a href = "mailto:jason.filippou@gmail.com">Jason Filippou</a>
+ *
  * @see JLinkedList
  */
-
 public class JLinkedListClient {
 
 
@@ -54,7 +53,17 @@ public class JLinkedListClient {
                     t.getClass().getSimpleName() + " with message: " + t.getMessage() + ".");
         }
 
-
+        System.out.println("------------------------------------------ " +
+                "\n Timing tail-recursive counting.... \n " +
+                "------------------------------------------\n");
+        try {
+            start = currentTimeMillis();
+            System.out.println("List getCount retrieved was: " + l.countTailRec() + ".");
+            System.out.println("Tail-recursive traversal took " + (currentTimeMillis() - start) + " ms.\n");
+        }catch(Throwable t){
+            System.out.println("While generating the tail - recursive getCount, we received a " +
+                    t.getClass().getSimpleName() + " with message: " + t.getMessage() + ".");
+        }
 
     }
 
