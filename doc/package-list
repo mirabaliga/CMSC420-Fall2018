@@ -4,6 +4,7 @@ demos.bags.clients
 demos.bags.testcases
 demos.matrices.java
 demos.traversals
+projects.graph
 projects.pqueue
 projects.pqueue.fifoqueues
 projects.pqueue.fifoqueues.test
