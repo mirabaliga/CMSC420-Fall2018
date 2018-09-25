@@ -4,6 +4,8 @@ import org.junit.*;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
+
 import static org.junit.Assert.*;
 
 /** A class containing jUnit tests to test the students' code with.
@@ -16,6 +18,7 @@ public class ReleaseTests {
     private ThreadedAVLTree<String> stringTree;
     private static final Integer ZERO = new Integer(0);
     private static final int NUMS = 50;
+    private static final Random rnd = new Random(47);
 
     /**
      * Set-up the trees that we will use for our tests.
@@ -747,7 +750,7 @@ public class ReleaseTests {
         LinkedList<Integer> collector = new LinkedList<Integer>();
         for(int i = 0; i < NUMS; i++)
             collector.add(i);
-        Collections.shuffle(collector);
+        Collections.shuffle(collector, rnd);
 
         /* It's not particularly efficient to initiate a try / catch block
          * within a loop, but it will be helpful for the students so that they know
@@ -772,7 +775,7 @@ public class ReleaseTests {
         LinkedList<Integer> collector = new LinkedList<Integer>();
         for(int i = 0; i < NUMS; i++)
             collector.add(i);
-        Collections.shuffle(collector);
+        Collections.shuffle(collector, rnd);
 
         /* It's not particularly efficient to initiate a try / catch block
          * within a loop, but it will be helpful for the students so that they know
@@ -827,7 +830,7 @@ public class ReleaseTests {
         LinkedList<Integer> collector = new LinkedList<Integer>();
         for(int i = 0; i < NUMS; i++)
             collector.add(i);
-        Collections.shuffle(collector);
+        Collections.shuffle(collector, rnd);
         for(int i = 0; i < collector.size(); i++)
             intTree.insert(collector.get(i));
         Iterator<Integer> inorder = intTree.inorderTraversal();
