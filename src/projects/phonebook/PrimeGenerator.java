@@ -1,7 +1,7 @@
 package projects.phonebook;
 
 /**
- * <p>{@link PrimeGenerator} is a simple class which stores and retrieves <b>prime numbers</b>. Since
+ * <p>{@link PrimeGenerator} is a simple <b>immutable</b> class which stores and retrieves <b>prime numbers</b>. Since
  * we use this class from within the context of {@link HashTable} instances, we implement
  * the scheme that we have talked about in class: whenever a hash table wants to enlarge,
  * it will make a call to {@link #getNextPrime()}, which will provide it with the <b>first prime</b>
@@ -16,7 +16,10 @@ package projects.phonebook;
  */
 public class PrimeGenerator {
 
-    private static final int[] PRIME_LIST = {2, 3, 5, 7, 11, 13, 17, 19, 23,
+    // Making the class immutable allows us to make the list of primes static, which makes
+    // every PrimeGenerator instance share the exact same list of primes.
+    private static final int[] PRIME_LIST = {
+            2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
             31, 37, 41, 43, 47, 53, 59, 61, 67,
             73, 79, 83, 89, 97, 101, 103, 107, 109,
             127, 131, 137, 139, 149, 151, 157, 163, 167,
@@ -121,15 +124,29 @@ public class PrimeGenerator {
     private static final int FIRST_INDEX = 5; // Selecting 13 as the first prime to return
     private  int currIdx = FIRST_INDEX;
 
-    public int getCurrPrime() throws NoMorePrimesException{
-        if(currIdx < PRIME_LIST.length)
-            return PRIME_LIST[currIdx];
-        else
-            throw new NoMorePrimesException("getCurrPrime(): Attempted to get prime at position "
-            + currIdx + ", which surpassed the length of available primes, equal to: " + PRIME_LIST.length + ".");
+    /**
+     * Retrieves the prime number pointed to by internal storage. Without any calls to {@link #getNextPrime()} or {@link
+     * #getPreviousPrime()}, this method returns 13 (i.e, a new {@link PrimeGenerator} instance returns 13 through this method).
+     * @return The current prime number, 13 by default.
+     */
+    public int getCurrPrime(){
+
+        assert (0 <= currIdx) && (currIdx < PRIME_LIST.length) :  "getCurrPrime(): Inconsistent internal index.";
+
+        return PRIME_LIST[currIdx];
     }
 
+    /**
+     * Returns the smallest prime <b>greater than twice the current prime</b>. This is an approach that allows instances of
+     * {@link HashTable} to find new hash table sizes which provide a good trade-off between memory footprint and making
+     * future insertions happen without resizing the table.
+     * @return The first prime number greater than twice the current prime number.
+     * @throws NoMorePrimesException If there is no such prime number to return from our list.
+     */
     public int getNextPrime() throws NoMorePrimesException {
+
+        assert (0 <= currIdx) && (currIdx < PRIME_LIST.length) :  "getNextPrime(): Inconsistent internal index.";
+
         int currPrime = PRIME_LIST[currIdx];
         for (int i = currIdx; i < PRIME_LIST.length; i++) {
             if (PRIME_LIST[i] > 2 * currPrime) { // >= Doesn't make sense for primes, does it?
@@ -137,17 +154,43 @@ public class PrimeGenerator {
                 return PRIME_LIST[i];
             }
         }
+
         throw new NoMorePrimesException("getNextPrime(): Search for a prime greater than twice " +
-                currPrime + " exceeded storage of primes, which is equal to: " + PRIME_LIST.length + ".");
+                currPrime + " exceeded storage of primes.");
     }
 
 
+    /**
+     *  Returns the biggest prime <b>smaller than half the current prime</b>. This is an approach that allows instances of
+     * {@link HashTable} to find new hash table sizes which provide a good trade-off between memory footprint and making
+     * future deletions happen without resizing the table.
+     * @return The first prime number greater than twice the current prime number.
+     * @throws NoMorePrimesException If there is no such prime number to return from our list.
+     */
     public int getPreviousPrime() throws NoMorePrimesException {
-        if(currIdx == 0)
-            throw NoMorePrimesException
+
+        assert (0 <= currIdx) && (currIdx < PRIME_LIST.length) :  "getPreviousPrime(): Inconsistent internal index.";
+
+        if(currIdx == 0){
+
+            // You might be perplexed as to why we assert an invariant in a scope where we only throw an exception.
+            // We do this because if the invariant is violated, an AssertionError will be thrown, and this gives us information
+            // that an invariant was violated, and we need to look at the source code of our class to see what's going on!
+
+            assert getCurrPrime() == 2: "getPreviousPrime(): prime index pointing to 2, but current prime is " + getCurrPrime() + ".";
+
+            // On the other hand, if a NoMorePrimesException is thrown, this means that the client code made a call for
+            // a prime smaller than 2. It's not our fault if the client application hasn't read our JavaDocs and / or
+            // doesn't know that 2 is the *least* prime number! That is, the catching of a NoMorePrimesException from
+            // a method further up the call chain does not signal an error in our source code; just a client call
+            // which could have generated a certain Exception (and the client knows this by the docs), and did indeed
+            // generate that Exception: in particular, a NoMorePrimesException instance.
+
+            throw new NoMorePrimesException("getPreviousPrime(): 2 is the least prime number.");
+        }
         int currPrime = PRIME_LIST[currIdx];
         for (int i = currIdx; i > 0; i--) {
-            if (PRIME_LIST[i] < currPrime / 2) { // >= Doesn't make sense for primes, does it?
+            if (PRIME_LIST[i] < (currPrime / 2)) { // "Less than or equal" (<=) doesn't make sense for primes, does it?
                 currIdx = i;
                 return PRIME_LIST[i];
             }
@@ -157,6 +200,9 @@ public class PrimeGenerator {
     }
 
 
+    /**
+     * Resets the {@link PrimeGenerator} instance, making the next call to {@link #getCurrPrime()} return 13.
+     */
     public  void reset() {
         currIdx = FIRST_INDEX;
     }
