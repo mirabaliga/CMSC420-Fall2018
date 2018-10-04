@@ -1,13 +1,19 @@
-package projects.phonebook;
+package projects.phonebook.primegen;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import projects.phonebook.primegen.NoMorePrimesException;
+import projects.phonebook.primegen.PrimeGenerator;
+
 import static org.junit.Assert.*;
 import java.util.Random;
 
 /**
- * A testing framework for {@link PrimeGenerator}.
+ * <p>A jUnit testing framework for {@link PrimeGenerator}.</p>
+ *
+ * <p><b>YOU DO NOT HAVE TO EDIT THIS CLASS! IT HAS BEEN PROVIDED AS A HELPFUL RESOURCE.</b></p>
+ *
  * @see PrimeGenerator
  * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  */

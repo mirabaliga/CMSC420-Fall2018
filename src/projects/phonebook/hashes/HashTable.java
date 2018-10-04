@@ -1,0 +1,74 @@
+package projects.phonebook.hashes;
+
+/**
+ * <p>{@link HashTable} is an abstraction over hash tables. Implementing classes
+ * should offer <em>amortized constant</em> insertion, search and deletion. The method
+ * names that you have to implement are the namesakes of {@link java.util.Hashtable}.</p>
+ *
+ *  <p><b>**** DO NOT EDIT THIS INTERFACE'S DECLARATION! ****** </b></p>
+ *
+ * @param <K> The key type. It is <b>IMPERATIVE</b> that this is an <em>immutable</em> type!
+ * @param <V> The value type. This can be any {@link Object}.
+ *
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
+ */
+public interface HashTable<K, V> {
+
+    /**
+     * Every {@link HashTable} instance will have a starting size of 13.
+     */
+     int STARTING_SIZE = 13;
+
+    /**
+     * Inserts the pair <key, value> into <tt>this</tt>. The container should <b>not</b> allow for <tt>null</tt>
+     * keys and values, and we <b>will</b> test if you are throwing a {@link IllegalArgumentException} from your code
+     * if this method is given <tt>null</tt> arguments! It is important that we establish that no <tt>null</tt> entries
+     * can exist in our database because the semantics of {@link #get(Object)} and {@link #remove(Object)} are that they
+     * return <tt>null</tt> if, and only if, their <tt>key</tt> parameter is null. This method is expected to run in <em>amortized
+     * constant time</em>.
+     * @param key The record's key.
+     * @param value The record's value.
+     * @throws IllegalArgumentException if either argument is null.
+     */
+    void put(K key, V value);
+
+    /**
+     * Get the value associated with <tt>key</tt> in the {@link HashTable}. If <tt>key</tt> does not exist in the database
+     * or if <tt>key = null</tt>, this method returns {@link null}. This method is expected to run in <em>amortized constant time</em>.
+     * @param key The key to search for.
+     * @return The associated value if <tt>key</tt> is non-<tt>null</tt> <b>and</b> exists in our database, <tt>null</tt>
+     * otherwise.
+     */
+    V get(K key);
+
+    /**
+     * <b>Return</b> and <b>remove</b> the value associated with <tt>key</tt> in the {@link HashTable}. If <tt>key</tt> does not exist in the database
+     * or if <tt>key = null</tt>, this method returns {@link null}. This method is expected to run in <em>amortized constant time</em>.
+     * @param key The key to search for.
+     * @return The associated value if <tt>key</tt> is non-<tt>null</tt> <b>and</b> exists in our database, <tt>null</tt>
+     * otherwise.
+     */
+    V remove(K key);
+
+    /**
+     * Queries the {@link HashTable} about the existence of the key <tt>key</tt> in its internal storage. This method is expected to run in <em>amortized constant time</em>.
+     * @param key The key to search for.
+     * @return <tt>true</tt> if <tt>key</tt> is the key of some record in our hash table, <tt>false</tt> otherwise.
+     */
+    boolean containsKey(K key);
+
+    /**
+     * Queries the {@link HashTable} about the existence of the value <tt>key</tt> in its internal storage. This method is expected to run in <em>linear time</em> (i.e
+     * containsValue() is expected to be an <b>inneficient</b> operation. This is to be expected, since this {@link HashTable} hashes <tt>K</tt>s, not <tt>V</tt>s.
+     * @param value The value to search for.
+     * @return <tt>true</tt> if <tt>key</tt> is the key of some record in our hash table, <tt>false</tt> otherwise.
+     */
+    boolean containsValue(V value);
+
+    /**
+     * Returns the number of records in this {@link HashTable}. Please note that this is <b>not</b> the same as returning the hash table's <b>capacity</b>
+     * in Open Addressing collision resolution schemes (like Linear Probing)!
+     * @return The number of records stored in <tt>this</tt>.
+     */
+    int size();
+}

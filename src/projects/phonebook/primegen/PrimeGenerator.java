@@ -1,4 +1,6 @@
-package projects.phonebook;
+package projects.phonebook.primegen;
+
+import projects.phonebook.hashes.HashTable;
 
 /**
  * <p>{@link PrimeGenerator} is a simple <b>immutable</b> class which stores and retrieves <b>prime numbers</b>. Since
@@ -9,15 +11,19 @@ package projects.phonebook;
  * mean that the current index into our collection of primes should be doubled, since primes
  * are not uniformly distributed on the line of positive integers! </p>
  *
+ * <p><b>**** DO NOT EDIT THIS CLASS! ****** </b></p>
+ *
  * @see HashTable
  * @see NoMorePrimesException
  * @see #getNextPrime()
+ * @see #getPreviousPrime()
+ *
  * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  */
 public class PrimeGenerator {
 
-    // Making the class immutable allows us to make the list of primes static, which makes
-    // every PrimeGenerator instance share the exact same list of primes.
+    // Making the class immutable allows us to make the list of primes static,
+    // applying a singleton pattern
     private static final int[] PRIME_LIST = {
             2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
             31, 37, 41, 43, 47, 53, 59, 61, 67,

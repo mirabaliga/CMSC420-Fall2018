@@ -1,8 +1,12 @@
-package projects.phonebook;
+package projects.phonebook.primegen;
+
+import projects.phonebook.hashes.HashTable;
 
 /**
  * <p>{@link NoMorePrimesException} is a simple {@link RuntimeException} which is thrown
  * when{@link PrimeGenerator} has run out of primes to generate.</p>
+ *
+ * <p><b>**** DO NOT EDIT THIS CLASS! ****** </b></p>
  *
  * @see PrimeGenerator
  * @see HashTable
