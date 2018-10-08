@@ -1,7 +1,30 @@
 package projects.phonebook.hashes;
+import java.util.LinkedList;
 
 public class SeparateChainingHashTable<K, V> implements HashTable<K, V>{
 
+
+    /* ******************************************** */
+    /* PRIVATE FIELDS PROVIDED TO YOU: DO NOT EDIT! */
+    /* ******************************************** */
+
+
+    private LinkedList[] table;
+
+
+    /**
+     * @param startSize
+     */
+    public SeparateChainingHashTable(int startSize){
+        table = new LinkedList[startSize];
+    }
+
+    /**
+     *
+     */
+    public SeparateChainingHashTable(){
+        this(DEFAULT_STARTING_SIZE);
+    }
 
     @Override
     public void put(K key, V value) {
@@ -30,5 +53,12 @@ public class SeparateChainingHashTable<K, V> implements HashTable<K, V>{
     @Override
     public int size() {
         return 0;
+    }
+
+    /**
+     *
+     */
+    public void enlarge() {
+
     }
 }

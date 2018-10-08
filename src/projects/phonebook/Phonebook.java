@@ -1,6 +1,7 @@
 package projects.phonebook;
 
 import projects.phonebook.hashes.*;
+import static projects.phonebook.hashes.HashTable.DEFAULT_STARTING_SIZE;
 
 /**
  * <p>{@link Phonebook} is an abstraction over phonebooks: databases of &lt; Full Name,
@@ -8,8 +9,13 @@ import projects.phonebook.hashes.*;
  * <em>amortized constant</em> time. The efficiency of either search will be dependent on
  * the nature of the underlying hash table. No <tt>null</tt> entries are allowed. </p>
  *
- * <p>The Release Tests on the <a href ="https://submit.cs.umd.edu/">submit server</a> test the methods of <b>this class</b>!
- * By parameterizing {@link Phonebook} instances in all 3^2 = 9 possible ways, we can run the same tests against all of the hash
+ * <p>{@link Phonebook} only allows for <b>unique</b> Person / Phone pairs. That is, every person will have
+ * <b>exactly one</b> phone number associated with them, and every phone number will be associated with
+ * <b>exactly one</b> person. Study the implementation of this class to see for yourselves how this is attained. </p>
+ *
+ * <p>The Release Tests on the <a href ="https://submit.cs.umd.edu/">submit server</a> test the methods of {@link Phonebook}.
+ * Since {@link Phonebook}'s methods rely on methods of {@link HashTable} instances, by parameterizing
+ * {@link Phonebook} instances in all 3^2 = 9 possible ways, we can run the same tests against all of the hash
  * tables that you will have to implement. </p>
  *
  * <p><b>**** STUDY, BUT DO NOT EDIT THIS CLASS' SOURCE CODE! </b></p>
@@ -39,7 +45,10 @@ public class Phonebook {
      * @see CollisionResolver
      */
     public Phonebook(CollisionResolver namesToNumbersHash, CollisionResolver numbersToNamesHash) {
-
+        switch(namesToNumbersHash){
+            case SEPARATE_CHAINING:
+                namesToNumbers = new SeparateChainingHashTable<>(DEFAULT_STARTING_SIZE);
+        }
     }
 
     /** Retrieves the phone number associated with the provided full name. If the name is not in the database,
