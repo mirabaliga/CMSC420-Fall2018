@@ -11,9 +11,10 @@ import static projects.phonebook.hashes.HashTable.DEFAULT_STARTING_SIZE;
  *
  * <p>{@link Phonebook} only allows for <b>unique</b> Person / Phone pairs. That is, every person will have
  * <b>exactly one</b> phone number associated with them, and every phone number will be associated with
- * <b>exactly one</b> person. Study the implementation of this class to see for yourselves how this is attained. </p>
+ * <b>exactly one</b> person. Study the implementation of this class to see for yourselves how this is attained by
+ * interfacing with both internal hash tables. </p>
  *
- * <p>The Release Tests on the <a href ="https://submit.cs.umd.edu/">submit server</a> test the methods of {@link Phonebook}.
+ * <p>The Release Tests on the <a href ="https://submit.cs.umd.edu/">submit server</a> test the methods of {@link Phonebook} only.
  * Since {@link Phonebook}'s methods rely on methods of {@link HashTable} instances, by parameterizing
  * {@link Phonebook} instances in all 3^2 = 9 possible ways, we can run the same tests against all of the hash
  * tables that you will have to implement. </p>
@@ -29,7 +30,7 @@ import static projects.phonebook.hashes.HashTable.DEFAULT_STARTING_SIZE;
 public class Phonebook {
 
     // TODO: When you finish the testing setup for phonebooks, change the constructor to fall back to a
-    // java.util.HashTable so you can test whether your implementation of PhoneBook is correct.
+    // TODO: java.util.HashTable so you can test whether your implementation of PhoneBook is correct.
     private HashTable<String, String> namesToNumbers;
     private HashTable<String, String> numbersToNames;
 
@@ -45,9 +46,33 @@ public class Phonebook {
      * @see CollisionResolver
      */
     public Phonebook(CollisionResolver namesToNumbersHash, CollisionResolver numbersToNamesHash) {
+
         switch(namesToNumbersHash){
             case SEPARATE_CHAINING:
-                namesToNumbers = new SeparateChainingHashTable<>(DEFAULT_STARTING_SIZE);
+                namesToNumbers = new SeparateChainingHashTable<>();
+                break;
+            case LINEAR_PROBING:
+                namesToNumbers = new LinearProbingHashTable<>();
+                break;
+            case QUADRATIC_PROBING:
+                namesToNumbers = new QuadraticProbingHashTable<>();
+                break;
+            default:
+                throw new RuntimeException("Encountered unsupported Collision Resolver " + namesToNumbersHash  + "." );
+        }
+
+        switch(numbersToNamesHash){
+            case SEPARATE_CHAINING:
+                numbersToNames = new SeparateChainingHashTable<>();
+                break;
+            case LINEAR_PROBING:
+                numbersToNames = new LinearProbingHashTable<>();
+                break;
+            case QUADRATIC_PROBING:
+                numbersToNames = new QuadraticProbingHashTable<>();
+                break;
+            default:
+                throw new RuntimeException("Encountered unsupported Collision Resolver " + numbersToNamesHash + ".");
         }
     }
 
@@ -84,44 +109,31 @@ public class Phonebook {
         numbersToNames.put(number, name);
     }
 
-    /**
-     * @param number
-     * @param name
+    /** Deletes the entry characterized by the arguments provided. If either argument is <tt>null</tt>, or if the
+     * entry is <b>not</b> contained by <tt>this</tt> {@link Phonebook} instance, this method has <b>no effect</b>.
+     * @param name The &quot;owner&quot; part of the &lt; owner, phone number &gt; tuple.
+     * @param number The &quot;number&quot; part of the &lt; owner, phone number &gt; tuple.
      */
-    public void deleteEntry(String number, String name) {
+    public void deleteEntry(String name, String number) {
+        if(number == null || name == null)
+            return;
         namesToNumbers.remove(name);
         numbersToNames.remove(number);
     }
 
-    /**
-     * @param name
-     */
-    public void deleteNumberOf(String name) {
-        String number = namesToNumbers.remove(name);
-        numbersToNames.remove(number);
-    }
-
-    /**
-     * @param number
-     */
-    public void deleteOwnerOf(String number) {
-        String name = numbersToNames.remove(number);
-        namesToNumbers.remove(name);
-    }
-
-    /**
-     * @return
+    /** Returns the number of entries in the phonebook.
+     * @return the number of entries in the phonebook.
      */
     public int getCount() {
         assert namesToNumbers.size() == numbersToNames.size() :
-                "Mismatch in internal hash counts. Names->Numbers has count: " +
+                "Mismatch in internal hash table counts. Names->Numbers has count: " +
                         namesToNumbers.size() + ", while Numbers->Names has count:  " +
                         numbersToNames.size() + ".";
         return namesToNumbers.size();
     }
 
-    /**
-     * @return
+    /** Queries the phonebook for emptiness.
+     * @return <tt>true</tt> if, and only if, there are 0 entries in this {@link Phonebook}, <tt>false</tt> otherwise.
      */
     public boolean isEmpty() {
         return getCount() == 0;
