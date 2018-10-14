@@ -55,10 +55,10 @@ public class LinearPriorityQueueTest {
             greekNamesQueue.enqueue("Costakis", 1);
 
             try {
-                assertEquals("LinearPriorityQueue.getFirst() did not return the correct element.",
+                assertEquals("LinearPriorityQueue.getKey() did not return the correct element.",
                         "Costakis", greekNamesQueue.getFirst());
             } catch (EmptyPriorityQueueException ignored) {
-                fail("Since the queue was not empty upon call to LinearPriorityQueue.getFirst(), an " +
+                fail("Since the queue was not empty upon call to LinearPriorityQueue.getKey(), an " +
                         "EmptyPriorityQueueException should not have been thrown.");
             }
         } catch (InvalidPriorityException ignored) {
@@ -95,10 +95,10 @@ public class LinearPriorityQueueTest {
             greekNamesQueue.enqueue("Costakis", 1);
 
             try {
-                assertEquals("LinearPriorityQueue.getFirst() did not return the correct element. " +
+                assertEquals("LinearPriorityQueue.getKey() did not return the correct element. " +
                         "Are you treating same priorities correctly?", "Filippou", greekNamesQueue.getFirst());
             } catch (EmptyPriorityQueueException ignored) {
-                fail("Since the queue was not empty upon call to LinearPriorityQueue.getFirst(), an " +
+                fail("Since the queue was not empty upon call to LinearPriorityQueue.getKey(), an " +
                         "EmptyPriorityQueueException should not have been thrown.");
             }
         } catch (InvalidPriorityException ignored) {
@@ -120,12 +120,12 @@ public class LinearPriorityQueueTest {
             greekNamesQueue.enqueue("Vasilakopoulos", 5);
             assertEquals("After enqueueing 3 elements, the queue should have a size of 3.", 3, greekNamesQueue.size());
             try {
-                assertEquals("LinearPriorityQueue.getFirst() did not return the correct element.",
+                assertEquals("LinearPriorityQueue.getKey() did not return the correct element.",
                         "Filippou", greekNamesQueue.getFirst());
             } catch (AssertionError ae) {
                 throw (ae);
             } catch (EmptyPriorityQueueException ignored) {
-                fail("Since the queue was not empty upon call to LinearPriorityQueue.getFirst(), an " +
+                fail("Since the queue was not empty upon call to LinearPriorityQueue.getKey(), an " +
                         "EmptyPriorityQueueException should not have been thrown.");
             }
             try {
@@ -136,14 +136,14 @@ public class LinearPriorityQueueTest {
                         "EmptyPriorityQueueException should not have been thrown.");
             }
             try {
-                assertEquals(" After a prior dequeueing, LinearPriorityQueue.getFirst() did not return the " +
+                assertEquals(" After a prior dequeueing, LinearPriorityQueue.getKey() did not return the " +
                         "correct element.", "Vasilakopoulos", greekNamesQueue.getFirst());
 
             } catch (AssertionError ae) {
                 throw (ae);
             } catch (EmptyPriorityQueueException ignored) {
                 fail("Despite a prior dequeue-ing, the queue was still not empty upon call to " +
-                        "LinearPriorityQueue.getFirst(), so an EmptyPriorityQueueException should not have been thrown.");
+                        "LinearPriorityQueue.getKey(), so an EmptyPriorityQueueException should not have been thrown.");
             }
             greekNamesQueue.enqueue("Papandreou", 1);
             greekNamesQueue.enqueue("Mitsotakis", 1);
@@ -242,7 +242,7 @@ public class LinearPriorityQueueTest {
             // Now we will also check iterations over a queue that has
             // non-singleton FIFO fifoqueues in it
 
-            // Give the getFirst 4 people in that array a priority of 2, and the last
+            // Give the getKey 4 people in that array a priority of 2, and the last
             // 2 people a priority of 1:
 
             for (int i = 0; i < strings.length; i++) {

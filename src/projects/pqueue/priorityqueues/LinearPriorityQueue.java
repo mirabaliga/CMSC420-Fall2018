@@ -100,7 +100,7 @@ public class LinearPriorityQueue<T> implements PriorityQueue<T> {
 		} catch(EmptyFIFOQueueException ignored){
 			throw new EmptyPriorityQueueException("dequeue(): queue is empty!");
 		}
-		return first; // call to getFirst() instead of dequeue()
+		return first; // call to getKey() instead of dequeue()
 	}
 
 

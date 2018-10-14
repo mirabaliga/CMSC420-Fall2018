@@ -31,7 +31,7 @@ public interface List<T> extends Iterable<T>{
 	public void pushBack(T element);
 	
 	/**
-	 * Get the getFirst element of the list. This method does *not* delete this element
+	 * Get the getKey element of the list. This method does *not* delete this element
 	 * (call "delete" to delete elements).
 	 * @return A copy of the element at the top of the list.
 	 * @throws EmptyListException If the list is empty.

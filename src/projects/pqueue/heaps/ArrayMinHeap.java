@@ -192,7 +192,7 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 	}
 
 	/**
-	 * An implementation of a fail-fast max-getFirst Iterator for MinHeaps.
+	 * An implementation of a fail-fast max-getKey Iterator for MinHeaps.
 	 * @author <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>
 	 */
 	class ArrayMinHeapIterator implements Iterator<T>{

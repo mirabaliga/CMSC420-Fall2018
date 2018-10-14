@@ -1,6 +1,5 @@
 package projects.phonebook;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -84,17 +83,24 @@ public class ReleaseTests {
                         fail(format("Failed to add entry <" + entry.getKey() + ", " + entry.getValue() + ">.", namesToPhones, phonesToNames) + errorData(t));
                     }
                 }
-                assertEquals("Phonebook size was different from the one expected.", testingPhoneBook.size(), pb.getCount());
+                assertEquals("Phonebook size was different from the one expected.", testingPhoneBook.size(), pb.size());
             }
         }
     }
 
     @Test
     public void testDeletions(){
-        testInsertions(); // This should add the elements to pb without a call to tearDown().
+        // For all possible pairs of CollisionResolver instances, insert all the keys and delete all the keys.
         for(CollisionResolver namesToPhones : resolvers){
             for(CollisionResolver phonesToNames: resolvers){
                 pb = new Phonebook(namesToPhones, phonesToNames);
+
+                // Insert everything contained in our library container...
+                for(Map.Entry<String, String> entry : testingPhoneBook.entrySet()){
+                    pb.addEntry(entry.getKey(), entry.getValue());
+                }
+
+                // Try to delete every entry and report any Throwables that come your way.
                 for(Map.Entry<String, String> entry : testingPhoneBook.entrySet()){ // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
                     try {
                         pb.deleteEntry(entry.getKey(), entry.getValue());
@@ -108,7 +114,62 @@ public class ReleaseTests {
     }
 
     @Test
-    public void testGetNumberAndOwnerOf(){
+    public void testGetNumberOf(){
+        for(CollisionResolver namesToPhones : resolvers){
+            for(CollisionResolver phonesToNames: resolvers) {
+                pb = new Phonebook(namesToPhones, phonesToNames);
+
+                // Insert everything contained in our library container...
+                for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) {
+                    pb.addEntry(entry.getKey(), entry.getValue());
+                }
+
+                // Check all applications of getNumberOf()...
+                for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+                    try {
+                        assertEquals("After inserting <" + entry.getKey() + ", " + entry.getValue() + ">" +
+                                        "getNumberOf(" + "\"" + entry.getKey() + "\" returned the wrong number.", entry.getValue(),
+                                       pb.getNumberOf(entry.getKey()));
+                    } catch (AssertionError ae) { // Separate error logging for AssertionErrors and other Throwables.
+                        throw ae;
+                    } catch (Throwable t) {
+                        fail(format("Failed to get the number of person:" + entry.getKey() + ".", namesToPhones, phonesToNames) + errorData(t));
+                    }
+                }
+                assertEquals("After calling getNumberOf() on all of its contained persons, the phonebook's size should not have" +
+                        "changed!", testingPhoneBook.size(), pb.size());
+            }
+        }
+
+    }
+
+    @Test
+    public void testGetOwnerOf(){
+        for(CollisionResolver namesToPhones : resolvers){
+            for(CollisionResolver phonesToNames: resolvers){
+                pb = new Phonebook(namesToPhones, phonesToNames);
+
+                // Insert everything contained in our library container...
+                for(Map.Entry<String, String> entry : testingPhoneBook.entrySet()){
+                    pb.addEntry(entry.getKey(), entry.getValue());
+                }
+                // Check all applications of getOwnerOf()....
+                for(Map.Entry<String, String> entry : testingPhoneBook.entrySet()){ // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+                    try {
+                        assertEquals("After inserting <" + entry.getKey() +  ", " + entry.getValue() + ">" +
+                                        "getOwnerOf(" + "\"" + entry.getValue() + "\" returned the wrong name.", entry.getKey(),
+                                       pb.getOwnerOf(entry.getValue()));
+                    } catch(AssertionError ae){ // Separate error logging for AssertionErrors and other Throwables.
+                        throw ae;
+                    }
+                    catch(Throwable t){
+                        fail(format("Failed to get the owner of number:" + entry.getValue() +".", namesToPhones, phonesToNames) + errorData(t));
+                    }
+                }
+                assertEquals("After calling getOwnerOf() on all of its contained phone numbers, the phonebook's size should not have" +
+                        "changed!", testingPhoneBook.size(), pb.size());
+            }
+        }
 
     }
 }

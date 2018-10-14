@@ -118,7 +118,7 @@ public class LinkedFIFOQueue<T> implements FIFOQueue<T> {
 		try {
 			return data.getFirst();
 		}catch(EmptyListException exc){
-			throw new EmptyFIFOQueueException("getFirst(): FIFOQueue is empty.");
+			throw new EmptyFIFOQueueException("getKey(): FIFOQueue is empty.");
 		}
 	}
 

@@ -125,7 +125,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>projects.phonebook.primegen.PrimeGenerator</li>
+<li>projects.phonebook.utils.PrimeGenerator</li>
 </ul>
 </li>
 </ul>
@@ -138,7 +138,7 @@ extends java.lang.Object</pre>
 <div class="block"><p><a href="../../projects/phonebook/PrimeGenerator.html" title="class in projects.phonebook"><code>PrimeGenerator</code></a> is a simple <b>immutable</b> class which stores and retrieves <b>prime numbers</b>. Since
  we use this class from within the context of <a href="../../projects/phonebook/HashTable.html" title="interface in projects.phonebook"><code>HashTable</code></a> instances, we implement
  the scheme that we have talked about in class: whenever a hash table wants to enlarge,
- it will make a call to <a href="../../projects/phonebook/PrimeGenerator.html#getNextPrime--"><code>getNextPrime()</code></a>, which will provide it with the <b>first prime</b>
+ it will make a call to <a href="../../projects/phonebook/PrimeGenerator.html#getNextPrime--"><code>getNextPrime()</code></a>, which will provide it with the <b>key prime</b>
  with the property that it is greater than two times the current prime. This does not simply
  mean that the current index into our collection of primes should be doubled, since primes
  are not uniformly distributed on the line of positive integers! </p></div>
@@ -282,7 +282,7 @@ extends java.lang.Object</pre>
  future insertions happen without resizing the table.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The first prime number greater than twice the current prime number.</dd>
+<dd>The key prime number greater than twice the current prime number.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../projects/phonebook/NoMorePrimesException.html" title="class in projects.phonebook">NoMorePrimesException</a></code> - If there is no such prime number to return from our list.</dd>
 </dl>
@@ -301,7 +301,7 @@ extends java.lang.Object</pre>
  future deletions happen without resizing the table.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The first prime number greater than twice the current prime number.</dd>
+<dd>The key prime number greater than twice the current prime number.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../projects/phonebook/NoMorePrimesException.html" title="class in projects.phonebook">NoMorePrimesException</a></code> - If there is no such prime number to return from our list.</dd>
 </dl>

@@ -1,10 +1,8 @@
-package projects.phonebook.primegen;
+package projects.phonebook.utils;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import projects.phonebook.primegen.NoMorePrimesException;
-import projects.phonebook.primegen.PrimeGenerator;
 
 import static org.junit.Assert.*;
 import java.util.Random;

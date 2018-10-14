@@ -212,7 +212,7 @@ public class StaticArrayList<T> implements List<T> {
 	}
 
 	/* deleteAll(T) will be similar to delete(T), the main difference being that we
-	 * won't exit the method after the getFirst removal.
+	 * won't exit the method after the getKey removal.
 	 */
 	@Override
 	public boolean deleteAll(T element) {
