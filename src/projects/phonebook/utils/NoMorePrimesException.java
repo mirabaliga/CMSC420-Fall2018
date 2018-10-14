@@ -1,4 +1,4 @@
-package projects.phonebook.primegen;
+package projects.phonebook.utils;
 
 import projects.phonebook.hashes.HashTable;
 

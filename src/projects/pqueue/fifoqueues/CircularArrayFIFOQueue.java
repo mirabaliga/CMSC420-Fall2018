@@ -201,7 +201,7 @@ public class CircularArrayFIFOQueue<T> implements FIFOQueue<T> {
 	@Override
 	public T first() throws EmptyFIFOQueueException {
 		if(isEmpty())
-			throw new EmptyFIFOQueueException("getFirst(): FIFOQueue is empty.");
+			throw new EmptyFIFOQueueException("getKey(): FIFOQueue is empty.");
 		return data[front];
 	}
 

@@ -60,7 +60,7 @@ public class DoublyLinkedListTest {
 		try {
 			assertEquals(stringList.getFirst(), "Mack");
 		}catch(EmptyListException exc){
-			fail("List should not be empty after getFirst push.");
+			fail("List should not be empty after getKey push.");
 		}
 		stringList.pushFront("Jello");
 		try {
@@ -78,7 +78,7 @@ public class DoublyLinkedListTest {
 			assertEquals(stringList.getLast(), "Mack");
 			assertEquals(stringList.getFirst(), "Mack"); // First and last elements should be the same at this point.
 		}catch(EmptyListException exc){
-			fail("List should not be empty after getFirst push.");
+			fail("List should not be empty after getKey push.");
 		}
 		stringList.pushBack("Jello");
 		try {
@@ -150,7 +150,7 @@ public class DoublyLinkedListTest {
 		// However, removing 0 and 1 should be ok...
 		try {
 			stringList.delete(0);
-			stringList.delete(0); // Note that the getFirst element will be at position 0 after the previous line is executed!
+			stringList.delete(0); // Note that the getKey element will be at position 0 after the previous line is executed!
 		} catch(IllegalListAccessException ae){
 			fail("Positions 0 and 1 should be valid for this list to delete from...");
 		}

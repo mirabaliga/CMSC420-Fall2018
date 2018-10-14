@@ -1,14 +1,16 @@
 package projects.phonebook.hashes;
+import projects.phonebook.utils.KVPair;
 
-public class LinearProbingHashTable<K, V> implements HashTable<K, V>{
+public class LinearProbingHashTable implements HashTable{
 
     private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
 
-    private int hash(K key){
+    private int hash(String key){
         return key.hashCode() % table.length;
     }
 
-    private Object[] table;
+    private KVPair[] table;
+
 
     /** Non-default constructor.
      * @param startSize The size to initialize our inner storage with. Must be a strictly positive integer.
@@ -17,7 +19,7 @@ public class LinearProbingHashTable<K, V> implements HashTable<K, V>{
     public LinearProbingHashTable(int startSize){
         if(startSize < 1 )
             throw new RuntimeException("Provided startSize=" + startSize + ". Only strictly positive sizes are allowed.");
-        table = new Object[startSize];
+        table = new KVPair[startSize];
     }
     /**
      *  Default constructor. Initializes the internal storage with a size equal to {@link #DEFAULT_STARTING_SIZE}
@@ -27,27 +29,27 @@ public class LinearProbingHashTable<K, V> implements HashTable<K, V>{
     }
 
     @Override
-    public void put(K key, V value) {
+    public void put(String key, String value) {
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     @Override
-    public V get(K key) {
+    public String get(String key) {
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     @Override
-    public V remove(K key) {
+    public String remove(String key) {
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     @Override
-    public boolean containsKey(K key) {
+    public boolean containsKey(String key) {
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     @Override
-    public boolean containsValue(V value) {
+    public boolean containsValue(String value) {
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 

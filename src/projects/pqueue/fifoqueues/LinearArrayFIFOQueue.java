@@ -8,10 +8,10 @@ import java.util.Iterator;
 /**
  *<p> <tt>LinearArrayFIFOQueue</tt> is a {@link FIFOQueue} based on a simple linear array.
  * It is a very inefficient queue implementation, because depending on whether we choose the
- * getFirst or last "filled-in" cell of the array to hold the "front" element of the queue, either
+ * getKey or last "filled-in" cell of the array to hold the "front" element of the queue, either
  * enqueuing or dequeuing will take linear time. In this queue, we will assume a queue where enqueuings
  * are much more common than dequeueings. This means that the inner implementation has the "top" element at
- * the getFirst address of the array, and calls to {@link #dequeue()} will result in (linear-time)
+ * the getKey address of the array, and calls to {@link #dequeue()} will result in (linear-time)
  * shifting of all the array elements. However, the assumption is that those calls are relatively infrequent.</p>
  *
  * <p>You should <b>not</b> edit this class! It is given to you as a resource for your project.</p>
@@ -191,7 +191,7 @@ public class LinearArrayFIFOQueue<T> implements FIFOQueue<T> {
 	@Override
 	public T first() throws EmptyFIFOQueueException {
 		if(isEmpty())
-			throw new EmptyFIFOQueueException("getFirst(): FIFOQueue is empty");
+			throw new EmptyFIFOQueueException("getKey(): FIFOQueue is empty");
 		return data[0];
 	}
 

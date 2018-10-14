@@ -1,30 +1,36 @@
 package projects.phonebook.hashes;
 
-import projects.phonebook.primegen.PrimeGenerator;
+import projects.phonebook.utils.PrimeGenerator;
+import projects.phonebook.utils.KVPairList;
 
-public class SeparateChainingHashTable<K, V> implements HashTable<K, V>{
+/**<p>{@link SeparateChainingHashTable} is a hash table that implements </p>
+ */
+public class SeparateChainingHashTable implements HashTable{
 
 
-    /* ***************************************************** */
-    /* PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! */
-    /* ****************************************************** */
+    /* *******************************************************************/
+    /* *******************************************************************/
+    /* ***** PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! ******/
+    /* ****************************************************** ***********/
+    /* ****************************************************** ***********/
 
     private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
 
-    private Object[] table;
+    private KVPairList[] table;
 
-    private int hash(K key){
+
+    private int hash(String key){
         return key.hashCode() % table.length;
     }
 
     /** Non-default constructor.
-     * @param startSize The size to initialize our inner storage with. Must be a strictly positive integer.
+     * @param startSize The size to initialize our inner storage with. <b>Must be a strictly positive integer.</b>
      * @throws RuntimeException if <tt>startSize</tt> is not a positive integer.
      */
     public SeparateChainingHashTable(int startSize){
         if(startSize < 1 )
             throw new RuntimeException("Provided startSize=" + startSize + ". Only strictly positive sizes are allowed.");
-        table = new Object[startSize];
+        table = new KVPairList[startSize];
     }
 
     /**
@@ -35,29 +41,29 @@ public class SeparateChainingHashTable<K, V> implements HashTable<K, V>{
     }
 
     @Override
-    public void put(K key, V value) {
+    public void put(String key, String value) {
 
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     @Override
-    public V get(K key) {
+    public String get(String key) {
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     @Override
-    public V remove(K key) {
+    public String remove(String key) {
 
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     @Override
-    public boolean containsKey(K key) {
+    public boolean containsKey(String key) {
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     @Override
-    public boolean containsValue(V value) {
+    public boolean containsValue(String value) {
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 

@@ -60,7 +60,7 @@ public class MinHeapPriorityQueue<T> implements PriorityQueue<T> {
 		try {
 			return data.getMin().data;
 		} catch (EmptyHeapException e) {
-			throw new EmptyPriorityQueueException("getFirst(): FIFOQueue is empty!");
+			throw new EmptyPriorityQueueException("getKey(): FIFOQueue is empty!");
 		}
 	}
 

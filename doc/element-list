@@ -7,7 +7,7 @@ demos.traversals
 projects.graph
 projects.phonebook
 projects.phonebook.hashes
-projects.phonebook.primegen
+projects.phonebook.utils
 projects.pqueue
 projects.pqueue.fifoqueues
 projects.pqueue.fifoqueues.test

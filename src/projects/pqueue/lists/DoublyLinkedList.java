@@ -148,7 +148,7 @@ public class DoublyLinkedList<T> extends LinkedList<T>{
 	@Override
 	public T getFirst() throws EmptyListException{
 		if(head == null)
-			throw new EmptyListException("getFirst(): list is empty.");
+			throw new EmptyListException("getKey(): list is empty.");
 		return head.getData();
 	}
 
@@ -258,7 +258,7 @@ public class DoublyLinkedList<T> extends LinkedList<T>{
 		if(index < 0 || index >= size)
 			throw new IllegalListAccessException("delete(int): Index " + index + " is not a valid list index.");
 		modificationFlag = true; // If the method doesn't throw an exception, it will always delete an element, thus modifying the container.
-		// Special case of removing the getFirst element of the list:
+		// Special case of removing the getKey element of the list:
 
 		if(index == 0){
 			if(head.next == head)// Special case of only one element in the list

@@ -1,7 +1,6 @@
 package projects.phonebook;
 
 import projects.phonebook.hashes.*;
-import static projects.phonebook.hashes.HashTable.DEFAULT_STARTING_SIZE;
 
 /**
  * <p>{@link Phonebook} is an abstraction over phonebooks: databases of &lt; Full Name,
@@ -31,8 +30,8 @@ public class Phonebook {
 
     // TODO: When you finish the testing setup for phonebooks, change the constructor to fall back to a
     // TODO: java.util.HashTable so you can test whether your implementation of PhoneBook is correct.
-    private HashTable<String, String> namesToNumbers;
-    private HashTable<String, String> numbersToNames;
+    private HashTable namesToNumbers;
+    private HashTable numbersToNames;
 
 
     /**
@@ -49,13 +48,13 @@ public class Phonebook {
 
         switch(namesToNumbersHash){
             case SEPARATE_CHAINING:
-                namesToNumbers = new SeparateChainingHashTable<>();
+                namesToNumbers = new SeparateChainingHashTable();
                 break;
             case LINEAR_PROBING:
-                namesToNumbers = new LinearProbingHashTable<>();
+                namesToNumbers = new LinearProbingHashTable();
                 break;
             case QUADRATIC_PROBING:
-                namesToNumbers = new QuadraticProbingHashTable<>();
+                namesToNumbers = new QuadraticProbingHashTable();
                 break;
             default:
                 throw new RuntimeException("Encountered unsupported Collision Resolver " + namesToNumbersHash  + "." );
@@ -63,13 +62,13 @@ public class Phonebook {
 
         switch(numbersToNamesHash){
             case SEPARATE_CHAINING:
-                numbersToNames = new SeparateChainingHashTable<>();
+                numbersToNames = new SeparateChainingHashTable();
                 break;
             case LINEAR_PROBING:
-                numbersToNames = new LinearProbingHashTable<>();
+                numbersToNames = new LinearProbingHashTable();
                 break;
             case QUADRATIC_PROBING:
-                numbersToNames = new QuadraticProbingHashTable<>();
+                numbersToNames = new QuadraticProbingHashTable();
                 break;
             default:
                 throw new RuntimeException("Encountered unsupported Collision Resolver " + numbersToNamesHash + ".");
@@ -124,7 +123,7 @@ public class Phonebook {
     /** Returns the number of entries in the phonebook.
      * @return the number of entries in the phonebook.
      */
-    public int getCount() {
+    public int size() {
         assert namesToNumbers.size() == numbersToNames.size() :
                 "Mismatch in internal hash table counts. Names->Numbers has count: " +
                         namesToNumbers.size() + ", while Numbers->Names has count:  " +
@@ -136,6 +135,6 @@ public class Phonebook {
      * @return <tt>true</tt> if, and only if, there are 0 entries in this {@link Phonebook}, <tt>false</tt> otherwise.
      */
     public boolean isEmpty() {
-        return getCount() == 0;
+        return size() == 0;
     }
 }

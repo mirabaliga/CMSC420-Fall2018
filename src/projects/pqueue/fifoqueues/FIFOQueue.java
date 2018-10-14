@@ -3,7 +3,7 @@ package projects.pqueue.fifoqueues;
 /**
  * <p><tt>FIFOQueue</tt> is an {@link Iterable} interface for FIFO queues. Such queues allow for enqueueing
  * an element in the back, dequeueing it from the front, as well as querying for the size of the queue,
- * the getFirst element, whether the queue is empty, and clearing the queue. <i>"Front"</i> and <i>"back"</i>
+ * the getKey element, whether the queue is empty, and clearing the queue. <i>"Front"</i> and <i>"back"</i>
  * imply order of processing; not memory addressing! The exact position of an element in memory is dependent
  * on the various implementations of <tt>FIFOQueue</tt>, such as {@link LinearArrayFIFOQueue} and
  * {@link CircularArrayFIFOQueue}. </p>
@@ -35,7 +35,7 @@ public interface FIFOQueue<T> extends Iterable<T> {
 	public T dequeue() throws EmptyFIFOQueueException;
 	
 	/**
-	 * Returns but doesn not delete the getFirst element from the front of the queue.
+	 * Returns but doesn not delete the getKey element from the front of the queue.
 	 * @return The element at the front of the queue.
 	 * @throws EmptyFIFOQueueException If the queue is empty.
 	 */
