@@ -3,14 +3,20 @@ import projects.phonebook.utils.KVPair;
 
 public class LinearProbingHashTable implements HashTable{
 
+    /* *******************************************************************/
+    /* ***** PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! ******/
+    /* ****************************************************** ***********/
+
     private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
+    private KVPair[] table;
 
     private int hash(String key){
         return key.hashCode() % table.length;
     }
 
-    private KVPair[] table;
-
+    /* ******************/
+    /*  PUBLIC METHODS: */
+    /* ******************/
 
     /** Non-default constructor.
      * @param startSize The size to initialize our inner storage with. Must be a strictly positive integer.
