@@ -1,15 +1,23 @@
 package projects.phonebook.hashes;
 
+import projects.phonebook.utils.KVPair;
+
 public class QuadraticProbingHashTable implements HashTable{
 
+    /* *******************************************************************/
+    /* ***** PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! ******/
+    /* ****************************************************** ***********/
 
     private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
-
-    private Object[] table;
+    private KVPair[] table;
 
     private int hash(String key){
         return key.hashCode() % table.length;
     }
+
+    /* ******************/
+    /*  PUBLIC METHODS: */
+    /* ******************/
 
     /** Non-default constructor.
      * @param startSize The size to initialize our inner storage with. Must be a strictly positive integer.
@@ -18,7 +26,7 @@ public class QuadraticProbingHashTable implements HashTable{
     public QuadraticProbingHashTable(int startSize){
         if(startSize < 1 )
             throw new RuntimeException("Provided startSize=" + startSize + ". Only strictly positive sizes are allowed.");
-        table = new Object[startSize];
+        table = new KVPair[startSize];
     }
     /**
      *  Default constructor. Initializes the internal storage with a size equal to {@link #DEFAULT_STARTING_SIZE}

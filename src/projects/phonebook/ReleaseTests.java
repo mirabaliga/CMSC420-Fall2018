@@ -145,31 +145,29 @@ public class ReleaseTests {
 
     @Test
     public void testGetOwnerOf(){
-        for(CollisionResolver namesToPhones : resolvers){
-            for(CollisionResolver phonesToNames: resolvers){
+        for(CollisionResolver namesToPhones : resolvers) {
+            for (CollisionResolver phonesToNames : resolvers) {
                 pb = new Phonebook(namesToPhones, phonesToNames);
 
                 // Insert everything contained in our library container...
-                for(Map.Entry<String, String> entry : testingPhoneBook.entrySet()){
+                for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) {
                     pb.addEntry(entry.getKey(), entry.getValue());
                 }
                 // Check all applications of getOwnerOf()....
-                for(Map.Entry<String, String> entry : testingPhoneBook.entrySet()){ // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+                for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
                     try {
-                        assertEquals("After inserting <" + entry.getKey() +  ", " + entry.getValue() + ">" +
+                        assertEquals("After inserting <" + entry.getKey() + ", " + entry.getValue() + ">" +
                                         "getOwnerOf(" + "\"" + entry.getValue() + "\" returned the wrong name.", entry.getKey(),
-                                       pb.getOwnerOf(entry.getValue()));
-                    } catch(AssertionError ae){ // Separate error logging for AssertionErrors and other Throwables.
+                                pb.getOwnerOf(entry.getValue()));
+                    } catch (AssertionError ae) { // Separate error logging for AssertionErrors and other Throwables.
                         throw ae;
-                    }
-                    catch(Throwable t){
-                        fail(format("Failed to get the owner of number:" + entry.getValue() +".", namesToPhones, phonesToNames) + errorData(t));
+                    } catch (Throwable t) {
+                        fail(format("Failed to get the owner of number:" + entry.getValue() + ".", namesToPhones, phonesToNames) + errorData(t));
                     }
                 }
                 assertEquals("After calling getOwnerOf() on all of its contained phone numbers, the phonebook's size should not have" +
                         "changed!", testingPhoneBook.size(), pb.size());
             }
         }
-
     }
 }

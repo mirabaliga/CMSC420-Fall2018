@@ -9,19 +9,20 @@ public class SeparateChainingHashTable implements HashTable{
 
 
     /* *******************************************************************/
-    /* *******************************************************************/
     /* ***** PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! ******/
-    /* ****************************************************** ***********/
     /* ****************************************************** ***********/
 
     private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
-
     private KVPairList[] table;
-
 
     private int hash(String key){
         return key.hashCode() % table.length;
     }
+
+
+    /* ******************/
+    /*  PUBLIC METHODS: */
+    /* ******************/
 
     /** Non-default constructor.
      * @param startSize The size to initialize our inner storage with. <b>Must be a strictly positive integer.</b>
@@ -42,7 +43,6 @@ public class SeparateChainingHashTable implements HashTable{
 
     @Override
     public void put(String key, String value) {
-
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
