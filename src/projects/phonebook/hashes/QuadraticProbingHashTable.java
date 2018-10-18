@@ -34,7 +34,7 @@ public class QuadraticProbingHashTable implements HashTable{
     private KVPair[] table;
 
     private int hash(String key){
-        return key.hashCode() % table.length;
+        return (key.hashCode() & 0xffffff) % table.length;
     }
 
     /*  YOU SHOULD ALSO IMPLEMENT THE FOLLOWING 2 METHODS ACCORDING TO THE SPECS

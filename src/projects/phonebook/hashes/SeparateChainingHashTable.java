@@ -28,7 +28,7 @@ public class SeparateChainingHashTable implements HashTable{
     private KVPairList[] table;
 
     private int hash(String key){
-        return key.hashCode() % table.length;
+        return (key.hashCode() & 0xffffff) % table.length;
     }
 
 
