@@ -1,456 +1,628 @@
 package projects.tavl;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
+import java.util.*;     // You need this import because of the interface method inorderTraversal()'s return type.
 
 /**<p> {@link ThreadedAVLTree} implements threaded <a href="https://en.wikipedia.org/wiki/AVL_tree">Adelson-Velsky-Landis (AVL) trees</a>
  * (shorthand: TAVL trees). These trees:</p>
  * <ol>
- *      <li> Allow for efficient search, insertion and deletion in <em>O(logn)</em> time, by virtue
+ *      <li> Allow for efficient lookup, insertion and deletion in <em>O(logn)</em> time, by virtue
  *       of being AVL trees.</li>
  *       <li>Perform a full inorder traversal in <em>O(n)</em> time, by virtue of being threaded trees.</li>
  * </ol>
  * <p>Hence, two powerful ideas that we have talked about in lecture will now be combined in one data structure. </p>
  *
- * @author <a href = "mailto:jason.filippou@gmail.com">Jason Filippou</a>
+ *  <p>To get more than 50&#37; credit for this project, you <b>must</b> attempt to implement your tree as a <b>threaded</b>
+ * tree, as discussed in lecture. We have access to your source code after submission and we <b>will</b> be checking to
+ * make sure that you have been appropriately updating the tree's threads every time you must! You are also required to
+ * implement a method for generating the inorder traversal over such a tree, and this method needs to be functioning
+ * <b>entirely stacklessly!</b>Read the project description for more in-depth information.</p>
+ *
+ * <p>Finally, for this project, <b>we assume that there are no duplicate keys in your data structure. </b> This means that, in our unit tests,
+ * whenever we delete a key from your tree, <b>we expect it to no longer be found in the tree.</b> You may deal with this
+ * invariant in any way you please, e.g. throw an exception if a duplicate is inserted, or delete all instances of a key when we ask for a deletion.</p>
+ *
+ * @author ------- PUT YOUR NAME HERE! ------
+ * @see #inorderTraversal()
  * @see StudentTests
  * @param <T> The {@link java.lang.Comparable} type held by the data structure.
  */
 public class ThreadedAVLTree<T extends Comparable<T>> {
 
-
-    /* Private node class */
-    private class Node {
-
-        /* Data members */
-        private int height;
-        private T key;
-        private Node left, right, parent; // Parent pointer probably needed for deletions.
-        private byte leftTag, rightTag; // 14 bits per node wasted, but what can you do?
-
-        /* Private methods. */
-        private Node getInorderSuccessor(){
-            // The caller of this method has ensured that
-            // "right" is neither null nor a thread.
-            return right.leftmostLeaf();
-        }
-
-        private Node leftmostLeaf(){
-            Node curr = this;
-            while(!curr.isLeftSet())
-                curr = curr.left;
-            return curr;
-        }
-
-        private Node rightMostLeaf(){
-            Node curr = this;
-            while(!curr.isRightSet())
-                curr = curr.right;
-            return curr;
-        }
-
-        private boolean isRightSet(){
-            return rightTag == (byte)1;
-        }
-
-        private boolean isLeftSet(){
-            return leftTag == (byte)1;
-        }
-
-        private void setRight(){
-            rightTag = (byte)1;
-        }
-
-        private void setLeft(){
-            leftTag = (byte)1;
-        }
-
-        private void clearRight(){
-            rightTag = (byte)0;
-        }
-
-        private void clearLeft(){
-            leftTag = (byte)0;
-        }
-
-        /* Methods accessible from the container class. */
-
-        /* Constructors */
-        Node(T key){ // This is really only useful for the root.
-            this.key = key;
-            leftTag = rightTag = (byte)1;
-            left = right = parent = null;
-        }
-
-        Node(T key, Node parent, Node predecessor, Node successor){
-            this.key = key;
-            this.parent= parent;
-            left = predecessor;
-            right = successor;
-            leftTag = rightTag = (byte)1; // setting the tags
-        }
-
-    } // End of inner node class definition
-
-    /* Other data members */
     private Node root;
 
-    /* Private methods */
-
-    /* Height of a node. */
-    private int height(Node n){
-        return n == null ? -1 : n.height; // Interesting how I can access this without Eclipse complaining.
-    }
-
-    /* Return the balance of the current node, defined as the difference
-     * between the height of the right subtree and the left subtree.
+        /**
+     * Default constructor. Your code should allow for one, since the unit tests
+     * depend on the presence of a default constructor.
      */
-    private int balance(Node n){
-        int rightHeight, leftHeight;
-        /* The interesting thing to realize here is that if your
-         * right link is a thread, this means that, in AVL terms,
-         * your right subtree has a height of -1! Same for the
-         * left link, naturally.
-         */
-        if(n.isRightSet())
-            rightHeight = -1;
-        else
-            rightHeight = height(n.right);
-        if(n.isLeftSet())
-            leftHeight = -1;
-        else
-            leftHeight = height(n.left);
-        return rightHeight - leftHeight; // This is purely a convention, could be left - right.
+    public ThreadedAVLTree(){
+
     }
 
-    /* Rotation methods. Very important that those methods
-     * update the tree's threads correctly. Another important factor is that
-     * rotations should update node heights differently depending on whether
-     * they are called in the context of insertions (insertMode == true)
-     * or deletions (insertMode == false). In insertions, the node that's just
-     * been demoted needs its height to be reduced by just 1, because we haven't had a chance
-     * to update it with its proper height yet when we detect the imbalance.
-     * In deletions, on the other hand, we need to reduce the node's height by 2.
-     */
-    private Node rotateRight(Node n, boolean insertMode){
-        Node x = n.left;
-        if(x.right == n){ // Via a thread...
-            // assert  x.isRightSet();
-            n.left = x;
-            n.setLeft();
-        }else { // x was not right-pointing to n via a thread...
-            n.left = x.right;
+    public int getBalance(Node curr) {
+        if (curr == null)
+            return 0;
+        int leftSide;
+        int rightSide;
+        if (!curr.leftThread) {
+            leftSide = heightAux(curr.left);
         }
-        x.right = n;
-        x.parent = n.parent;
-        x.clearRight(); // Will clear x's right thread bit if it was set.
-        n.parent = x;
-        x.height = n.height;
-        if(insertMode)
-            n.height--;
-        else
-            n.height -= 2;
-        return x;
-    }
-
-    private Node rotateLeft(Node n, boolean insertMode){
-        Node x = n.right;
-        if(x.left == n){ // Via a thread...
-            // assert  x.isLeftSet();
-            n.right = x;
-            n.setRight();
-        } else {
-            n.right = x.left; // x was not left-pointing to n via a thread...
+        else {
+            leftSide = -1;
         }
-        x.left = n;
-        x.parent = n.parent;
-        x.clearLeft(); // Will clear x's left thread bit if it was set.
-        n.parent = x;
-        x.height = n.height;
-        if(insertMode)
-            n.height--;
-        else
-            n.height -= 2;
-        return x;
-    }
-
-    /* Recursive insertion method. */
-    private Node insert(Node n, Node parent, Node predecessor, Node successor, T key){
-        if(n == null)
-            return new Node(key, parent, predecessor, successor);
-        if(key.compareTo(n.key) < 0){
-            if(n.isLeftSet()){
-                n.left = new Node(key, n, predecessor, n);
-                n.clearLeft();
-            }else{
-                n.left = insert(n.left, n, predecessor, n, key);
-            }
-            // Did our insertion cause an imbalance?
-            if(balance(n) == -2){
-                // What was the source of the imbalance? To find it,
-                // we need to understand exactly in which subtree
-                // we inserted the key; left-left or left-right?
-                if(key.compareTo(n.left.key) < 0) // Right Rotation
-                    n = rotateRight(n, true);
-                else{
-                    n.left = rotateLeft(n.left, true); // LR Rotation
-                    n = rotateRight(n, true);
-                }
-            }
-        } else{ // Symmetric cases
-            if(n.isRightSet()){
-                n.right = new Node(key, n, n, successor);
-                n.clearRight();
-            }else{
-                n.right = insert(n.right, n, n, successor, key);
-            }
-            // Any imbalances caused?
-            if(balance(n) == 2){
-                if(key.compareTo(n.right.key) > 0) // Left Rotation
-                    n = rotateLeft(n, true);
-                else{
-                    n.right = rotateRight(n.right, true); // RL Rotation
-                    n = rotateLeft(n, true);
-                }
-            }
+        if (!curr.rightThread) {
+            rightSide = heightAux(curr.right);
         }
-        // Update the current node's height. Once again, we need to pay
-        // attention to the fact that our node might have threads pointing
-        // to our left or right.
-        int rightHeight = n.isRightSet() ? -1 : height(n.right);
-        int leftHeight = n.isLeftSet() ? -1 : height(n.left);
-        int maxHeight = rightHeight > leftHeight ? rightHeight : leftHeight;
-        n.height = maxHeight + 1;
-        return n;
-    }
-
-    /* Recursive deletion method. Needs to cater for both the AVL and
-     * threaded structure of the tree. Splits cases across leaf deletions
-     * as well as inner node deletions. Most complex method of data structure.
-     */
-
-    private Node delete(Node n, Node parent, Node predecessor, Node successor, T key){
-        if(n.key.compareTo(key) == 0){
-            // Case #1: Pure leaf node. Both left and right pointers are threads.
-            if(n.isLeftSet() && n.isRightSet()){
-                if(parent != null){ // If we're deleting the root, parent is null!
-                    if(parent.left == n){ // We are our parent's left child.
-                        parent.setLeft();
-                        return n.left;
-                    } else if(parent.right == n){ // We are our parent's right child.
-                        parent.setRight();
-                        return n.right;
-                    }
-                } else { // Stub tree of which we are deleting the single node.
-                    return null;
-                }
-
-                /* Case #2: Right pointer only is a thread. This means that we have a left
-                 * subtree. In this case, we need to update the right thread emanating
-                 * from the rightmost leaf of this left subtree to point to our current node's
-                 * right-pointed node (which could be null), and return the node's left child
-                 * to the caller. For the latter step, we need to check if we arrived at the current
-                 * node by traversing a parent's left link or right link.
-                 */
-            } else if(n.isRightSet()){
-
-                // assert  !n.isLeftSet();
-                // assert  n.left.rightMostLeaf().right == n;
-
-                n.left.rightMostLeaf().right = n.right;
-
-                return n.left;
-
-                /* Case #3: Left pointer only is a thread. This is the symmetric case
-                 * of case #2.
-                 */
-            } else if(n.isLeftSet()){
-
-                // assert  !n.isRightSet();
-                // assert  n.right.leftmostLeaf().left == n;
-
-                n.right.leftmostLeaf().left = n.left;
-
-                return n.right;
-
-                // Case #4: We are deleting an inner node. We need to promote
-                // its inorder successor, and recursively delete it from the
-                // right subtree.
-            } else {
-
-                // assert  !(n.isRightSet() || n.isLeftSet());
-
-                Node inSucc = n.getInorderSuccessor();
-                n.key = inSucc.key;
-                n.right = delete(n.right, n, n, successor, n.key);
-
-                // Maybe the deletion of the node on the right caused an imbalance.
-                // If that's the case, we will need to take corrective action, via rotations!
-                if(balance(n) == -2){
-
-                    /* Since it is a deletion from the *right* subtree
-                     * that caused the imbalance, it is n's *left* subtree
-                     * that is causing us grief. Trivially, this means that
-                     * n's left link cannot be a thread. It points to a node which
-                     * has at least one child.
-                     */
-
-                    // assert  !n.isLeftSet();
-
-                    /* To figure out whether we need to do a right rotation about n
-                     * or an LR rotation about n, we need to query its left subtree
-                     * about whether it is left heavy or right heavy. Since we have an
-                     * imbalance of -2 detected at n, n's left subtree *has* to be
-                     * heavy on either one of its two sides.
-                     *
-                     */
-
-                    int leftBalance = balance(n.left);
-                    // assert  (leftBalance == 1 || leftBalance == -1);
-                    if(leftBalance == -1){ // Left-leaning left subtree. Right rotation about n.
-                        n = rotateRight(n, false);
-                    } else{ // Right-leaning left subtree. LR rotation about n.
-                        n.left = rotateLeft(n.left, false);
-                        n = rotateRight(n, false);
-                    }
-                }
-
-            }
-        } else if(key.compareTo(n.key) < 0){
-            if(n.isLeftSet()){
-                return n; // Return the node itself, since there is no way the key you want to delete is in the tree.
-            } else {
-                n.left = delete(n.left, n, predecessor, n, key);
-
-                // Do we need to re-balance? Check the right subtree!
-
-                if(balance(n) == 2){
-                    // assert  !n.isRightSet();
-                    int rightBalance = balance(n.right);
-                    // assert  (rightBalance == 1 || rightBalance == -1);
-                    if(rightBalance == 1){ // Right-leaning right subtree. Left rotation about n.
-                        n = rotateLeft(n, false);
-                    } else{ // Left-leaning right subtree. RL rotation about n.
-                        n.right = rotateRight(n.right, false);
-                        n = rotateLeft(n, false);
-                    }
-                }
-            }
-        } else {
-            if(n.isRightSet()){
-                return n; // Same point applies.
-            } else {
-                // The rest of this code is the same as the inorder successor deletion case.
-                n.right = delete(n.right, n, n, successor, key);
-                if(balance(n) == -2){
-                    // assert  !n.isLeftSet();
-                    int leftBalance = balance(n.left);
-                    // assert  (leftBalance == 1 || leftBalance == -1);
-                    if(leftBalance == -1){ // Left-leaning left subtree. Right rotation about n.
-                        n = rotateRight(n, false);
-                    } else{ // Right-leaning left subtree. LR rotation about n.
-                        n.left = rotateLeft(n.left, false);
-                        n = rotateRight(n, false);
-                    }
-                }
-            }
+        else {
+            rightSide = -1;
         }
 
-        // Before we return the node, we need to adjust its height appropriately,
-        // taking into consideration the heights of its children subtrees.
-        // Once again, we pay attention to threads.
-
-        int rightHeight = n.isRightSet() ? -1 : height(n.right);
-        int leftHeight = n.isLeftSet() ? -1 : height(n.left);
-        int maxHeight = rightHeight > leftHeight ? rightHeight : leftHeight;
-        n.height = maxHeight + 1;
-        return n;
+        return leftSide - rightSide;
     }
 
-    /* Recursive search method. Standard BST-like implementation,
-     * enhanced to terminate search if a thread is reached. */
-    private T search(Node n, T key){
-        if(key.compareTo(n.key) < 0)
-            if(n.isLeftSet())
-                return null;
-            else
-                return search(n.left, key);
-        else if(key.compareTo(n.key) > 0)
-            if(n.isRightSet())
-                return null;
-            else
-                return search(n.right, key);
-        else
-            return n.key;
-
-    }
-
-    /* Populate the argument with the keys in symmetric order. */
-    private void inorderTraversal(ArrayList<T> collector){
-        Node curr = root;
-        while(true) {
-            // First, find leftmost leaf and add it to the collector.
-            curr = curr.leftmostLeaf();
-            collector.add(curr.key);
-
-            // Second, check right. If it's a non-null thread,
-            // you need to traverse to it, add the key, and then
-            // check again.
-            while(curr.isRightSet() && curr.right != null){
-                curr = curr.right;
-                collector.add(curr.key);
-            }
-            if(curr.right == null)
-                break; // We're done
-            else
-                curr = curr.right; // Move down a level in the tree and repeat the process.
+    public Node leftRotate(Node curr) {
+        Node a = curr.right;
+        Node b = a.left;
+        boolean flag = false;
+        if (!a.leftThread) {
+            flag = true;
         }
+        a.left = curr;
+        a.leftThread = false;
+        if (flag) {
+            curr.right = b;
+            curr.rightThread = false;
+            curr.height ++;
+        }
+        else {
+            curr.rightThread = true;
+        }
+        if (!a.rightThread) {
+            curr.height = curr.height - 2;
+        }
+        else {
+            curr.height = curr.height - 1;
+            a.height = a.height + 1;
+        }
+        return a;
     }
 
-    /* Public (interface) methods */
+    public Node rightRotate(Node curr) {
+        Node a = curr.left;
+        Node b = a.right;
+        boolean flag = false;
+        if (!a.rightThread) {
+            flag = true;
+        }
+        a.right = curr;
+        a.rightThread = false;
+        if (flag) {
+            curr.left = b;
+            curr.leftThread = false;
+            if (!curr.rightThread) {
+                curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
+            }
+            else {
+                curr.height = 1 + heightAux(curr.left);
+            }
+        }
+        else {
+            curr.leftThread = true;
+        }
+        if (!a.leftThread) {
+            curr.height = curr.height - 2;
+        }
+        else {
+            curr.height = curr.height - 1;
+            a.height = a.height + 1;
+        }
+        return a;
+    }
 
     /**
      * Insert <tt>key</tt> in the tree.
      * @param key The key to insert in the tree.
      */
     public void insert(T key){
-        if(isEmpty())
-            root = new Node(key);
-        else
-            root = insert(root, null, null, null, key);
+        if (isEmpty()) {
+            root = new Node(key, null, null, true, true);
+        }
+        else if (search(key) == null){
+            Node curr = root;
+            Stack<Node> parents = new Stack<Node>();
+            while (true) {
+                if (key.compareTo(curr.data) < 0) {
+                    if (curr.leftThread) {
+                        Node prev = curr.left;
+                        curr.left = new Node(key, prev, curr, true, true);
+                        curr.leftThread = false;
+                        parents.push(curr);
+                        while (!parents.isEmpty()) {
+                            curr = parents.pop();
+                            if (!curr.leftThread && !curr.rightThread) {
+                                curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
+                            }
+                            else if (!curr.leftThread) {
+                                curr.height = 1 + heightAux(curr.left);
+                            }
+                            else if (!curr.rightThread) {
+                                curr.height = 1 + heightAux(curr.right);
+                            }
+                            int balance = getBalance(curr);
+                            if (balance > 1) {
+                                if (key.compareTo(curr.left.data) > 0) {
+                                    curr.left = leftRotate(curr.left);
+                                    curr.leftThread = false;
+                                    if (curr.left.right.equals(curr)) {
+                                        curr.left.rightThread = true;
+                                    }
+                                }
+                                curr = rightRotate(curr);
+                                //curr.right.height -= 2;
+                                if (parents.isEmpty()) {
+                                    root = curr;
+                                }
+                                else {
+                                    Node myPos = parents.pop();
+                                    if (curr.data.compareTo(myPos.data) < 0) {
+                                        myPos.left = curr;
+                                    }
+                                    else {
+                                        myPos.right = curr;
+                                    }
+                                }
+                                break;
+                            }
+                            else if (balance < -1){
+                                if (key.compareTo(curr.right.data) < 0) {
+                                    curr.right = rightRotate(curr.right);
+                                    curr.rightThread = false;
+                                    if (curr.right.left.equals(curr)) {
+                                        curr.right.leftThread = true;
+                                    }
+                                }
+                                curr = leftRotate(curr);
+                                //curr.left.height -= 2;
+                                if (parents.isEmpty()) {
+                                    root = curr;
+                                }
+                                else {
+                                    Node myPos = parents.pop();
+                                    if (curr.data.compareTo(myPos.data) < 0) {
+                                        myPos.left = curr;
+                                    }
+                                    else {
+                                        myPos.right = curr;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    else {
+                        parents.push(curr);
+                        curr = curr.left;
+                    }
+                }
+                else if (key.compareTo(curr.data) > 0){
+                    if (curr.rightThread) {
+                        Node prev = curr.right;
+                        curr.right = new Node(key, curr, prev, true, true);
+                        curr.rightThread = false;
+                        parents.push(curr);
+                        while (!parents.isEmpty()) {
+                            curr = parents.pop();
+                            if (!curr.leftThread && !curr.rightThread) {
+                                curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
+                            }
+                            else if (!curr.leftThread) {
+                                curr.height = 1 + heightAux(curr.left);
+                            }
+                            else if (!curr.rightThread) {
+                                curr.height = 1 + heightAux(curr.right);
+                            }
+                            else {
+                                curr.height = 1;
+                            }
+                            int balance = getBalance(curr);
+                            if (balance > 1) {
+                                if (key.compareTo(curr.left.data) > 0) {
+                                    curr.left = leftRotate(curr.left);
+                                    curr.leftThread = false;
+                                    if (curr.left.right.data.equals(curr.data)) {
+                                        curr.left.rightThread = true;
+                                    }
+                                }
+                                curr = rightRotate(curr);
+                                //curr.right.height -= 2;
+                                if (parents.isEmpty()) {
+                                    root = curr;
+                                }
+                                else {
+                                    Node myPos = parents.pop();
+                                    if (curr.data.compareTo(myPos.data) < 0) {
+                                        myPos.left = curr;
+                                    }
+                                    else {
+                                        myPos.right = curr;
+                                    }
+                                }
+                            }
+                            else if (balance < -1){
+                                if (key.compareTo(curr.right.data) < 0) {
+                                    curr.right = rightRotate(curr.right);
+                                    curr.rightThread = false;
+                                    if (curr.right.left.data.equals(curr.data)) {
+                                        curr.right.leftThread = true;
+                                    }
+                                }
+                                curr = leftRotate(curr);
+                                //curr.left.height -= 2;
+                                if (parents.isEmpty()) {
+                                    root = curr;
+                                }
+                                else {
+                                    Node myPos = parents.pop();
+                                    if (curr.data.compareTo(myPos.data) < 0) {
+                                        myPos.left = curr;
+                                    }
+                                    else {
+                                        myPos.right = curr;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    else {
+                        parents.push(curr);
+                        curr = curr.right;
+                    }
+                }
+                else {
+                    return;
+                }
+            }
+        }
     }
 
     /**
-     * Delete the key from the data structure and return it to the caller.
-     * @param key The key to delete from the structure.
+     * Delete the key from the data structure and return it to the caller. Note that it is assumed that there are no
+     * duplicate keys in the tree. That is, if a key is deleted from the tree, it should no longer be found in it.
+     * @param key The key to deleteRec from the structure.
      * @return The key that was removed, or <tt>null</tt> if the key was not found.
      */
     public T delete(T key){
-        /* While it is surely not the most efficient thing to do, we will first
-         * search for the key in the tree and only delete it if it's found in the tree.
-         * This makes successful deletions slower by a logarithmic parameter, yet
-         * it also makes for cleaner deletion code. It also speeds up unsuccessful
-         * deletions, i.e deletions of keys that are not in the tree (but any reasonable
-         * application would search keys first anyway).
-         */
-        T retVal = search(key);
-        if(retVal != null)
-            root = delete(root, null, null, null, key);
-        return retVal; // null or otherwise.
+        if (isEmpty() || search(key) == null) {
+            return null;
+        }
+        else {
+            Node curr = root;
+            Stack<Node> parents = new Stack<Node>();
+            while (true) {
+                if (key.equals(curr.data)) {
+                    T returnVal = curr.data;
+                    if (curr.leftThread || curr.rightThread) {
+                        Node temp = null;
+                        if (!curr.rightThread) {
+                            temp = curr.right;
+                            if (!parents.isEmpty()) {
+                                curr = parents.pop();
+                                if (key.compareTo(curr.data) > 0) {
+                                    if (!curr.right.leftThread) {
+                                        curr.rightThread = false;
+                                    }
+                                    else {
+                                        curr.rightThread = curr.right.rightThread;
+                                    }
+
+                                    curr.right = temp;
+                                    if (curr.right != null && (curr.right.right == null) && curr.right.leftThread) {
+                                        curr.right.left = curr.right.left.left;
+                                    }
+                                    else if (curr.right != null && curr.right.right != null && (curr.right.right.right == null || (curr.right.right.left != null && curr.right.right.left.equals(curr.right)))) {
+                                        curr.right.right = curr.right.right.right;
+                                    }
+                                    /*if (!curr.right.leftThread) {
+                                        curr.right.left = curr.right.left.left;
+                                    }
+                                    if (!curr.right.rightThread) {
+                                        curr.right.right = curr.right.right.right;
+                                    }*/
+
+                                }
+                                else {
+                                    if (!curr.left.rightThread) {
+                                        curr.leftThread = false;
+                                    }
+                                    else {
+                                        curr.leftThread = curr.left.leftThread;
+                                    }
+                                    curr.left = temp;
+                                    if (curr.left != null && (curr.left.left == null) && curr.left.rightThread) {
+                                        curr.left.right = curr.left.right.right;
+                                    }
+                                    else if (curr.left != null && curr.left.left != null && (curr.left.left.left == null || (curr.left.left.right != null && curr.left.left.right.equals(curr.left)))) {
+                                        curr.left.left = curr.left.left.left;
+                                    }
+                                    /*if (!curr.left.rightThread) {
+                                        curr.left.right = curr.left.right.right;
+                                    }
+                                    if (!curr.left.leftThread) {
+                                        curr.left.left = curr.left.left.left;
+                                    }*/
+                                }
+                            } else {
+                                root = temp;
+                                return returnVal;
+                            }
+                        }
+                        else if (!curr.leftThread) {
+                            temp = curr.left;
+                            if (!parents.isEmpty()) {
+                                curr = parents.pop();
+                                if (key.compareTo(curr.data) > 0) {
+                                    if (!curr.right.leftThread) {
+                                        curr.rightThread = false;
+                                    }
+                                    else {
+                                        curr.rightThread = curr.right.rightThread;
+                                    }
+                                    curr.right = temp;
+                                    if (curr.right != null && (curr.right.right == null) && curr.right.leftThread) {
+                                        curr.right.left = curr.right.left.left;
+                                    }
+                                    else if (curr.right != null && curr.right.right != null && (curr.right.right.right == null ||  (curr.right.right.left != null && curr.right.right.left.equals(curr.right)))) {
+                                        curr.right.right = curr.right.right.right;
+                                    }
+                                    /*if (!curr.right.rightThread) {
+                                        curr.right.right = curr.right.right.right;
+                                    }
+                                    if (curr.right.left != null) {
+                                        curr.right.left = curr.right.left.left;
+                                    }*/
+                                }
+                                else {
+                                    if (!curr.left.rightThread) {
+                                        curr.leftThread = false;
+                                    }
+                                    else {
+                                        curr.leftThread = curr.left.leftThread;
+                                    }
+                                    curr.left = temp;
+                                    if (curr.left != null && (curr.left.left == null) && curr.left.rightThread) {
+                                        curr.left.right = curr.left.right.right;
+                                    }
+                                    else if (curr.left != null && curr.left.left != null && (curr.left.left.left == null || (curr.left.left.right != null && curr.left.left.right.equals(curr.left)))) {
+                                        curr.left.left = curr.left.left.left;
+                                    }
+                                    /*if (curr.left.left != null) {
+                                        curr.left.left = curr.left.left.left;
+                                    }
+                                    if (curr.left.right != null) {
+                                        curr.left.right = curr.left.right.right;
+                                    }*/
+                                }
+
+                            }
+                            else {
+                                root = temp;
+                                return returnVal;
+                            }
+                        }
+
+                        if (temp == null) {
+                            temp = curr;
+                            curr = null;
+                        }
+                    }
+                    else {
+                        Node temp = curr.right;
+                        while (!temp.leftThread) {
+                            temp = temp.left;
+                        }
+                        T val = temp.data;
+                        delete(val);
+                        curr.data = val;
+                    }
+                    if (curr == null) {
+                        if (parents.isEmpty()) {
+                            root = null;
+                            return returnVal;
+                        }
+                        else {
+                            curr = parents.pop();
+                            if (key.compareTo(curr.data) < 0) {
+                                curr.leftThread = curr.left.leftThread;
+                                curr.left = curr.left.left;
+
+                            }
+                            else {
+                                curr.rightThread = curr.right.rightThread;
+                                curr.right = curr.right.right;
+                            }
+                        }
+                    }
+                    do {
+                        if (!curr.leftThread && !curr.rightThread) {
+                            curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
+                        }
+                        else if (!curr.leftThread) {
+                            curr.height = 1 + heightAux(curr.left);
+                        }
+                        else if (!curr.rightThread) {
+                            curr.height = 1 + heightAux(curr.right);
+                        }
+                        else {
+                            curr.height = 0;
+                        }
+                        int balance = getBalance(curr);
+                        if (balance > 1) {
+                            int balanceSub = getBalance(curr.left);
+                            if (balanceSub < 0) {
+                                curr.left = leftRotate(curr.left);
+                                curr.leftThread = false;
+                                if (curr.left.right.data.equals(curr.data)) {
+                                    curr.left.rightThread = true;
+                                }
+                            }
+                            curr = rightRotate(curr);
+                            if (!curr.leftThread && !curr.rightThread) {
+                                if (!curr.right.leftThread && !curr.right.rightThread) {
+                                    curr.right.height = 1 + Math.max(heightAux(curr.right.left), heightAux(curr.right.right));
+                                }
+                                else if (!curr.right.leftThread) {
+                                    curr.right.height = 1 + heightAux(curr.right.left);
+                                }
+                                else if (!curr.right.rightThread) {
+                                    curr.right.height = 1 + heightAux(curr.right.right);
+                                }
+                                curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
+                            }
+                            else if (!curr.leftThread) {
+                                curr.height = 1 + heightAux(curr.left);
+                            }
+                            else if (!curr.rightThread) {
+                                if (!curr.right.leftThread && ! curr.right.rightThread) {
+                                    curr.right.height = 1 + Math.max(heightAux(curr.right.left), heightAux(curr.right.right));
+                                }
+                                else if (!curr.right.leftThread) {
+                                    curr.right.height = 1 + heightAux(curr.right.left);
+                                }
+                                else if (!curr.right.rightThread) {
+                                    curr.right.height = 1 + heightAux(curr.right.right);
+                                }
+                                curr.height = 1 + heightAux(curr.right);
+                            }
+                            if (parents.isEmpty()) {
+                                root = curr;
+                            }
+                            else {
+                                Node myPos = parents.pop();
+                                if (curr.data.compareTo(myPos.data) < 0) {
+                                    myPos.left = curr;
+                                }
+                                else {
+                                    myPos.right = curr;
+                                }
+                                curr = myPos;
+                            }
+                        }
+                        else if (balance < -1){
+                            int balanceSub = getBalance(curr.right);
+                            if (balanceSub > 0) {
+                                curr.right = rightRotate(curr.right);
+                                curr.rightThread = false;
+                                if (curr.right.left.data.equals(curr.data)) {
+                                    curr.right.leftThread = true;
+                                }
+                            }
+                            curr = leftRotate(curr);
+                            if (!curr.leftThread && !curr.rightThread) {
+                                if (!curr.left.leftThread && ! curr.left.rightThread) {
+                                    curr.left.height = 1 + Math.max(heightAux(curr.left.left), heightAux(curr.left.right));
+                                }
+                                else if (!curr.left.leftThread) {
+                                    curr.left.height = 1 + heightAux(curr.left.left);
+                                }
+                                else if (!curr.left.rightThread) {
+                                    curr.left.height = 1 + heightAux(curr.left.right);
+                                }
+                                curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
+                            }
+                            else if (!curr.leftThread) {
+                                if (!curr.left.leftThread && ! curr.left.rightThread) {
+                                    curr.left.height = 1 + Math.max(heightAux(curr.left.left), heightAux(curr.left.right));
+                                }
+                                else if (!curr.left.leftThread) {
+                                    curr.left.height = 1 + heightAux(curr.left.left);
+                                }
+                                else if (!curr.left.rightThread) {
+                                    curr.left.height = 1 + heightAux(curr.left.right);
+                                }
+                                curr.height = 1 + heightAux(curr.left);
+                            }
+                            else if (!curr.rightThread) {
+                                curr.height = 1 + heightAux(curr.right);
+                            }
+                            if (parents.isEmpty()) {
+                                root = curr;
+                                return returnVal;
+                            }
+                            else {
+                                Node myPos = parents.pop();
+                                if (curr.data.compareTo(myPos.data) < 0) {
+                                    myPos.left = curr;
+                                }
+                                else {
+                                    myPos.right = curr;
+                                }
+                                curr = myPos;
+                                continue;
+                            }
+                        }
+                        if (!parents.isEmpty()) {
+                            curr = parents.pop();
+                        }
+                        else {
+                            break;
+                        }
+
+                    } while (true);
+                    return returnVal;
+
+                }
+                else if (key.compareTo(curr.data) < 0) {
+                    if (!curr.leftThread) {
+                        parents.push(curr);
+                        curr = curr.left;
+                    }
+                    else {
+                        return null;
+                    }
+                }
+                else {
+                    if (!curr.rightThread) {
+                        parents.push(curr);
+                        curr = curr.right;
+                    }
+                    else {
+                        return null;
+                    }
+                }
+            }
+        }
     }
 
     /**
      * Search for <tt>key</tt> in the tree. Return a reference to it if it's in there,
      * or <tt>null</tt> otherwise.
-     * @param key The key of type <tt>T</tt> to look for in the tree.
+     * @param key The key to look for in the tree.
      * @return <tt>key</tt> if <tt>key</tt> is in the tree, or <tt>null</tt> otherwise.
      */
     public T search(T key){
-        if(isEmpty())
-            return null;
-        else
-            return search(root, key);
+        Node curr = root;
+        while (curr != null) {
+            if (key.compareTo(curr.data) < 0) {
+                if (!curr.leftThread) {
+                    curr = curr.left;
+                }
+                else {
+                    return null;
+                }
+            }
+            else if (key.compareTo(curr.data) > 0) {
+                if (!curr.rightThread) {
+                    curr = curr.right;
+                }
+                else {
+                    return null;
+                }
+            }
+            else {
+                return key;
+            }
+        }
+        return null;
     }
 
 
@@ -461,7 +633,16 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * @return The height of the tree.
      */
     public int height(){
-        return height(root);
+        return heightAux(root);
+    }
+
+    public int heightAux(Node curr) {
+        if (curr == null) {
+            return -1;
+        }
+        else {
+            return curr.height;
+        }
     }
 
     /**
@@ -474,24 +655,79 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
 
     /**
      * Return the key at the tree's root node.
-     * @return The key at the tree's root node.
+     * @return The key at the tree's root node, or <tt>null</tt> if the tree is empty.
      */
     public T getRoot(){
-        return root == null ? null : root.key;
+        if (isEmpty()) {
+            return null;
+        }
+        else {
+            return root.data;
+        }
     }
 
     /**
-     * Generate an inorder (symmetric) traversal over the tree's stored keys. This should be done
+     * Generate an inorder traversal over the tree's stored keys. This should be done
      * by using the tree's threads, to be able to find every inorder successor in amortized constant
-     * time.
-     * @return A {@link java.util.Iterator} over <tt>T</tt>s, which exposes the elements in
-     * symmetric order.
+     * time. TO GET MORE THAN 50&#37; CREDIT IN THIS PROJECT, YOU <b>MUST</b> IMPLEMENT YOUR TREE AS A THREADED TREE.
+     * IN PARTICULAR, TO GET ANY CREDIT FOR THIS METHOD, YOUR CODE <b>MUST</b> PASS THE RELEVANT UNIT TESTS AND
+     * YOU MUST BE MAKING NO CALLS TO ANY STACK, YOURS OR THE SYSTEM'S!
+     *
+     * @return An {@link Iterator} over <tt>T</tt>s, which exposes the elements in
+     * ascending order. If the tree is empty, the {@link Iterator}'s first call to {@link Iterator#hasNext()}
+     * will return <tt>false</tt>. The behavior of {@link Iterator#remove()} is <b>undefined</b>; we do <b>not</b> test
+     * for removal of elements through the returned {@link Iterator}, so you can implement {@link Iterator#remove()} in
+     * <b>any way you please</b>.
      */
     public Iterator<T> inorderTraversal(){
-        ArrayList<T> collector = new ArrayList<T>();
-        if(isEmpty())
-            return collector.iterator();
-        inorderTraversal(collector); // Populates "collector" with the elements in symmetric order.
-        return collector.iterator();
+        return new ThreadedAVLTreeIterator();
+    }
+
+    protected class ThreadedAVLTreeIterator implements java.util.Iterator<T>{
+        protected Node curr;
+        public ThreadedAVLTreeIterator() {
+            curr = root;
+            if (curr != null) {
+                while (!curr.leftThread) {
+                    curr = curr.left;
+                }
+            }
+        }
+        public boolean hasNext() {
+            return curr != null;
+        }
+        public T next() {
+            if (hasNext()) {
+                T returnVal = curr.data;
+                if (!curr.rightThread) {
+                    curr = curr.right;
+                    while (!curr.leftThread) {
+                        curr = curr.left;
+                    }
+                }
+                else {
+                    curr = curr.right;
+                }
+                return returnVal;
+            }
+            else {
+                return null;
+            }
+        }
+    }
+
+    protected class Node {
+        protected T data;
+        protected int height;
+        protected Node left, right;
+        protected boolean leftThread, rightThread;
+        public Node(T element, Node left, Node right, boolean leftThread, boolean rightThread) {
+            this.data = element;
+            this.left = left;
+            this.right = right;
+            this.leftThread = leftThread;
+            this.rightThread = rightThread;
+            this.height = 0;
+        }
     }
 }

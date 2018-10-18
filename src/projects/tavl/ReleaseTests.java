@@ -831,6 +831,7 @@ public class ReleaseTests {
         for(int i = 0; i < NUMS; i++)
             collector.add(i);
         Collections.shuffle(collector, rnd);
+        System.out.println(collector);
         for(int i = 0; i < collector.size(); i++)
             intTree.insert(collector.get(i));
         Iterator<Integer> inorder = intTree.inorderTraversal();
@@ -877,8 +878,10 @@ public class ReleaseTests {
          * tree reflects this new sequence.
          */
 
-        for(int i = 1; i < NUMS; i+=2)
+
+        for(int i = 1; i < NUMS; i+=2) {
             intTree.delete(i);
+        }
         inorder = intTree.inorderTraversal();
         int iter = 0;
         for(int i = 0; i < NUMS; i+=2){

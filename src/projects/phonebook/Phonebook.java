@@ -13,7 +13,7 @@ import projects.phonebook.hashes.*;
  * <b>exactly one</b> person. Study the implementation of this class to see for yourselves how this is attained by
  * interfacing with both internal hash tables. </p>
  *
- * <p>The Release Tests on the <a href ="https://submit.cs.umd.edu/">submit server</a> test the methods of {@link Phonebook} only.
+ * <p>The Release Tests on the <a href ="https://submit.cs.umd.edu/">submit server</a> primarily test the methods of {@link Phonebook}
  * Since {@link Phonebook}'s methods rely on methods of {@link HashTable} instances, by parameterizing
  * {@link Phonebook} instances in all 3^2 = 9 possible ways, we can run the same tests against all of the hash
  * tables that you will have to implement. </p>
@@ -96,7 +96,7 @@ public class Phonebook {
     }
 
     /** Adds the tuple &lt; <tt>name</tt>, <tt>number</tt> &gt; in the {@link Phonebook}. If either <tt>name</tt> or
-     * <tt>number</tt> are already in the collection
+     * <tt>number</tt> are already in the collection, then the entire entry is <b>updated</b>.
      * @param name The full name of the number's owner.
      * @param number The phone number of the person.
      * @throws IllegalArgumentException if either <tt>name</tt> or <tt>number</tt> is <tt>null</tt>.

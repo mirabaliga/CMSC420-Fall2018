@@ -4,7 +4,7 @@ package projects.phonebook.hashes;
  * <p>{@link HashTable} is an abstraction over hash tables which store {@link String} keys and map to 
  * {@link String} values. Implementing classes should offer <em>amortized constant</em> insertion, search and 
  * deletion. The method names that you have to implement are the namesakes of {@link java.util.Hashtable}
- * (<b>not</b> {@link java.util.HashMap !}. </p>
+ * (<b>not</b> {@link java.util.HashMap}!). </p>
  *
  *  <p><b>**** DO NOT EDIT THIS INTERFACE'S DECLARATION! ****** </b></p>
  * *
@@ -56,8 +56,9 @@ public interface HashTable {
     boolean containsKey(String  key);
 
     /**
-     * Queries the {@link HashTable} about the existence of the value <tt>key</tt> in its internal storage. This method is expected to run in <em>linear time</em> (i.e
-     * containsValue() is expected to be an <b>inneficient</b> operation. This is to be expected, since this {@link HashTable} hashes <tt>String </tt>s, not <tt>String </tt>s.
+     * Queries the {@link HashTable} about the existence of the value <tt>value</tt> in its internal storage. This method is expected to run in <em>linear time</em> (i.e
+     * containsValue() is expected to be an <b>inneficient</b> operation. This is to be expected, since this {@link HashTable} hashes \
+     * keys, not values.
      * @param value The value to search for.
      * @return <tt>true</tt> if <tt>key</tt> is the key of some record in our hash table, <tt>false</tt> otherwise.
      */
