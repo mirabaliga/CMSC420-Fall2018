@@ -3,7 +3,19 @@ package projects.phonebook.hashes;
 import projects.phonebook.utils.PrimeGenerator;
 import projects.phonebook.utils.KVPairList;
 
-/**<p>{@link SeparateChainingHashTable} is a hash table that implements </p>
+/**<p>{@link SeparateChainingHashTable} is a {@link HashTable} that implements <b>Separate Chaining</b>
+ * as its collision resolution strategy, i.e the collision chains are implemented as actual
+ * Linked Lists. These Linked Lists are <b>not assumed ordered</b>. It is the easiest and most &quot; natural &quot; way to
+ * implement a hash table and is useful for estimating hash function quality. In practice, it would
+ * <b>not</b> be the best way to implement a hash table, because of the wasted space for the heads of the lists.
+ * Open Addressing methods, like those implemented in {@link LinearProbingHashTable} and {@link QuadraticProbingHashTable}
+ * are more desirable in practice, since they use the original space of the table for the collision chains themselves.</p>
+ *
+ * @author YOUR NAME HERE!
+ * @see HashTable
+ * @see SeparateChainingHashTable
+ * @see LinearProbingHashTable
+ * @see CollisionResolver
  */
 public class SeparateChainingHashTable implements HashTable{
 
