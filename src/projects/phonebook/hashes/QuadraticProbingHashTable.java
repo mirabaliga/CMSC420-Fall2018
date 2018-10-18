@@ -35,6 +35,8 @@ public class QuadraticProbingHashTable implements HashTable{
 
     private int hash(String key){
         return (key.hashCode() & 0xfffffff) % table.length;
+
+
     }
 
     /*  YOU SHOULD ALSO IMPLEMENT THE FOLLOWING 2 METHODS ACCORDING TO THE SPECS
