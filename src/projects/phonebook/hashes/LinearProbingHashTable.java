@@ -27,7 +27,7 @@ public class LinearProbingHashTable implements HashTable{
     private KVPair[] table;
 
     private int hash(String key){
-        return (key.hashCode() & 0xfffffff) % table.length;
+        return (key.hashCode() & 0x7fffffff) % table.length;
     }
 
     /*  YOU SHOULD ALSO IMPLEMENT THE FOLLOWING 2 METHODS ACCORDING TO THE SPECS
