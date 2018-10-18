@@ -1,6 +1,22 @@
 package projects.phonebook.hashes;
 import projects.phonebook.utils.KVPair;
 
+/**
+ * <p>{@link LinearProbingHashTable} is an Openly Addressed {@link HashTable} implemented with <b>Linear Probing</b> as its
+ * collision resolution strategy: every key collision is resolved by moving one address over. It is
+ * the most famous collision resolution strategy, praised for its simplicity, theoretical properties
+ * and cache locality. It <b>does</b>, however, suffer from the &quot; clustering &quot; problem:
+ * collision resolutions tend to cluster collision chains locally, making it hard for new keys to be
+ * inserted without collisions. {@link QuadraticProbingHashTable} is a {@link HashTable} that
+ * tries to avoid this problem, albeit sacrificing cache locality.</p>
+ *
+ * @author YOUR NAME HERE!
+ *
+ * @see HashTable
+ * @see SeparateChainingHashTable
+ * @see QuadraticProbingHashTable
+ * @see CollisionResolver
+ */
 public class LinearProbingHashTable implements HashTable{
 
     /* *******************************************************************/

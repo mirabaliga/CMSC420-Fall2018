@@ -2,20 +2,24 @@ package projects.phonebook;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+import projects.phonebook.hashes.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import projects.phonebook.hashes.CollisionResolver;
-import static projects.phonebook.hashes.CollisionResolver.*;
 import static org.junit.Assert.*;
+import static projects.phonebook.hashes.CollisionResolver.*;
+
 
 /**
- * <p> {@link ReleaseTests} is a jUnit-test suite for {@link Phonebook}.</p>
+ * <p> {@link ReleaseTests} is a jUnit-test suite for {@link Phonebook} and {@link HashTable}.</p>
  *
  * @author <a href = "mailto:jason.filippou@gmail.com">jason.filippou@gmail.com</a>
  *
  * @see Phonebook
+ * @see HashTable
+ * @see SeparateChainingHashTable
+ * @see LinearProbingHashTable
+ * @see QuadraticProbingHashTable
  */
 public class ReleaseTests {
 
@@ -60,7 +64,7 @@ public class ReleaseTests {
     }
 
     @Test
-    public void testBehaviorWhenEmpty(){
+    public void testPBBehaviorWhenEmpty(){
         for(CollisionResolver namesToPhones : resolvers){
             for(CollisionResolver phonesToNames: resolvers){
                 pb = new Phonebook(namesToPhones, phonesToNames);
@@ -72,7 +76,7 @@ public class ReleaseTests {
     }
 
     @Test
-    public void testInsertions(){
+    public void testPBInsertions(){
         for(CollisionResolver namesToPhones : resolvers){
             for(CollisionResolver phonesToNames: resolvers){
                 pb = new Phonebook(namesToPhones, phonesToNames);
@@ -89,7 +93,7 @@ public class ReleaseTests {
     }
 
     @Test
-    public void testDeletions(){
+    public void testPBDeletions(){
         // For all possible pairs of CollisionResolver instances, insert all the keys and delete all the keys.
         for(CollisionResolver namesToPhones : resolvers){
             for(CollisionResolver phonesToNames: resolvers){
@@ -114,7 +118,7 @@ public class ReleaseTests {
     }
 
     @Test
-    public void testGetNumberOf(){
+    public void testPBGetNumberOf(){
         for(CollisionResolver namesToPhones : resolvers){
             for(CollisionResolver phonesToNames: resolvers) {
                 pb = new Phonebook(namesToPhones, phonesToNames);
@@ -144,7 +148,7 @@ public class ReleaseTests {
     }
 
     @Test
-    public void testGetOwnerOf(){
+    public void testPBGetOwnerOf(){
         for(CollisionResolver namesToPhones : resolvers) {
             for (CollisionResolver phonesToNames : resolvers) {
                 pb = new Phonebook(namesToPhones, phonesToNames);
