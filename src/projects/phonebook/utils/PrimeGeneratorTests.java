@@ -62,12 +62,12 @@ public class PrimeGeneratorTests {
      */
     @Test
     public void testGetNextPrime() {
-        assertEquals("Expected 29 after first call to getNextPrime().", 29, pg.getNextPrime());
-        assertEquals("Expected 29 to be returned by this method after a successful call to getNextPrime().",
-                29, pg.getCurrPrime());
-        assertEquals("Expected 59 after second call to getNextPrime().", 59, pg.getNextPrime());
+        assertEquals("Expected 23 after first call to getNextPrime().", 23, pg.getNextPrime());
+        assertEquals("Expected 23 to be returned by this method after a successful call to getNextPrime().",
+                23, pg.getCurrPrime());
+        assertEquals("Expected 43 after second call to getNextPrime().", 43, pg.getNextPrime());
         assertEquals("Expected 59 to be returned by this method after a successful second call to getNextPrime().",
-                59, pg.getCurrPrime());
+                43, pg.getCurrPrime());
     }
 
 
@@ -76,12 +76,12 @@ public class PrimeGeneratorTests {
      */
     @Test
     public void testGetPreviousPrime() {
-        assertEquals("Expected 5 after first call to getPreviousPrime().", 5, pg.getPreviousPrime());
-        assertEquals("Expected 5 to be returned by this method after a successful call to getPreviousPrime().",
+        assertEquals("Expected 7 after first call to getPreviousPrime().", 7, pg.getPreviousPrime());
+        assertEquals("Expected 7 to be returned by this method after a successful call to getPreviousPrime().",
+                7, pg.getCurrPrime());
+        assertEquals("Expected 5 after second call to getPreviousPrime().", 5, pg.getPreviousPrime());
+        assertEquals("Expected 5 to be returned by this method after a successful second call to getPreviousPrime().",
                 5, pg.getCurrPrime());
-        assertEquals("Expected 2 after second call to getPreviousPrime().", 2, pg.getPreviousPrime());
-        assertEquals("Expected 2 to be returned by this method after a successful second call to getPreviousPrime().",
-                2, pg.getCurrPrime());
     }
 
     /**
@@ -106,7 +106,7 @@ public class PrimeGeneratorTests {
         pg.getPreviousPrime();
         pg.getNextPrime();
         assertEquals("Expected getCurrPrime() to return  13 after a call to getPreviousPrime() and a call to " +
-                "getNextPrime().", 11, pg.getCurrPrime());
+                "getNextPrime().", 13, pg.getCurrPrime());
     }
 
     /** Tests for edge cases of {@link PrimeGenerator} which <b>should</b> be throwing {@link NoMorePrimesException}
