@@ -62,9 +62,9 @@ public class KVPairListTests {
         assertFalse("A KVPairList with three nodes inserted in the back should NOT report that it's empty.", list.isEmpty());
         assertEquals("A KVPairList with three nodes inserted in the back should report a size of 3.", 3 , list.size());
         try {
-            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.contains("Joseph", "890-567-9002"));
-            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.contains("Adam", "707-890-3568"));
-            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.contains("Rayeesha", "403-111-2000"));
+            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Joseph", "890-567-9002"));
+            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Adam", "707-890-3568"));
+            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Rayeesha", "403-111-2000"));
         } catch(Throwable t){
             fail(format(t));
         }
@@ -84,9 +84,9 @@ public class KVPairListTests {
         assertEquals("A KVPairList with three nodes inserted in the front should report a size of 3.", 3 , list.size());
 
         try {
-            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.contains("Joseph", "890-567-9002"));
-            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.contains("Adam", "707-890-3568"));
-            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.contains("Rayeesha", "403-111-2000"));
+            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Joseph", "890-567-9002"));
+            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Adam", "707-890-3568"));
+            assertTrue("After inserting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Rayeesha", "403-111-2000"));
         } catch(Throwable t){
             fail(format(t));
         }
@@ -111,9 +111,9 @@ public class KVPairListTests {
         assertEquals("A KVPairList with three nodes inserted and a failed deletion should still report a size of 3.", 3 , list.size());
 
         try {
-            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.contains("Joseph", "890-567-9002"));
-            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.contains("Adam", "707-890-3568"));
-            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.contains("Rayeesha", "403-111-2000"));
+            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Joseph", "890-567-9002"));
+            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Adam", "707-890-3568"));
+            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Rayeesha", "403-111-2000"));
         } catch(Throwable t){
             fail(format(t));
         }
@@ -129,9 +129,9 @@ public class KVPairListTests {
         assertEquals("A KVPairList with three nodes inserted and one successful deletion should report a size of 2.", 2 , list.size());
 
         try {
-            assertFalse("After inserting it and deleting it, we should NOT be able to find a key in the KVPairList.", list.contains("Joseph", "890-567-9002"));
-            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.contains("Adam", "707-890-3568"));
-            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.contains("Rayeesha", "403-111-2000"));
+            assertFalse("After inserting it and deleting it, we should NOT be able to find a key in the KVPairList.", list.containsKVPair("Joseph", "890-567-9002"));
+            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Adam", "707-890-3568"));
+            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Rayeesha", "403-111-2000"));
         } catch(Throwable t){
             fail(format(t));
         }
@@ -146,8 +146,8 @@ public class KVPairListTests {
         assertEquals("A KVPairList with three nodes inserted and two successful deletions should report a size of 1.", 1 , list.size());
 
         try {
-            assertFalse("After inserting it and deleting it, we should NOT be able to find a key in the KVPairList.", list.contains("Adam", "707-890-3568"));
-            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.contains("Rayeesha", "403-111-2000"));
+            assertFalse("After inserting it and deleting it, we should NOT be able to find a key in the KVPairList.", list.containsKVPair("Adam", "707-890-3568"));
+            assertTrue("After inserting it and NOT deleting it, we should be able to find a key in the KVPairList.", list.containsKVPair("Rayeesha", "403-111-2000"));
         } catch(Throwable t){
             fail(format(t));
         }
@@ -162,7 +162,7 @@ public class KVPairListTests {
         assertEquals("A KVPairList with three nodes inserted and three successful deletions SHOULD report a size of 0.", 0, list.size());
 
         try {
-            assertFalse("After inserting it and deleting it, we should NOT be able to find a key in the KVPairList.", list.contains("Rayeesha", "403-111-2000"));
+            assertFalse("After inserting it and deleting it, we should NOT be able to find a key in the KVPairList.", list.containsKVPair("Rayeesha", "403-111-2000"));
         } catch(Throwable t){
             fail(format(t));
         }

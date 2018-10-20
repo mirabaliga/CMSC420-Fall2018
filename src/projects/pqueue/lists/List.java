@@ -56,7 +56,7 @@ public interface List<T> extends Iterable<T>{
 	public T get(int index) throws EmptyListException, IllegalListAccessException;
 	
 	/**
-	 * Determines whether the list contains at least one occurrence of element.
+	 * Determines whether the list containsKVPair at least one occurrence of element.
 	 * @param element the element to be searched.
 	 * @return true if element is in list.
 	 */

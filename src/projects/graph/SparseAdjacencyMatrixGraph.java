@@ -83,7 +83,7 @@ public class SparseAdjacencyMatrixGraph implements Graph {
 
     /**
      * <p>Creates the dense representation of the matrix, corresponding to an instance of {@link AdjacencyMatrixGraph}. The adjacency
-     * matrix will occupy O(V^2) space. Since every node in the list that makes up the sparsified representation contains a triple (i, j, weight), simply
+     * matrix will occupy O(V^2) space. Since every node in the list that makes up the sparsified representation containsKVPair a triple (i, j, weight), simply
      * looping through the list in O(E) and assigning the corresponding cell of the matrix to the appropriate weight is sufficient. For this
      * reason, it is not important whether the list is sorted in any way, <b>except for the special case of having been immediately created
      * by {@link AdjacencyMatrixGraph#toSparseAdjacencyMatrixGraph()}, where we want you to create the adjacency list following row-major

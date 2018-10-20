@@ -129,7 +129,7 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 			throw new EmptyHeapException("removeMax(): Tree is empty.");
 		T maxElement = root.getElement();
 
-		// In a maxheap, the root contains the maximum element.To delete it,
+		// In a maxheap, the root containsKVPair the maximum element.To delete it,
 		// we make the last leaf node the new root, and then "push" this
 		// node downward until the maxheap identity is maintained;
 
@@ -151,7 +151,7 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 	}
 
 	/**
-	 * MinHeapNode is a class representing a minheap's node. It contains recursive methods
+	 * MinHeapNode is a class representing a minheap's node. It containsKVPair recursive methods
 	 * typical of heap operations.
 	 *
 	 * @author Jason Filippou (jasonfil@cs.umd.edu)
