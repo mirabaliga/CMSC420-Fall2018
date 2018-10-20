@@ -35,7 +35,7 @@ public interface FIFOQueue<T> extends Iterable<T> {
 	public T dequeue() throws EmptyFIFOQueueException;
 	
 	/**
-	 * Returns but doesn not delete the getKey element from the front of the queue.
+	 * Returns but doesn not remove the getKey element from the front of the queue.
 	 * @return The element at the front of the queue.
 	 * @throws EmptyFIFOQueueException If the queue is empty.
 	 */

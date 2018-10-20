@@ -4,7 +4,7 @@ package projects.pqueue.trees;
  * <p>A <tt>BinarySearchTree</tt> is a {@link Tree} with a maximum of 2 children nodes per nodes
  * which allows for adding and removing nodes in a sorted manner. As such, it will extend
  * the {@link Tree} interface but it will also restrict the objects it stores to Comparable ones.
- * There are only going to be two new methods in this interface: insert(T) and delete(T).</p>
+ * There are only going to be two new methods in this interface: insert(T) and remove(T).</p>
  * 
  * <p>Following classic semantics, for every given nodes, elements in the left subtree of the nodes
  * are smaller (as defined by their <tt>compareTo()</tt> definitions) than the element at the nodes, which is

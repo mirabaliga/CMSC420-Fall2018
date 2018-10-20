@@ -129,12 +129,12 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 			throw new EmptyHeapException("removeMax(): Tree is empty.");
 		T maxElement = root.getElement();
 
-		// In a maxheap, the root containsKVPair the maximum element.To delete it,
+		// In a maxheap, the root containsKVPair the maximum element.To remove it,
 		// we make the last leaf node the new root, and then "push" this
 		// node downward until the maxheap identity is maintained;
 
 		if(root.left == null) // single element in the heap, the root element
-			root = last = null; // just delete it, and we're done.
+			root = last = null; // just remove it, and we're done.
 		else{ // at least one more element in the heap.
 			MinHeapNode<T> newLast = root.getNewLast(last);
 			if(last.parent.left == last)// Was the last node a left child?
@@ -320,7 +320,7 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 		/**
 		 * Removing an arbitrary element from the maxheap is an unsupported
 		 * operation. We only allow the user to explicitly call removeMax()
-		 * in order to delete the maximum element (the root).
+		 * in order to remove the maximum element (the root).
 		 * @throws UnsupportedOperationException always
 		 */
 		@Override

@@ -57,12 +57,13 @@ public class SeparateChainingHashTable implements HashTable{
 
     @Override
     public void put(String key, String value) {
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+        table[hash(key)].addFront(key, value); // For efficient insertions, just drop at front. We have unordered lists.
     }
 
     @Override
     public String get(String key) {
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+
+        return table[hash(key)].getValue(key);
     }
 
     @Override

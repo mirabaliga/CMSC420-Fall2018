@@ -17,8 +17,8 @@ import java.util.*;     // You need this import because of the interface method 
  * <b>entirely stacklessly!</b>Read the project description for more in-depth information.</p>
  *
  * <p>Finally, for this project, <b>we assume that there are no duplicate keys in your data structure. </b> This means that, in our unit tests,
- * whenever we delete a key from your tree, <b>we expect it to no longer be found in the tree.</b> You may deal with this
- * invariant in any way you please, e.g. throw an exception if a duplicate is inserted, or delete all instances of a key when we ask for a deletion.</p>
+ * whenever we remove a key from your tree, <b>we expect it to no longer be found in the tree.</b> You may deal with this
+ * invariant in any way you please, e.g. throw an exception if a duplicate is inserted, or remove all instances of a key when we ask for a deletion.</p>
  *
  * @author ------- PUT YOUR NAME HERE! ------
  * @see #inorderTraversal()

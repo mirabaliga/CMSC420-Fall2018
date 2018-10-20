@@ -165,7 +165,7 @@ public class DoublyLinkedList<T> extends LinkedList<T>{
 	 * if the index of the element to be found is closer to either the end
 	 * or the start of the list.
 	 * 
-	 * @param index The index of the element to delete.
+	 * @param index The index of the element to remove.
 	 * @return The index-th element of the list.
 	 */
 	@Override
@@ -256,8 +256,8 @@ public class DoublyLinkedList<T> extends LinkedList<T>{
 	@Override
 	public void delete(int index) throws IllegalListAccessException{
 		if(index < 0 || index >= size)
-			throw new IllegalListAccessException("delete(int): Index " + index + " is not a valid list index.");
-		modificationFlag = true; // If the method doesn't throw an exception, it will always delete an element, thus modifying the container.
+			throw new IllegalListAccessException("remove(int): Index " + index + " is not a valid list index.");
+		modificationFlag = true; // If the method doesn't throw an exception, it will always remove an element, thus modifying the container.
 		// Special case of removing the getKey element of the list:
 
 		if(index == 0){

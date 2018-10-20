@@ -114,14 +114,72 @@ public class KVPairList {
         }
     }
 
+
     /**
-     * Deletes the <b>first</b> occurrence of the pair &lt; key, value &gt; from the {@link KVPairList}. Linear - time operation.
+     * Removes the <b>first</b> entry with key <tt>key</tt> from the list. If <tt>key</tt> does not exist in the list,
+     * this method has <b>no effect</b>.
+     * @param key The &quot; key &quot; {@link String} to match with entries.
+     */
+    public void removeByKey(String key){
+        Node current = head;
+        Node previous = null;
+        while(current != null){
+            if(current.pair.getKey().equals(key)){ // Found it
+                if(previous != null) {
+                    previous.next = current.next;
+                }
+                if(current == head) {
+                    assert previous == null : "If we find the element at the beginning of the list, previous should be null.";
+                    head = head.next;
+                }
+                if(current == tail){
+                    assert tail.next == null : "If we find the element at the end of the list, the next element should be null.";
+                    tail = tail.next;
+                }
+                count--;
+                break;
+            }
+            previous = current;
+            current = current.next;
+        }
+    }
+    /**
+     * Removes the <b>first</b> entry with value <tt>value</tt> from the list. If <tt>value</tt> does not exist in the list,
+     * this method has <b>no effect</b>.
+     * @param value The &quot; value &quot; {@link String} to match with entries.
+     */
+    public void removeByValue(String value){
+        Node current = head;
+        Node previous = null;
+        while(current != null){
+            if(current.pair.getValue().equals(value)){ // Found it
+                if(previous != null) {
+                    previous.next = current.next;
+                }
+                if(current == head) {
+                    assert previous == null : "If we find the element at the beginning of the list, previous should be null.";
+                    head = head.next;
+                }
+                if(current == tail){
+                    assert tail.next == null : "If we find the element at the end of the list, the next element should be null.";
+                    tail = tail.next;
+                }
+                count--;
+                break;
+            }
+            previous = current;
+            current = current.next;
+        }
+    }
+
+    /**
+     * Removes the <b>first</b> occurrence of the pair &lt; key, value &gt; from the {@link KVPairList}. Linear - time operation.
      * If &lt; key, value &gt; does <b>not</b> belong in the {@link KVPairList}, this method has <b>no effect</b>.
      * @param key The key {@link String} in the pair.
      * @param value The value {@link String} in the pair.
      * @see #containsKVPair(String, String)
      */
-    public void delete(String key, String value){
+    public void remove(String key, String value){
         Node current = head;
         Node previous = null;
         while(current != null){

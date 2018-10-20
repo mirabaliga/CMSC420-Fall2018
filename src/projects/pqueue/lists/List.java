@@ -31,16 +31,16 @@ public interface List<T> extends Iterable<T>{
 	public void pushBack(T element);
 	
 	/**
-	 * Get the getKey element of the list. This method does *not* delete this element
-	 * (call "delete" to delete elements).
+	 * Get the getKey element of the list. This method does *not* remove this element
+	 * (call "remove" to remove elements).
 	 * @return A copy of the element at the top of the list.
 	 * @throws EmptyListException If the list is empty.
 	 */
 	public T getFirst() throws EmptyListException;
 	
 	/**
-	 * Get the last element of the list. This method does <b>not</b> delete this element
-	 * (call "delete" to delete elements).
+	 * Get the last element of the list. This method does <b>not</b> remove this element
+	 * (call "remove" to remove elements).
 	 * @return A copy of the element at the top of the list.
 	 * @throws EmptyListException if the list is empty.
 	 */

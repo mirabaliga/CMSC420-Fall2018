@@ -142,7 +142,7 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 
 	@Override
 	public T deleteMin() throws EmptyHeapException {
-		// To delete the minimum element, we delete the root,
+		// To remove the minimum element, we remove the root,
 		// and then swap the smallest child of the root with the root
 		// and keep on doing that until the heap identity is maintained.
 		if(data[0] == null)
@@ -227,8 +227,8 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 		}
 
 		/**
-		 * delete() is an unsupported operation. It does not make sense to provide
-		 * a MaxHeap with the ability to delete an arbitrary element.
+		 * remove() is an unsupported operation. It does not make sense to provide
+		 * a MaxHeap with the ability to remove an arbitrary element.
 		 * @throws UnsupportedOperationException always.
 		 */
 		@Override

@@ -36,7 +36,7 @@ public interface PriorityQueue<T> extends Iterable<T> {
 	public T dequeue() throws EmptyPriorityQueueException;
 	
 	/**
-	 * Returns, <b>but does not delete</b> the top element of the <tt>PriorityQueue</tt>.
+	 * Returns, <b>but does not remove</b> the top element of the <tt>PriorityQueue</tt>.
 	 * @return The element at the top of the <tt>PriorityQueue</tt>.
 	 * @throws EmptyPriorityQueueException If the <tt>PriorityQueue</tt> is empty.
 	 */

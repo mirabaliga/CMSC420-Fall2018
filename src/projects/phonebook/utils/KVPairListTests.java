@@ -101,7 +101,7 @@ public class KVPairListTests {
 
         // First, a deletion of an element that does not exist in the list.
         try {
-            list.delete("Marie", "789-429-1095");
+            list.remove("Marie", "789-429-1095");
         } catch(Throwable t){
             fail(format(t));
         }
@@ -120,7 +120,7 @@ public class KVPairListTests {
 
         // One deletion.
         try {
-            list.delete("Joseph", "890-567-9002");
+            list.remove("Joseph", "890-567-9002");
         } catch(Throwable t){
             fail(format(t));
         }
@@ -138,7 +138,7 @@ public class KVPairListTests {
 
         // Another deletion.
         try {
-            list.delete("Adam", "707-890-3568");
+            list.remove("Adam", "707-890-3568");
         } catch(Throwable t){
             fail(format(t));
         }
@@ -154,7 +154,7 @@ public class KVPairListTests {
 
         // A final one.
         try {
-            list.delete("Rayeesha", "403-111-2000");
+            list.remove("Rayeesha", "403-111-2000");
         } catch(Throwable t){
             fail(format(t));
         }
@@ -172,7 +172,7 @@ public class KVPairListTests {
         list.addBack("Karthik", "303-678-900");
 
         try {
-            list.delete("Karthik", "303-678-900");
+            list.remove("Karthik", "303-678-900");
         } catch(Throwable t){
             fail(format(t));
         }

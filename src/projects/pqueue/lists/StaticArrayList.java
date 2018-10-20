@@ -199,11 +199,11 @@ public class StaticArrayList<T> implements List<T> {
 		return false;
 	}
 
-	/* delete(int) is very fastly implemented in such a list. */
+	/* remove(int) is very fastly implemented in such a list. */
 	@Override
 	public void delete(int index) throws IllegalListAccessException{
 		if(index < 0 || index > lastIndex)
-			throw new IllegalListAccessException("delete(int): Index " + index + " refers to a position outside the list.");
+			throw new IllegalListAccessException("remove(int): Index " + index + " refers to a position outside the list.");
 		data[index] = null;
 		for(int j = index + 1; j <= lastIndex; j++) // Shift all elements to the right one position to the left.
 			data[j - 1] = data[j];
@@ -211,12 +211,12 @@ public class StaticArrayList<T> implements List<T> {
 		modificationFlag = true;
 	}
 
-	/* deleteAll(T) will be similar to delete(T), the main difference being that we
+	/* deleteAll(T) will be similar to remove(T), the main difference being that we
 	 * won't exit the method after the getKey removal.
 	 */
 	@Override
 	public boolean deleteAll(T element) {
-		// I'll just call delete() as many times as needed...
+		// I'll just call remove() as many times as needed...
 		boolean contained = false;
 		while(contains(element)){
 			contained = true;
