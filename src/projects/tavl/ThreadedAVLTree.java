@@ -27,262 +27,32 @@ import java.util.*;     // You need this import because of the interface method 
  */
 public class ThreadedAVLTree<T extends Comparable<T>> {
 
-    private Node root;
+    /* ************************************* */
+    /* YOUR PRIVATE FIELDS AND METHODS  HERE */
+    /* ************************************* */
 
-        /**
+    private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
+
+
+    /* ***************************************** */
+    /* YOU MUST IMPLEMENT THE PUBLIC METHODS BELOW */
+    /* ***************************************** */
+
+     /**
      * Default constructor. Your code should allow for one, since the unit tests
      * depend on the presence of a default constructor.
      */
     public ThreadedAVLTree(){
-
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
-    public int getBalance(Node curr) {
-        if (curr == null)
-            return 0;
-        int leftSide;
-        int rightSide;
-        if (!curr.leftThread) {
-            leftSide = heightAux(curr.left);
-        }
-        else {
-            leftSide = -1;
-        }
-        if (!curr.rightThread) {
-            rightSide = heightAux(curr.right);
-        }
-        else {
-            rightSide = -1;
-        }
-
-        return leftSide - rightSide;
-    }
-
-    public Node leftRotate(Node curr) {
-        Node a = curr.right;
-        Node b = a.left;
-        boolean flag = false;
-        if (!a.leftThread) {
-            flag = true;
-        }
-        a.left = curr;
-        a.leftThread = false;
-        if (flag) {
-            curr.right = b;
-            curr.rightThread = false;
-            curr.height ++;
-        }
-        else {
-            curr.rightThread = true;
-        }
-        if (!a.rightThread) {
-            curr.height = curr.height - 2;
-        }
-        else {
-            curr.height = curr.height - 1;
-            a.height = a.height + 1;
-        }
-        return a;
-    }
-
-    public Node rightRotate(Node curr) {
-        Node a = curr.left;
-        Node b = a.right;
-        boolean flag = false;
-        if (!a.rightThread) {
-            flag = true;
-        }
-        a.right = curr;
-        a.rightThread = false;
-        if (flag) {
-            curr.left = b;
-            curr.leftThread = false;
-            if (!curr.rightThread) {
-                curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
-            }
-            else {
-                curr.height = 1 + heightAux(curr.left);
-            }
-        }
-        else {
-            curr.leftThread = true;
-        }
-        if (!a.leftThread) {
-            curr.height = curr.height - 2;
-        }
-        else {
-            curr.height = curr.height - 1;
-            a.height = a.height + 1;
-        }
-        return a;
-    }
-
-    /**
+     /**
      * Insert <tt>key</tt> in the tree.
      * @param key The key to insert in the tree.
      */
     public void insert(T key){
-        if (isEmpty()) {
-            root = new Node(key, null, null, true, true);
-        }
-        else if (search(key) == null){
-            Node curr = root;
-            Stack<Node> parents = new Stack<Node>();
-            while (true) {
-                if (key.compareTo(curr.data) < 0) {
-                    if (curr.leftThread) {
-                        Node prev = curr.left;
-                        curr.left = new Node(key, prev, curr, true, true);
-                        curr.leftThread = false;
-                        parents.push(curr);
-                        while (!parents.isEmpty()) {
-                            curr = parents.pop();
-                            if (!curr.leftThread && !curr.rightThread) {
-                                curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
-                            }
-                            else if (!curr.leftThread) {
-                                curr.height = 1 + heightAux(curr.left);
-                            }
-                            else if (!curr.rightThread) {
-                                curr.height = 1 + heightAux(curr.right);
-                            }
-                            int balance = getBalance(curr);
-                            if (balance > 1) {
-                                if (key.compareTo(curr.left.data) > 0) {
-                                    curr.left = leftRotate(curr.left);
-                                    curr.leftThread = false;
-                                    if (curr.left.right.equals(curr)) {
-                                        curr.left.rightThread = true;
-                                    }
-                                }
-                                curr = rightRotate(curr);
-                                //curr.right.height -= 2;
-                                if (parents.isEmpty()) {
-                                    root = curr;
-                                }
-                                else {
-                                    Node myPos = parents.pop();
-                                    if (curr.data.compareTo(myPos.data) < 0) {
-                                        myPos.left = curr;
-                                    }
-                                    else {
-                                        myPos.right = curr;
-                                    }
-                                }
-                                break;
-                            }
-                            else if (balance < -1){
-                                if (key.compareTo(curr.right.data) < 0) {
-                                    curr.right = rightRotate(curr.right);
-                                    curr.rightThread = false;
-                                    if (curr.right.left.equals(curr)) {
-                                        curr.right.leftThread = true;
-                                    }
-                                }
-                                curr = leftRotate(curr);
-                                //curr.left.height -= 2;
-                                if (parents.isEmpty()) {
-                                    root = curr;
-                                }
-                                else {
-                                    Node myPos = parents.pop();
-                                    if (curr.data.compareTo(myPos.data) < 0) {
-                                        myPos.left = curr;
-                                    }
-                                    else {
-                                        myPos.right = curr;
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    else {
-                        parents.push(curr);
-                        curr = curr.left;
-                    }
-                }
-                else if (key.compareTo(curr.data) > 0){
-                    if (curr.rightThread) {
-                        Node prev = curr.right;
-                        curr.right = new Node(key, curr, prev, true, true);
-                        curr.rightThread = false;
-                        parents.push(curr);
-                        while (!parents.isEmpty()) {
-                            curr = parents.pop();
-                            if (!curr.leftThread && !curr.rightThread) {
-                                curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
-                            }
-                            else if (!curr.leftThread) {
-                                curr.height = 1 + heightAux(curr.left);
-                            }
-                            else if (!curr.rightThread) {
-                                curr.height = 1 + heightAux(curr.right);
-                            }
-                            else {
-                                curr.height = 1;
-                            }
-                            int balance = getBalance(curr);
-                            if (balance > 1) {
-                                if (key.compareTo(curr.left.data) > 0) {
-                                    curr.left = leftRotate(curr.left);
-                                    curr.leftThread = false;
-                                    if (curr.left.right.data.equals(curr.data)) {
-                                        curr.left.rightThread = true;
-                                    }
-                                }
-                                curr = rightRotate(curr);
-                                //curr.right.height -= 2;
-                                if (parents.isEmpty()) {
-                                    root = curr;
-                                }
-                                else {
-                                    Node myPos = parents.pop();
-                                    if (curr.data.compareTo(myPos.data) < 0) {
-                                        myPos.left = curr;
-                                    }
-                                    else {
-                                        myPos.right = curr;
-                                    }
-                                }
-                            }
-                            else if (balance < -1){
-                                if (key.compareTo(curr.right.data) < 0) {
-                                    curr.right = rightRotate(curr.right);
-                                    curr.rightThread = false;
-                                    if (curr.right.left.data.equals(curr.data)) {
-                                        curr.right.leftThread = true;
-                                    }
-                                }
-                                curr = leftRotate(curr);
-                                //curr.left.height -= 2;
-                                if (parents.isEmpty()) {
-                                    root = curr;
-                                }
-                                else {
-                                    Node myPos = parents.pop();
-                                    if (curr.data.compareTo(myPos.data) < 0) {
-                                        myPos.left = curr;
-                                    }
-                                    else {
-                                        myPos.right = curr;
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    }
-                    else {
-                        parents.push(curr);
-                        curr = curr.right;
-                    }
-                }
-                else {
-                    return;
-                }
-            }
-        }
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+
     }
 
     /**
@@ -292,305 +62,8 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * @return The key that was removed, or <tt>null</tt> if the key was not found.
      */
     public T delete(T key){
-        if (isEmpty() || search(key) == null) {
-            return null;
-        }
-        else {
-            Node curr = root;
-            Stack<Node> parents = new Stack<Node>();
-            while (true) {
-                if (key.equals(curr.data)) {
-                    T returnVal = curr.data;
-                    if (curr.leftThread || curr.rightThread) {
-                        Node temp = null;
-                        if (!curr.rightThread) {
-                            temp = curr.right;
-                            if (!parents.isEmpty()) {
-                                curr = parents.pop();
-                                if (key.compareTo(curr.data) > 0) {
-                                    if (!curr.right.leftThread) {
-                                        curr.rightThread = false;
-                                    }
-                                    else {
-                                        curr.rightThread = curr.right.rightThread;
-                                    }
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
 
-                                    curr.right = temp;
-                                    if (curr.right != null && (curr.right.right == null) && curr.right.leftThread) {
-                                        curr.right.left = curr.right.left.left;
-                                    }
-                                    else if (curr.right != null && curr.right.right != null && (curr.right.right.right == null || (curr.right.right.left != null && curr.right.right.left.equals(curr.right)))) {
-                                        curr.right.right = curr.right.right.right;
-                                    }
-                                    /*if (!curr.right.leftThread) {
-                                        curr.right.left = curr.right.left.left;
-                                    }
-                                    if (!curr.right.rightThread) {
-                                        curr.right.right = curr.right.right.right;
-                                    }*/
-
-                                }
-                                else {
-                                    if (!curr.left.rightThread) {
-                                        curr.leftThread = false;
-                                    }
-                                    else {
-                                        curr.leftThread = curr.left.leftThread;
-                                    }
-                                    curr.left = temp;
-                                    if (curr.left != null && (curr.left.left == null) && curr.left.rightThread) {
-                                        curr.left.right = curr.left.right.right;
-                                    }
-                                    else if (curr.left != null && curr.left.left != null && (curr.left.left.left == null || (curr.left.left.right != null && curr.left.left.right.equals(curr.left)))) {
-                                        curr.left.left = curr.left.left.left;
-                                    }
-                                    /*if (!curr.left.rightThread) {
-                                        curr.left.right = curr.left.right.right;
-                                    }
-                                    if (!curr.left.leftThread) {
-                                        curr.left.left = curr.left.left.left;
-                                    }*/
-                                }
-                            } else {
-                                root = temp;
-                                return returnVal;
-                            }
-                        }
-                        else if (!curr.leftThread) {
-                            temp = curr.left;
-                            if (!parents.isEmpty()) {
-                                curr = parents.pop();
-                                if (key.compareTo(curr.data) > 0) {
-                                    if (!curr.right.leftThread) {
-                                        curr.rightThread = false;
-                                    }
-                                    else {
-                                        curr.rightThread = curr.right.rightThread;
-                                    }
-                                    curr.right = temp;
-                                    if (curr.right != null && (curr.right.right == null) && curr.right.leftThread) {
-                                        curr.right.left = curr.right.left.left;
-                                    }
-                                    else if (curr.right != null && curr.right.right != null && (curr.right.right.right == null ||  (curr.right.right.left != null && curr.right.right.left.equals(curr.right)))) {
-                                        curr.right.right = curr.right.right.right;
-                                    }
-                                    /*if (!curr.right.rightThread) {
-                                        curr.right.right = curr.right.right.right;
-                                    }
-                                    if (curr.right.left != null) {
-                                        curr.right.left = curr.right.left.left;
-                                    }*/
-                                }
-                                else {
-                                    if (!curr.left.rightThread) {
-                                        curr.leftThread = false;
-                                    }
-                                    else {
-                                        curr.leftThread = curr.left.leftThread;
-                                    }
-                                    curr.left = temp;
-                                    if (curr.left != null && (curr.left.left == null) && curr.left.rightThread) {
-                                        curr.left.right = curr.left.right.right;
-                                    }
-                                    else if (curr.left != null && curr.left.left != null && (curr.left.left.left == null || (curr.left.left.right != null && curr.left.left.right.equals(curr.left)))) {
-                                        curr.left.left = curr.left.left.left;
-                                    }
-                                    /*if (curr.left.left != null) {
-                                        curr.left.left = curr.left.left.left;
-                                    }
-                                    if (curr.left.right != null) {
-                                        curr.left.right = curr.left.right.right;
-                                    }*/
-                                }
-
-                            }
-                            else {
-                                root = temp;
-                                return returnVal;
-                            }
-                        }
-
-                        if (temp == null) {
-                            temp = curr;
-                            curr = null;
-                        }
-                    }
-                    else {
-                        Node temp = curr.right;
-                        while (!temp.leftThread) {
-                            temp = temp.left;
-                        }
-                        T val = temp.data;
-                        delete(val);
-                        curr.data = val;
-                    }
-                    if (curr == null) {
-                        if (parents.isEmpty()) {
-                            root = null;
-                            return returnVal;
-                        }
-                        else {
-                            curr = parents.pop();
-                            if (key.compareTo(curr.data) < 0) {
-                                curr.leftThread = curr.left.leftThread;
-                                curr.left = curr.left.left;
-
-                            }
-                            else {
-                                curr.rightThread = curr.right.rightThread;
-                                curr.right = curr.right.right;
-                            }
-                        }
-                    }
-                    do {
-                        if (!curr.leftThread && !curr.rightThread) {
-                            curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
-                        }
-                        else if (!curr.leftThread) {
-                            curr.height = 1 + heightAux(curr.left);
-                        }
-                        else if (!curr.rightThread) {
-                            curr.height = 1 + heightAux(curr.right);
-                        }
-                        else {
-                            curr.height = 0;
-                        }
-                        int balance = getBalance(curr);
-                        if (balance > 1) {
-                            int balanceSub = getBalance(curr.left);
-                            if (balanceSub < 0) {
-                                curr.left = leftRotate(curr.left);
-                                curr.leftThread = false;
-                                if (curr.left.right.data.equals(curr.data)) {
-                                    curr.left.rightThread = true;
-                                }
-                            }
-                            curr = rightRotate(curr);
-                            if (!curr.leftThread && !curr.rightThread) {
-                                if (!curr.right.leftThread && !curr.right.rightThread) {
-                                    curr.right.height = 1 + Math.max(heightAux(curr.right.left), heightAux(curr.right.right));
-                                }
-                                else if (!curr.right.leftThread) {
-                                    curr.right.height = 1 + heightAux(curr.right.left);
-                                }
-                                else if (!curr.right.rightThread) {
-                                    curr.right.height = 1 + heightAux(curr.right.right);
-                                }
-                                curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
-                            }
-                            else if (!curr.leftThread) {
-                                curr.height = 1 + heightAux(curr.left);
-                            }
-                            else if (!curr.rightThread) {
-                                if (!curr.right.leftThread && ! curr.right.rightThread) {
-                                    curr.right.height = 1 + Math.max(heightAux(curr.right.left), heightAux(curr.right.right));
-                                }
-                                else if (!curr.right.leftThread) {
-                                    curr.right.height = 1 + heightAux(curr.right.left);
-                                }
-                                else if (!curr.right.rightThread) {
-                                    curr.right.height = 1 + heightAux(curr.right.right);
-                                }
-                                curr.height = 1 + heightAux(curr.right);
-                            }
-                            if (parents.isEmpty()) {
-                                root = curr;
-                            }
-                            else {
-                                Node myPos = parents.pop();
-                                if (curr.data.compareTo(myPos.data) < 0) {
-                                    myPos.left = curr;
-                                }
-                                else {
-                                    myPos.right = curr;
-                                }
-                                curr = myPos;
-                            }
-                        }
-                        else if (balance < -1){
-                            int balanceSub = getBalance(curr.right);
-                            if (balanceSub > 0) {
-                                curr.right = rightRotate(curr.right);
-                                curr.rightThread = false;
-                                if (curr.right.left.data.equals(curr.data)) {
-                                    curr.right.leftThread = true;
-                                }
-                            }
-                            curr = leftRotate(curr);
-                            if (!curr.leftThread && !curr.rightThread) {
-                                if (!curr.left.leftThread && ! curr.left.rightThread) {
-                                    curr.left.height = 1 + Math.max(heightAux(curr.left.left), heightAux(curr.left.right));
-                                }
-                                else if (!curr.left.leftThread) {
-                                    curr.left.height = 1 + heightAux(curr.left.left);
-                                }
-                                else if (!curr.left.rightThread) {
-                                    curr.left.height = 1 + heightAux(curr.left.right);
-                                }
-                                curr.height = 1 + Math.max(heightAux(curr.left), heightAux(curr.right));
-                            }
-                            else if (!curr.leftThread) {
-                                if (!curr.left.leftThread && ! curr.left.rightThread) {
-                                    curr.left.height = 1 + Math.max(heightAux(curr.left.left), heightAux(curr.left.right));
-                                }
-                                else if (!curr.left.leftThread) {
-                                    curr.left.height = 1 + heightAux(curr.left.left);
-                                }
-                                else if (!curr.left.rightThread) {
-                                    curr.left.height = 1 + heightAux(curr.left.right);
-                                }
-                                curr.height = 1 + heightAux(curr.left);
-                            }
-                            else if (!curr.rightThread) {
-                                curr.height = 1 + heightAux(curr.right);
-                            }
-                            if (parents.isEmpty()) {
-                                root = curr;
-                                return returnVal;
-                            }
-                            else {
-                                Node myPos = parents.pop();
-                                if (curr.data.compareTo(myPos.data) < 0) {
-                                    myPos.left = curr;
-                                }
-                                else {
-                                    myPos.right = curr;
-                                }
-                                curr = myPos;
-                                continue;
-                            }
-                        }
-                        if (!parents.isEmpty()) {
-                            curr = parents.pop();
-                        }
-                        else {
-                            break;
-                        }
-
-                    } while (true);
-                    return returnVal;
-
-                }
-                else if (key.compareTo(curr.data) < 0) {
-                    if (!curr.leftThread) {
-                        parents.push(curr);
-                        curr = curr.left;
-                    }
-                    else {
-                        return null;
-                    }
-                }
-                else {
-                    if (!curr.rightThread) {
-                        parents.push(curr);
-                        curr = curr.right;
-                    }
-                    else {
-                        return null;
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -600,29 +73,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * @return <tt>key</tt> if <tt>key</tt> is in the tree, or <tt>null</tt> otherwise.
      */
     public T search(T key){
-        Node curr = root;
-        while (curr != null) {
-            if (key.compareTo(curr.data) < 0) {
-                if (!curr.leftThread) {
-                    curr = curr.left;
-                }
-                else {
-                    return null;
-                }
-            }
-            else if (key.compareTo(curr.data) > 0) {
-                if (!curr.rightThread) {
-                    curr = curr.right;
-                }
-                else {
-                    return null;
-                }
-            }
-            else {
-                return key;
-            }
-        }
-        return null;
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
 
@@ -633,24 +84,16 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * @return The height of the tree.
      */
     public int height(){
-        return heightAux(root);
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
-    public int heightAux(Node curr) {
-        if (curr == null) {
-            return -1;
-        }
-        else {
-            return curr.height;
-        }
-    }
 
     /**
      * Query the tree for emptiness. A tree is empty iff it has zero keys stored.
      * @return <tt>true</tt> if the tree is empty, <tt>false</tt> otherwise.
      */
-    public boolean isEmpty(){
-        return root == null;
+    public boolean isEmpty()   {
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     /**
@@ -658,12 +101,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * @return The key at the tree's root node, or <tt>null</tt> if the tree is empty.
      */
     public T getRoot(){
-        if (isEmpty()) {
-            return null;
-        }
-        else {
-            return root.data;
-        }
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     /**
@@ -680,54 +118,6 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * <b>any way you please</b>.
      */
     public Iterator<T> inorderTraversal(){
-        return new ThreadedAVLTreeIterator();
-    }
-
-    protected class ThreadedAVLTreeIterator implements java.util.Iterator<T>{
-        protected Node curr;
-        public ThreadedAVLTreeIterator() {
-            curr = root;
-            if (curr != null) {
-                while (!curr.leftThread) {
-                    curr = curr.left;
-                }
-            }
-        }
-        public boolean hasNext() {
-            return curr != null;
-        }
-        public T next() {
-            if (hasNext()) {
-                T returnVal = curr.data;
-                if (!curr.rightThread) {
-                    curr = curr.right;
-                    while (!curr.leftThread) {
-                        curr = curr.left;
-                    }
-                }
-                else {
-                    curr = curr.right;
-                }
-                return returnVal;
-            }
-            else {
-                return null;
-            }
-        }
-    }
-
-    protected class Node {
-        protected T data;
-        protected int height;
-        protected Node left, right;
-        protected boolean leftThread, rightThread;
-        public Node(T element, Node left, Node right, boolean leftThread, boolean rightThread) {
-            this.data = element;
-            this.left = left;
-            this.right = right;
-            this.leftThread = leftThread;
-            this.rightThread = rightThread;
-            this.height = 0;
-        }
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 }
