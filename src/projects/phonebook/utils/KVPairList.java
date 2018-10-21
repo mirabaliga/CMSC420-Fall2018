@@ -1,5 +1,7 @@
 package projects.phonebook.utils;
 
+import java.util.Iterator;
+
 /**
  * <p>{@link KVPairList} is a simple linked list storing pairs of {@link String}s. It offers <b>constant-time</b>
  * insertion in the front and the back of the list, linear-time search and deletion and constant-time size querying for size and
@@ -14,7 +16,7 @@ package projects.phonebook.utils;
  * @see KVPair
  * @see KVPairListTests
  */
-public class KVPairList {
+public class KVPairList implements Iterable<KVPair>{
 
     private class Node {
         KVPair pair;
@@ -220,11 +222,45 @@ public class KVPairList {
         return false;
     }
 
+    /**
+     * Searches the {@link KVPairList} for a pair that has <tt>key</tt> as the first component of a pair &lt; key, value &gt;
+     * and reports if it found it. There might be   more than one occurrences of &lt; key, value &gt; in the list: this method
+     * searches for <b>at least one</b>.
+     * @param key The &quot;key&quot;{@link String} in the pair.
+     * @return <tt>true</tt> if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
+     *              <tt>false</tt> otherwise.
+     */
+    public boolean containsKey(String key){
+        Node current = head;
+        while(current != null){
+            if(current.pair.getKey().equals(key))
+                return true;
+            current = current.next;
+        }
+        return false;
+    }
 
+    /**
+     * Searches the {@link KVPairList} for a pair that has <tt>value</tt> as the second component of a pair &lt; key, value &gt;
+     * and reports if it found it. There might be   more than one occurrences of &lt; key, value &gt; in the list: this method
+     * searches for <b>at least one</b>.
+     * @param value The &quot; value &quot; {@link String} in the pair.
+     * @return <tt>true</tt> if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
+     *              <tt>false</tt> otherwise.
+     */
+    public boolean containsValue(String value){
+        Node current = head;
+        while(current != null){
+            if(current.pair.getValue().equals(value))
+                return true;
+            current = current.next;
+        }
+        return false;
+    }
 
     /**
      * Simple getter for values based on keys.
-     * @param key the &quot;value&quot; {@link String}
+     * @param key the &quot;value&quot; {@link String} to search for.
      * @return The &quot;key&quot; {@link String} or <tt>null</tt> if <tt>key</tt> could not be found in <tt>this</tt>.
      */
     public String getValue(String key){
@@ -240,7 +276,7 @@ public class KVPairList {
 
     /**
      * Simple getter for keys based on values.
-     * @param value the value {@link String}
+     * @param value the value {@link String} to search for.
      * @return The &quot; key &quot; {@link String} or <tt>null</tt> if <tt>value</tt> could not be found in <tt>this</tt>.
      */
     public String getKey(String value){
@@ -271,4 +307,27 @@ public class KVPairList {
         return size() == 0;
     }
 
+    public Iterator<KVPair> iterator(){
+        return new Iterator<>() {
+
+            private Node curr = head;
+
+            @Override
+            public boolean hasNext() {
+                return curr != null;
+            }
+
+            @Override
+            public KVPair next() {
+                KVPair retVal = curr.pair;
+                curr = curr.next;
+                return retVal;
+            }
+
+            @Override
+            public void remove(){
+                throw new UnsupportedOperationException("KVPairList Iterator does not implement remove().");
+            }
+        };
+    }
 }

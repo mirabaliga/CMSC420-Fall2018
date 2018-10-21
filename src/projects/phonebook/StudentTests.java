@@ -72,9 +72,12 @@ public class StudentTests {
     // See if all of our hash tables cover the simple example from the writeup.
     @Test
     public void testOpenAddressingResizeWhenInsert() {
-        SeparateChainingHashTable sc = new SeparateChainingHashTable(7);
-        LinearProbingHashTable lp = new LinearProbingHashTable(7);
-        QuadraticProbingHashTable qp = new QuadraticProbingHashTable(7);
+        SeparateChainingHashTable sc = new SeparateChainingHashTable();
+        LinearProbingHashTable lp = new LinearProbingHashTable();
+        QuadraticProbingHashTable qp = new QuadraticProbingHashTable();
+        assertEquals("Separate Chaining hash should have a capacity of 7 at startup.", 7, sc.capacity());
+        assertEquals("Linear Probing hash should have a capacity of 7 at startup.", 7, lp.capacity());
+        assertEquals("Quadratic Probing hash should have a capacity of 7 at startup.", 7, qp.capacity());
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             sc.put(entry.getKey(), entry.getValue());
             lp.put(entry.getKey(), entry.getValue());

@@ -54,7 +54,7 @@ public class PrimeGeneratorTests {
 
     @Test
     public void testCurrentPrimeDefault() {
-        assertEquals("Expected 13 by default.", 13, pg.getCurrPrime());
+        assertEquals("Expected 7 by default.", 7, pg.getCurrPrime());
     }
 
     /**
@@ -62,12 +62,11 @@ public class PrimeGeneratorTests {
      */
     @Test
     public void testGetNextPrime() {
-        assertEquals("Expected 23 after first call to getNextPrime().", 23, pg.getNextPrime());
-        assertEquals("Expected 23 to be returned by this method after a successful call to getNextPrime().",
-                23, pg.getCurrPrime());
-        assertEquals("Expected 43 after second call to getNextPrime().", 43, pg.getNextPrime());
-        assertEquals("Expected 59 to be returned by this method after a successful second call to getNextPrime().",
-                43, pg.getCurrPrime());
+        assertEquals("Expected 13 after first call to getNextPrime().", 13, pg.getNextPrime());
+        assertEquals("Expected 13 to be returned by getCurrPrime() after a successful call to getNextPrime().",
+                13, pg.getCurrPrime());
+        assertEquals("Expected 23 to be returned by this method after a successful second call to getNextPrime().",
+                23, pg.getNextPrime());
     }
 
 
@@ -76,37 +75,37 @@ public class PrimeGeneratorTests {
      */
     @Test
     public void testGetPreviousPrime() {
-        assertEquals("Expected 7 after first call to getPreviousPrime().", 7, pg.getPreviousPrime());
-        assertEquals("Expected 7 to be returned by this method after a successful call to getPreviousPrime().",
-                7, pg.getCurrPrime());
-        assertEquals("Expected 5 after second call to getPreviousPrime().", 5, pg.getPreviousPrime());
-        assertEquals("Expected 5 to be returned by this method after a successful second call to getPreviousPrime().",
+        assertEquals("Expected 5 after first call to getPreviousPrime().", 5, pg.getPreviousPrime());
+        assertEquals("Expected 5 to be returned by getCurrPrime() after a successful call to getPreviousPrime().",
                 5, pg.getCurrPrime());
+        assertEquals("Expected 3 after second call to getPreviousPrime().", 3, pg.getPreviousPrime());
+        assertEquals("Expected 3 to be returned by getCurrPrime() after a successful second call to getPreviousPrime().",
+                3, pg.getCurrPrime());
     }
 
     /**
-     * Tests whether the {@link PrimeGenerator} instance points to 13 after a call to
+     * Tests whether the {@link PrimeGenerator} instance points to 7 after a call to
      * {@link PrimeGenerator#getNextPrime()} followed by a call to {@link PrimeGenerator#getPreviousPrime()}.
      */
     @Test
     public void testGetNextAndThenPreviousPrime(){
         pg.getNextPrime();
         pg.getPreviousPrime();
-        assertEquals("Expected getCurrPrime() to return  13 after a call to getNextPrime() and a call to " +
-                "getPreviousPrime().", 13, pg.getCurrPrime());
+        assertEquals("Expected getCurrPrime() to return  7 after a call to getNextPrime() and a call to " +
+                "getPreviousPrime().", 7, pg.getCurrPrime());
     }
 
 
     /**
-     * Tests whether the {@link PrimeGenerator} instance points to 11 after a call to
+     * Tests whether the {@link PrimeGenerator} instance points to 7 after a call to
      * {@link PrimeGenerator#getPreviousPrime()} followed by a call to {@link PrimeGenerator#getNextPrime()}.
      */
     @Test
     public void testgetPreviousAndThenNextPrime(){
         pg.getPreviousPrime();
         pg.getNextPrime();
-        assertEquals("Expected getCurrPrime() to return  13 after a call to getPreviousPrime() and a call to " +
-                "getNextPrime().", 13, pg.getCurrPrime());
+        assertEquals("Expected getCurrPrime() to return 7 after a call to getPreviousPrime() and a call to " +
+                "getNextPrime().", 7, pg.getCurrPrime());
     }
 
     /** Tests for edge cases of {@link PrimeGenerator} which <b>should</b> be throwing {@link NoMorePrimesException}
@@ -114,33 +113,40 @@ public class PrimeGeneratorTests {
      */
     @Test
     public void testExceptionsThrown(){
-        pg.getPreviousPrime();
-        pg.getPreviousPrime();
+        pg.getPreviousPrime(); // 5
+        pg.getPreviousPrime(); // 3
+        pg.getPreviousPrime(); // 2
+        RuntimeException rexc = null;
         try {
-            pg.getPreviousPrime();
-        } catch(NoMorePrimesException ignored){
-            // Good, test succeeded
-        } catch(Throwable t) { // Otherwise, test failed. Make sure an assertion error is propagated to the top.
+            pg.getPreviousPrime(); // Should throw
+        } catch(NoMorePrimesException nmpe){
+            rexc = nmpe;
+        } catch(Throwable t){
             fail(format(t));
         }
+        assertNotNull("A call to getPreviousPrime() when getCurrentPrime() returns 2 should have thrown a NoMorePrimesException", rexc);
 
         // The biggest prime number we store is 7907. We start making calls to getNextPrime() which will *more than double*
         // the current prime number every time. 2^12 = 4096 and 2^13 = 8192. Without even looking at my list of primes
-        // I know that in at most 12 calls to getNextPrime() (the first one gives me 4) I am reaching a number that is definitely
+        // I know that in at most 12 calls to getNextPrime() (the first one gives me 13) I am reaching a number that is definitely
         // beyond my list of current primes.
-
-        for(int i = 0; i < 12; i++){
+        rexc = null;
+        int iterThrown = 0;
+        for(int i = 0; i < 15; i++){
             // Embedding the try block inside the for loop makes the loop very slow, but allows for the index 'i' to be
             // visible to the scope of the catch-blocks. This in turn allows us to throw an AssertionError with information
             // about exactly *which* iteration failed.
+
             try {
                 pg.getNextPrime();
-            } catch(NoMorePrimesException ignored){
-                // Good
+            } catch(NoMorePrimesException nmpe){
+                rexc = nmpe;
+                iterThrown = i;
             } catch(Throwable t){
                 fail("Call to getNextPrime() #" + (i + 1) + ": " + format(t) );
             }
         }
+        assertNotNull("Was expecting a NoMorePrimesException after " + (iterThrown + 1) + " calls to getNextPrime()", rexc);
     }
 
     /**
@@ -151,7 +157,7 @@ public class PrimeGeneratorTests {
 
         // Initial test
         pg.reset();
-        assertEquals("Expected getCurrPrime() to return  13 after a call to reset()", 13, pg.getCurrPrime());
+        assertEquals("Expected getCurrPrime() to return  7 after a call to reset()", 7, pg.getCurrPrime());
 
         // Make a small, yet random number of calls to getNextPrime() and getPreviousPrime(),
         // then call reset(), see whether it behaves as advertised.
@@ -168,7 +174,7 @@ public class PrimeGeneratorTests {
 
         pg.reset();
         assertEquals("After " + callsToGetNextPrime + " calls to getNextPrime() and " + callsToGetPrevPrime +
-                " calls to getPreviousPrime() and one call to reset(), we did not get 13 as the current prime number.",
-                13, pg.getCurrPrime());
+                " calls to getPreviousPrime() and one call to reset(), we did not get 7 as the current prime number.",
+                7, pg.getCurrPrime());
     }
 }

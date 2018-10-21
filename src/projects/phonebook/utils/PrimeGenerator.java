@@ -127,7 +127,7 @@ public class PrimeGenerator {
             7841, 7853, 7867, 7873, 7877, 7879, 7883, 7901, 7907
     };
 
-    private static final int FIRST_INDEX = 5; // Selecting 13 as the first prime to return
+    private static final int FIRST_INDEX = 3; // Selecting 7 as the first prime to return
     private  int currIdx = FIRST_INDEX;
 
     /**
@@ -195,7 +195,7 @@ public class PrimeGenerator {
             throw new NoMorePrimesException("getPreviousPrime(): 2 is the least prime number.");
         }
         int currPrime = PRIME_LIST[currIdx];
-        for (int i = currIdx; i > 0; i--) {
+        for (int i = currIdx; i >= 0; i--) {
             if (PRIME_LIST[i] < ((float)currPrime / 2)) { // "Less than or equal" (<=) doesn't make sense for primes, does it?
                 currIdx = i+1;
                 return PRIME_LIST[currIdx];

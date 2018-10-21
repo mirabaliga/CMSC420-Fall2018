@@ -1,6 +1,7 @@
 package projects.phonebook.hashes;
 
 import projects.phonebook.utils.KVPair;
+import projects.phonebook.utils.PrimeGenerator;
 
 /**
  * <p>@link QuadraticProbingHashTable} is an Openly Addressed {@link HashTable} which uses <b>Quadratic
@@ -32,42 +33,35 @@ public class QuadraticProbingHashTable implements HashTable{
 
     private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
     private KVPair[] table;
-
+    private PrimeGenerator primeGenerator;
+    private int count = 0;
     private int hash(String key){
-
         return (key.hashCode() & 0x7fffffff) % table.length;
-
     }
 
     /*  YOU SHOULD ALSO IMPLEMENT THE FOLLOWING 2 METHODS ACCORDING TO THE SPECS
      * PROVIDED IN THE PROJECT WRITEUP, BUT KEEP THEM PRIVATE!  */
 
     private void enlarge(){
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+        throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
     }
 
     private void shrink(){
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+        throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
     }
 
     /* ******************/
     /*  PUBLIC METHODS: */
     /* ******************/
 
-    /** Non-default constructor.
-     * @param startSize The size to initialize our inner storage with. Must be a strictly positive integer.
-     * @throws RuntimeException if <tt>startSize</tt> is not a positive integer.
-     */
-    public QuadraticProbingHashTable(int startSize){
-        if(startSize < 1 )
-            throw new RuntimeException("Provided startSize=" + startSize + ". Only strictly positive sizes are allowed.");
-        table = new KVPair[startSize];
-    }
     /**
-     *  Default constructor. Initializes the internal storage with a size equal to {@link #DEFAULT_STARTING_SIZE}
+     *  Default constructor. Initializes the internal storage with a size equal to the default of {@link PrimeGenerator}.
+     *  This constructor is <b>GIVEN TO YOU: DO NOT EDIT!</b>
      */
     public QuadraticProbingHashTable(){
-        this(DEFAULT_STARTING_SIZE);
+        primeGenerator = new PrimeGenerator();
+        table = new KVPair[primeGenerator.getCurrPrime()];
+        count = 0;
     }
 
     /**
@@ -85,12 +79,16 @@ public class QuadraticProbingHashTable implements HashTable{
      */
     @Override
     public void put(String key, String value) {
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+        throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
+    }
+
+    private void putHelper(String key, String value){
+        throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
     }
 
     @Override
     public String get(String key) {
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+        throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
     }
 
 
@@ -106,27 +104,27 @@ public class QuadraticProbingHashTable implements HashTable{
      */
     @Override
     public String remove(String key) {
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+        throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
     }
 
     @Override
     public boolean containsKey(String key) {
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+        throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
     }
 
     @Override
     public boolean containsValue(String value) {
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+        throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
     }
 
     @Override
     public int size() {
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
     }
 
     @Override
     public int capacity() {
-        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+        throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
     }
 
 }
