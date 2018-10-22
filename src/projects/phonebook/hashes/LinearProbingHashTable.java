@@ -79,10 +79,7 @@ public class LinearProbingHashTable implements HashTable{
     public void put(String key, String value) {
         throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
     }
-
-    private void putHelper(String key, String value){
-        throw  UNIMPL_METHOD; // <--- ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
-    }
+    
 
     @Override
     public String get(String key) {
