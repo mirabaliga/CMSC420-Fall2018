@@ -308,7 +308,7 @@ public class KVPairList implements Iterable<KVPair>{
     }
 
     public Iterator<KVPair> iterator(){
-        return new Iterator<>() {
+        return new Iterator<KVPair>() {
 
             private Node curr = head;
 
