@@ -127,7 +127,7 @@ public class PrimeGenerator {
             7841, 7853, 7867, 7873, 7877, 7879, 7883, 7901, 7907
     };
 
-    private static final int FIRST_INDEX = 5; // Selecting 13 as the first prime to return
+    private static final int FIRST_INDEX = 3; // Selecting 7 as the first prime to return
     private  int currIdx = FIRST_INDEX;
 
     /**
@@ -156,8 +156,8 @@ public class PrimeGenerator {
         int currPrime = PRIME_LIST[currIdx];
         for (int i = currIdx; i < PRIME_LIST.length; i++) {
             if (PRIME_LIST[i] > 2 * currPrime) { // >= Doesn't make sense for primes, does it?
-                currIdx = i;
-                return PRIME_LIST[i];
+                currIdx = i-1;
+                return PRIME_LIST[currIdx];
             }
         }
 
@@ -167,7 +167,7 @@ public class PrimeGenerator {
 
 
     /**
-     *  Returns the biggest prime <b>smaller than half the current prime</b>. This is an approach that allows instances of
+     *  Returns the smallest prime <b>larger than half the current prime</b>. This is an approach that allows instances of
      * {@link HashTable} to find new hash table sizes which provide a good trade-off between memory footprint and making
      * future deletions happen without resizing the table.
      * @return The first prime number greater than twice the current prime number.
@@ -195,10 +195,10 @@ public class PrimeGenerator {
             throw new NoMorePrimesException("getPreviousPrime(): 2 is the least prime number.");
         }
         int currPrime = PRIME_LIST[currIdx];
-        for (int i = currIdx; i > 0; i--) {
-            if (PRIME_LIST[i] < (currPrime / 2)) { // "Less than or equal" (<=) doesn't make sense for primes, does it?
-                currIdx = i;
-                return PRIME_LIST[i];
+        for (int i = currIdx; i >= 0; i--) {
+            if (PRIME_LIST[i] < ((float)currPrime / 2)) { // "Less than or equal" (<=) doesn't make sense for primes, does it?
+                currIdx = i+1;
+                return PRIME_LIST[currIdx];
             }
         }
         currIdx = 0; // Minimum prime selected will always be 2.

@@ -9,7 +9,7 @@ import java.util.Random;
 import static org.junit.Assert.*;
 
 /**
- * <p><tt>StudentTests</tt> is an example class that contains some basic jUnit tests that you can write. It is <b>very important</b>
+ * <p><tt>StudentTests</tt> is an example class that containsKVPair some basic jUnit tests that you can write. It is <b>very important</b>
  * that you write your own tests! </p>
  * @author --- YOUR NAME HERE! -----
  * @see ThreadedAVLTree

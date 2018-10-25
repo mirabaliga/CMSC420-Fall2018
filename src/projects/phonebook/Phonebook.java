@@ -2,6 +2,9 @@ package projects.phonebook;
 
 import projects.phonebook.hashes.*;
 
+import javax.print.DocFlavor;
+import java.util.Hashtable;
+
 /**
  * <p>{@link Phonebook} is an abstraction over phonebooks: databases of &lt; Full Name,
  * Phone Number&gt; pairs. It allows for <b>both</b> phone <b>and</b> name search, both in
@@ -30,8 +33,8 @@ public class Phonebook {
 
     // TODO: When you finish the testing setup for phonebooks, change the constructor to fall back to a
     // TODO: java.util.HashTable so you can test whether your implementation of PhoneBook is correct.
-    private HashTable namesToNumbers;
-    private HashTable numbersToNames;
+    private HashTable namesToNumbers ;
+    private HashTable numbersToNames ;
 
 
     /**

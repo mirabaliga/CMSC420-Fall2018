@@ -202,8 +202,8 @@ public class LinkedList<T> implements List<T> {
 	public void delete(int index) throws IllegalListAccessException {
 		// Again, we will need a "previous" nodes reference.
 		if(index < 0 || index >= size)
-			throw new IllegalListAccessException("delete(int): Index " + index + " is not a valid list index.");
-		// Special case of removing the getFirst element of the list:
+			throw new IllegalListAccessException("remove(int): Index " + index + " is not a valid list index.");
+		// Special case of removing the getKey element of the list:
 		if(index == 0){
 			head = head.next; // Could be null, signifying that only one element was contained in the list.			
 			size--;

@@ -126,7 +126,7 @@ public class BinarySearchTreeTest {
         assertEquals("Count after deleting the key 5 is not right.", 2, tree.getCount());
 
         tree.delete(-1); // not in the tree
-        assertEquals("After attempting to delete a key that does not exist in the tree, " +
+        assertEquals("After attempting to remove a key that does not exist in the tree, " +
                 "we should most definitely not be finding the key in our tree!", null, tree.search(5));
         assertEquals("Count after deleting a key not in the tree is not right.", 2, tree.getCount());
 
@@ -175,7 +175,7 @@ public class BinarySearchTreeTest {
         int counter = allTree.getCount();
         for(Integer i: odds){
             allTree.delete(i);
-            assertEquals("After deleting " + i + ", we found out that the BST's node getCount was not accurate.", counter - 1, allTree.getCount());
+            assertEquals("After deleting " + i + ", we found out that the BST's node size was not accurate.", counter - 1, allTree.getCount());
             counter--;
         }
 

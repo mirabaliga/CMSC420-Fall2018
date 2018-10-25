@@ -1,5 +1,5 @@
 package projects.tavl;
-import java.util.Iterator;     // You need this import because of the interface method inorderTraversal()'s return type.
+import java.util.*;     // You need this import because of the interface method inorderTraversal()'s return type.
 
 /**<p> {@link ThreadedAVLTree} implements threaded <a href="https://en.wikipedia.org/wiki/AVL_tree">Adelson-Velsky-Landis (AVL) trees</a>
  * (shorthand: TAVL trees). These trees:</p>
@@ -17,8 +17,8 @@ import java.util.Iterator;     // You need this import because of the interface 
  * <b>entirely stacklessly!</b>Read the project description for more in-depth information.</p>
  *
  * <p>Finally, for this project, <b>we assume that there are no duplicate keys in your data structure. </b> This means that, in our unit tests,
- * whenever we delete a key from your tree, <b>we expect it to no longer be found in the tree.</b> You may deal with this
- * invariant in any way you please, e.g. throw an exception if a duplicate is inserted, or delete all instances of a key when we ask for a deletion.</p>
+ * whenever we remove a key from your tree, <b>we expect it to no longer be found in the tree.</b> You may deal with this
+ * invariant in any way you please, e.g. throw an exception if a duplicate is inserted, or remove all instances of a key when we ask for a deletion.</p>
  *
  * @author ------- PUT YOUR NAME HERE! ------
  * @see #inorderTraversal()
@@ -27,44 +27,32 @@ import java.util.Iterator;     // You need this import because of the interface 
  */
 public class ThreadedAVLTree<T extends Comparable<T>> {
 
+    /* ************************************* */
+    /* YOUR PRIVATE FIELDS AND METHODS  HERE */
+    /* ************************************* */
 
-    private static final String UNIMPL_MSG = "Implement this method!";
-
-    /* ***************************************************************************
-     * PLACE YOUR PRIVATE, PACKAGE-PRIVATE AND PROTECTED MEMBERS  AND METHODS HERE:
-     * *************************************************************************** */
-
+    private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
 
 
-    /* ******************************************
-     * IMPLEMENT THE CLASS' PUBLIC METHODS BELOW:
-     * ****************************************** */
+    /* ***************************************** */
+    /* YOU MUST IMPLEMENT THE PUBLIC METHODS BELOW */
+    /* ***************************************** */
 
-
-    /**
+     /**
      * Default constructor. Your code should allow for one, since the unit tests
      * depend on the presence of a default constructor.
      */
     public ThreadedAVLTree(){
-        /*
-         *  Fill-in the code here!
-         */
-        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
-
-        /* Note: Depending on how you handle things. it might be completely ok
-         * to have nothing in your constructor. That is, the only thing you'd need to do
-         * here is erase the application of throw() above. Your code, your choice ! */
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
-    /**
+     /**
      * Insert <tt>key</tt> in the tree.
      * @param key The key to insert in the tree.
      */
     public void insert(T key){
-        /*
-         *  Fill-in the code here!
-         */
-        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+
     }
 
     /**
@@ -74,10 +62,8 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * @return The key that was removed, or <tt>null</tt> if the key was not found.
      */
     public T delete(T key){
-        /*
-         *  Fill-in the code here!
-         */
-        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
+
     }
 
     /**
@@ -87,10 +73,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * @return <tt>key</tt> if <tt>key</tt> is in the tree, or <tt>null</tt> otherwise.
      */
     public T search(T key){
-        /*
-         *  Fill-in the code here!
-         */
-        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
 
@@ -101,21 +84,16 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * @return The height of the tree.
      */
     public int height(){
-        /*
-         *  Fill-in the code here!
-         */
-        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
+
 
     /**
      * Query the tree for emptiness. A tree is empty iff it has zero keys stored.
      * @return <tt>true</tt> if the tree is empty, <tt>false</tt> otherwise.
      */
-    public boolean isEmpty(){
-        /*
-         *  Fill-in the code here!
-         */
-        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
+    public boolean isEmpty()   {
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     /**
@@ -123,10 +101,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * @return The key at the tree's root node, or <tt>null</tt> if the tree is empty.
      */
     public T getRoot(){
-        /*
-         *  Fill-in the code here!
-         */
-        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 
     /**
@@ -143,9 +118,6 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * <b>any way you please</b>.
      */
     public Iterator<T> inorderTraversal(){
-        /*
-         *  Fill-in the code here!
-         */
-        throw new RuntimeException(UNIMPL_MSG); // <---- When done implementing your method, erase this line!
+        throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
     }
 }

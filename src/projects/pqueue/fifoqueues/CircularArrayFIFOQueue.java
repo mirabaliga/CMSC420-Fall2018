@@ -115,7 +115,7 @@ public class CircularArrayFIFOQueue<T> implements FIFOQueue<T> {
 	class CircularArrayQueueIterator implements Iterator<T>{
 
 		private int current;
-		boolean calledNextOnce; // This is needed for delete().
+		boolean calledNextOnce; // This is needed for remove().
 
 		public CircularArrayQueueIterator(){
 			current = front; // Simply basing removal possibility on current == front is unsatisfactory, because current == front will be satisfied after n - 1 removals
@@ -201,7 +201,7 @@ public class CircularArrayFIFOQueue<T> implements FIFOQueue<T> {
 	@Override
 	public T first() throws EmptyFIFOQueueException {
 		if(isEmpty())
-			throw new EmptyFIFOQueueException("getFirst(): FIFOQueue is empty.");
+			throw new EmptyFIFOQueueException("getKey(): FIFOQueue is empty.");
 		return data[front];
 	}
 

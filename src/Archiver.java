@@ -27,7 +27,7 @@ public class Archiver {
             Path pp = Paths.get(sourceDirPath);
 
             Files.walk(pp)
-                    .filter(path -> !Files.isDirectory(path) && (!path.toString().contains(".git")))
+                    .filter(path -> !Files.isDirectory(path) && (!path.toString().contains(".git")) && (!path.toString().contains("doc")))
                     .forEach(path -> {
                         ZipEntry zipEntry = new ZipEntry(pp.relativize(path).toString().replace("\\", "/"));
                         try {

@@ -57,7 +57,7 @@ public class LinkedListTest {
 		try {
 			assertEquals(stringList.getFirst(), "Mack");
 		}catch(EmptyListException exc){
-			fail("List should not be empty after getFirst push.");
+			fail("List should not be empty after getKey push.");
 		}
 		stringList.pushFront("Jello");
 		try {
@@ -75,7 +75,7 @@ public class LinkedListTest {
 			assertEquals(stringList.getLast(), "Mack");
 			assertEquals(stringList.getFirst(), "Mack"); // First and last elements should be the same at this point.
 		}catch(EmptyListException exc){
-			fail("List should not be empty after getFirst push.");
+			fail("List should not be empty after getKey push.");
 		}
 		stringList.pushBack("Jello");
 		try {
@@ -138,7 +138,7 @@ public class LinkedListTest {
 		assertFalse(stringList.delete("is")); // No duplicates of "is".
 		assertTrue(stringList.deleteAll("The"));
 		// The list's length should now be 2, so if I ask of the object
-		// to delete the object at index 2, I should get an IllegalListAccessException thrown at me.
+		// to remove the object at index 2, I should get an IllegalListAccessException thrown at me.
 		try {
 			stringList.delete(2);
 		} catch(IllegalListAccessException ie){
@@ -147,9 +147,9 @@ public class LinkedListTest {
 		// However, removing 0 and 1 should be ok...
 		try {
 			stringList.delete(0);
-			stringList.delete(0); // Note that the getFirst element will be at position 0 after the previous line is executed!
+			stringList.delete(0); // Note that the getKey element will be at position 0 after the previous line is executed!
 		} catch(IllegalListAccessException ae){
-			fail("Positions 0 and 1 should be valid for this list to delete from...");
+			fail("Positions 0 and 1 should be valid for this list to remove from...");
 		}
 
 		//... and should leave me with a list of size 0

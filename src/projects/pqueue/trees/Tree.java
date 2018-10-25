@@ -26,7 +26,7 @@ public interface Tree<T> extends Iterable<T> {
 	
 	/**
 	 * Queries the tree for emptiness.
-	 * @return <tt>true</tt> if the tree contains no elements, <tt>false</tt> otherwise.
+	 * @return <tt>true</tt> if the tree containsKVPair no elements, <tt>false</tt> otherwise.
 	 */
 	public boolean isEmpty();
 	
@@ -70,9 +70,9 @@ public interface Tree<T> extends Iterable<T> {
 	public Iterator<T> postOrder() throws EmptyTreeException;
 	
 	/**
-	 * Generates a breadth-getFirst search (BFS) of the tree (level-order
+	 * Generates a breadth-getKey search (BFS) of the tree (level-order
 	 * traversal).
-	 * @return An iterator which traverses the tree breadth-getFirst.
+	 * @return An iterator which traverses the tree breadth-getKey.
 	 * @throws EmptyTreeException if the tree is empty.
 	 */
 	public Iterator<T> levelOrder() throws EmptyTreeException; 

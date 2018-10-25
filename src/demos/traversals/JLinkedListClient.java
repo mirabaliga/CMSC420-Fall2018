@@ -26,7 +26,7 @@ public class JLinkedListClient {
                 "\n Timing iterative counting.... \n " +
                 "--------------------------- \n");
         long start = currentTimeMillis();
-        System.out.println("List getCount retrieved was: " + l.countIter() + ".");
+        System.out.println("List size retrieved was: " + l.countIter() + ".");
         System.out.println("Iterative counting took " + (currentTimeMillis() - start) + " ms.\n");
 
         System.out.println("------------------------------------------" +
@@ -34,10 +34,10 @@ public class JLinkedListClient {
                 "------------------------------------------ \n");
         try {
             start = currentTimeMillis();
-            System.out.println("List getCount retrieved was: " + l.countStack() + ".");
+            System.out.println("List size retrieved was: " + l.countStack() + ".");
             System.out.println("Custom stack-based counting took " + (currentTimeMillis() - start)  + " ms. \n");
         } catch(Throwable t){
-            System.out.println("While generating the stack-based getCount, we received a " +
+            System.out.println("While generating the stack-based size, we received a " +
                     t.getClass().getSimpleName() + " with message: " + t.getMessage() + ".");
         }
 
@@ -46,10 +46,10 @@ public class JLinkedListClient {
                 "------------------------------------------\n");
         try {
             start = currentTimeMillis();
-            System.out.println("List getCount retrieved was: " + l.countRec() + ".");
+            System.out.println("List size retrieved was: " + l.countRec() + ".");
             System.out.println("System stack-based traversal took " + (currentTimeMillis() - start) + " ms.\n");
         }catch(Throwable t){
-            System.out.println("While generating the recursive getCount, we received a " +
+            System.out.println("While generating the recursive size, we received a " +
                     t.getClass().getSimpleName() + " with message: " + t.getMessage() + ".");
         }
 
@@ -58,10 +58,10 @@ public class JLinkedListClient {
                 "------------------------------------------\n");
         try {
             start = currentTimeMillis();
-            System.out.println("List getCount retrieved was: " + l.countTailRec() + ".");
+            System.out.println("List size retrieved was: " + l.countTailRec() + ".");
             System.out.println("Tail-recursive traversal took " + (currentTimeMillis() - start) + " ms.\n");
         }catch(Throwable t){
-            System.out.println("While generating the tail - recursive getCount, we received a " +
+            System.out.println("While generating the tail - recursive size, we received a " +
                     t.getClass().getSimpleName() + " with message: " + t.getMessage() + ".");
         }
 

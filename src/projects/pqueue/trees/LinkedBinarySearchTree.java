@@ -203,12 +203,12 @@ public class LinkedBinarySearchTree<T extends Comparable<T>>  implements BinaryS
 
 	/* Removal of a nodes consists of two things: First, finding it and returning it
 	 * to the caller, and, second, the actual removal of it. The second part will be 
-	 * attained by Node.delete.
+	 * attained by Node.remove.
 	 */
 	@Override
 	public T delete(T element) throws EmptyTreeException{
 		if(isEmpty())
-			throw new EmptyTreeException("delete(): Tree is empty.");
+			throw new EmptyTreeException("remove(): Tree is empty.");
 		T retVal = root.find(element);
 		if(retVal == null)
 			return null;

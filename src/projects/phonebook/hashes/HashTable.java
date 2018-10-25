@@ -13,11 +13,6 @@ package projects.phonebook.hashes;
 public interface HashTable {
 
     /**
-     * Every {@link HashTable} instance will have a starting size of 13.
-     */
-     int DEFAULT_STARTING_SIZE = 13;
-
-    /**
      * Inserts the pair &lt;key, value&gt; into <tt>this</tt>. The container should <b>not</b> allow for <tt>null</tt>
      * keys and values, and we <b>will</b> test if you are throwing a {@link IllegalArgumentException} from your code
      * if this method is given <tt>null</tt> arguments! It is important that we establish that no <tt>null</tt> entries
