@@ -39,14 +39,14 @@ public class CustomHashes {
         }
 
         // A hash code method
-        @Override
+       /* @Override
         public int hashCode(){
             int hash = 17;
             hash = 31*hash + firstName.hashCode();
             hash = 31*hash + middleName.hashCode();
             hash = 31*hash + lastName.hashCode();
             return hash;
-        }
+        }*/
 
         /*  Getters */
 
