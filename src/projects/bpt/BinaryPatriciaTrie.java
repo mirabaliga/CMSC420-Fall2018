@@ -8,7 +8,7 @@ import java.util.Iterator;
  * aspects of Patricia Tries while shedding the storage cost typically associated with Tries that
  * deal with huge alphabets.</p>
  *
- * @author <a href = "mailto:jasonfil@cs.umd.edu">Jason Filippou</a> &amp; <a href ="mailto:fyang623@gmail.com">Fan Yang</a>
+ * @author --- YOUR NAME HERE! ----.
  */
 public class BinaryPatriciaTrie {
 
