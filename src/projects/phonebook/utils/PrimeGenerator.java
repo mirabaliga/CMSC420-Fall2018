@@ -143,7 +143,7 @@ public class PrimeGenerator {
     }
 
     /**
-     * Returns the smallest prime <b>greater than twice the current prime</b>. This is an approach that allows instances of
+     * Returns the greatest prime <b>smaller than twice the current prime</b>. This is an approach that allows instances of
      * {@link HashTable} to find new hash table sizes which provide a good trade-off between memory footprint and making
      * future insertions happen without resizing the table.
      * @return The first prime number greater than twice the current prime number.
