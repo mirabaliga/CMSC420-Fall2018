@@ -2,13 +2,12 @@ package projects.pqueue.priorityqueues; // ******* <---  DO NOT ERASE THIS LINE!
 
 
 import projects.pqueue.InvalidPriorityException;
-import projects.pqueue.heaps.*;
-import java.util.ConcurrentModificationException;
+import projects.pqueue.heaps.MinHeap;
+
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
- *<p> Model implementation of <tt>MinHeapPriorityQueue</tt> for the first project of
+ *<p> Model implementation of MinHeapPriorityQueue for the first project of
  *   CMSC420: Data Structures, CS UMD, Fall 2018. </p>
  *
  * <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>

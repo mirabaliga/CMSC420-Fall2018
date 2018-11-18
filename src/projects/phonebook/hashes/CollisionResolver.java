@@ -1,7 +1,7 @@
 package projects.phonebook.hashes;
 
 /**
- * <p>{@link CollisionResolver} is an <tt>enum</tt> which provides named constants for
+ * <p>{@link CollisionResolver} is an enum which provides named constants for
  * three of the most widely used collision resolution techniques in hash tables: </p>
  * <ol>
  *     <li><i>Separate Chaining</i>, a simple collision resolver which allocates a linked list for every cell of the hash table.

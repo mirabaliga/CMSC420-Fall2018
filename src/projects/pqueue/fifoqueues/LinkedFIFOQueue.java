@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 
 /**
- * <p>A <tt>LinkedFIFOQueue</tt> is a {@link FIFOQueue} which uses a {@link DoublyLinkedList} as the underlying implementation.
+ * <p>A LinkedFIFOQueue is a {@link FIFOQueue} which uses a {@link DoublyLinkedList} as the underlying implementation.
  * Such a queue <b>never</b> needs data resizing and can grow as long as the system allows it to.
  * We use a {@link DoublyLinkedList} instead of a {@link LinkedList} LinkedList for the underlying
  * implementation such that we have constant time enqueueings and dequeuings (a singly linked list would provide

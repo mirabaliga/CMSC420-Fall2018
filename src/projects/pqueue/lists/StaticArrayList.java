@@ -5,7 +5,7 @@ import projects.pqueue.InvalidCapacityException;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
-/** <p><tt>StaticArrayList</tt> is an implementation of a {@link List} with an array. It does not
+/** <p>StaticArrayList is an implementation of a {@link List} with an array. It does not
  * make any practical sense, because it would be much more efficient to use a {@link LinkedList}
  * in the general case, but it is possible theoretically. The only method of the {@link List} interface
  * that is executed more efficiently in {@link StaticArrayList} than in {@link LinkedList} is  {@link #delete(int)}

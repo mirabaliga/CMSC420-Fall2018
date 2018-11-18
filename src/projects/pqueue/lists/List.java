@@ -2,7 +2,7 @@ package projects.pqueue.lists;
 import java.util.Iterator;
 
 /**
- * <p>A <tt>List</tt> is a linear ADT which offers insertion, search and deletion in at most linear time.
+ * <p>A List is a linear ADT which offers insertion, search and deletion in at most linear time.
  * Elements can only be added to the front or the back, never in between.</p>
  * 
  * <p>It is a requirement that the type <i>T</i> is {@link Comparable}, or else we will not be able to
@@ -13,7 +13,7 @@ import java.util.Iterator;
  *
  * @author  <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>
  *
- * @param <T> The type of object that the <tt>List</tt> will hold.
+ * @param <T> The type of object that the List will hold.
  */
 
 public interface List<T> extends Iterable<T>{
@@ -65,11 +65,11 @@ public interface List<T> extends Iterable<T>{
 	/**
 	 * Removes <b>one</b> instance of element from the list.
 	 * @param element the element to be removed.
-	 * @return <tt>true</tt> if the element was removed, <tt>false</tt> otherwise.
+	 * @return true if the element was removed, false otherwise.
 	 */
 	public boolean delete(T element);
 	
-	/** Deletes the element at position <tt>index</tt> of the list.
+	/** Deletes the element at position index of the list.
 	 * @param index The index of the element to be removed.
 	 * @throws IllegalListAccessException if the index is below 0 or above the list's length.
 	 */
@@ -78,7 +78,7 @@ public interface List<T> extends Iterable<T>{
 	/**
 	 * Removes <b>all</b> instances of element from the list.
 	 * @param element The element to be removed.
-	 * @return <tt>true</tt> if the element was removed at least once, <tt>false</tt> otherwise.
+	 * @return true if the element was removed at least once, false otherwise.
 	 */
 	public boolean deleteAll(T element);
 	
@@ -96,12 +96,12 @@ public interface List<T> extends Iterable<T>{
 	
 	/**
 	 * Queries the list for emptiness.
-	 * @return <tt>true</tt> if the list is empty, <tt>false</tt> otherwise.
+	 * @return true if the list is empty, false otherwise.
 	 */
 	public boolean isEmpty();
 	
 	/**
-	 * <p>Returns a "fail-fast" {@link Iterator} over the elements contained by <tt>this</tt>.
+	 * <p>Returns a "fail-fast" {@link Iterator} over the elements contained by this.
 	 * Fail-fast iterators will throw a {@link java.util.ConcurrentModificationException}
 	 * if the collection is modified by means other than {@link Iterator#remove()}
 	 * while iterating through the container through the {@link Iterator}.</p>

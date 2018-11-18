@@ -1,11 +1,11 @@
 package projects.pqueue.fifoqueues;
 
 /**
- * <p><tt>FIFOQueue</tt> is an {@link Iterable} interface for FIFO queues. Such queues allow for enqueueing
+ * <p>FIFOQueue is an {@link Iterable} interface for FIFO queues. Such queues allow for enqueueing
  * an element in the back, dequeueing it from the front, as well as querying for the size of the queue,
  * the getKey element, whether the queue is empty, and clearing the queue. <i>"Front"</i> and <i>"back"</i>
  * imply order of processing; not memory addressing! The exact position of an element in memory is dependent
- * on the various implementations of <tt>FIFOQueue</tt>, such as {@link LinearArrayFIFOQueue} and
+ * on the various implementations of FIFOQueue, such as {@link LinearArrayFIFOQueue} and
  * {@link CircularArrayFIFOQueue}. </p>
  *
  *
@@ -13,7 +13,7 @@ package projects.pqueue.fifoqueues;
  *
  * @author  <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>
  *
- * @param <T> The type contained by this <tt>FIFOQueue</tt>.
+ * @param <T> The type contained by this FIFOQueue.
  *
  * @see LinearArrayFIFOQueue
  * @see CircularArrayFIFOQueue

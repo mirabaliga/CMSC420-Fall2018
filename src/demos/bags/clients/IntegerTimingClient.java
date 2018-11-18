@@ -5,7 +5,7 @@ import demos.bags.*;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-/** <p><tt>IntegerTimingClient</tt> tests all implementations of {@link Bag} in the task of retrieving all
+/** <p>IntegerTimingClient tests all implementations of {@link Bag} in the task of retrieving all
  * of their Integer contents.</p>
  * @author jason
  */

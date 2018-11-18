@@ -27,7 +27,7 @@ public class BinaryPatriciaTrie {
 
 
     /**
-     * Simple constructor that will initialize the internals of <tt>this</tt>.
+     * Simple constructor that will initialize the internals of this.
      */
     BinaryPatriciaTrie() {
         throw UNIMPL_METHOD;
@@ -35,7 +35,7 @@ public class BinaryPatriciaTrie {
     }
 
     /**
-     * Searches the trie for a given <tt>key</tt>.
+     * Searches the trie for a given key.
      *
      * @param key The input String key.
      * @return true if and only if key is in the trie, false otherwise.
@@ -46,7 +46,7 @@ public class BinaryPatriciaTrie {
 
 
     /**
-     * Inserts <tt>key</tt> into the trie.
+     * Inserts key into the trie.
      *
      * @param key The input String key.
      * @return true if and only if the key was not already in the trie, false otherwise.
@@ -58,7 +58,7 @@ public class BinaryPatriciaTrie {
 
 
     /**
-     * Deletes <tt>key</tt> from the trie.
+     * Deletes key from the trie.
      *
      * @param key The String key to be deleted.
      * @return True if and only if key was contained by the trie before we attempted deletion, false otherwise.
@@ -114,7 +114,7 @@ public class BinaryPatriciaTrie {
      *
      * @return <p>The longest {@link String} stored in this. If the trie is empty, the empty string "" should be
      * returned. Careful: the empty string "" is <b>not</b> the same string as " "; the latter is a string
-     * consisting of a single <b>space character</b>! It is also <b>not</b> the same as a <tt>null</tt> reference.</p>
+     * consisting of a single <b>space character</b>! It is also <b>not</b> the same as a null reference.</p>
      * <p>Ties should be broken in terms of <b>value</b> of the bit string. For example, if our trie contained
      * only the binary strings 01 and 11, <b>11</b> would be the longest string. If our trie contained
      * only 001 and 010, <b>010</b> would be the longest string.</p>

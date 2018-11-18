@@ -29,7 +29,7 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
     /**
      * This constructor creates a DynamicallyShuffledBag with a provided initial capacity as well
      * as a client-provided seed. Clients might be interested in reproducing experiments.
-     * @param capacity The initial capacity of the <tt>Bag</tt>.
+     * @param capacity The initial capacity of the Bag.
      * @param seed A caller-provided seed for the random number generator.
      * @since 1.0
      */
@@ -52,7 +52,7 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
     /**
      * This constructor creates a DynamicallyShuffledBag with the provided default capacity. The bag shakes
      * fully (pseudo-)randomly.
-     * @param capacity  The initial capacity for the <tt>Bag</tt>.
+     * @param capacity  The initial capacity for the Bag.
      * @see #DynamicallyShuffledBag(int)
      * @since 1.0
      */

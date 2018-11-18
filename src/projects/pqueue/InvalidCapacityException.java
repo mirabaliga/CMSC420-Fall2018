@@ -3,7 +3,7 @@ package projects.pqueue;
 import java.util.ArrayList;
 
 /**
-  *<p> <tt>InvalidCapacityException</tt> is an {@link Exception} that is used by <b>non-default</b> constructors of
+  *<p> {@link InvalidCapacityException} is an {@link Exception} that is used by <b>non-default</b> constructors of
  * containers that receive a desired starting capacity  in our code base. For reasons of efficiency, it is
  * often important that the container is internally pre-allocated to a desired capacity so that the getKey few
  * insertions are performed quite fast. For example, {@link ArrayList#ArrayList()} (the {@link ArrayList}'s default

@@ -3,7 +3,7 @@ package projects.pqueue.lists;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
-/** <p><tt>LinkedList</tt> is a simple (forwardly-linked) {@link List}. A linked list
+/** <p>LinkedList is a simple (forwardly-linked) {@link List}. A linked list
  * is the most common {@link List} out there. The main benefit compared to an array-based
  * implementation is that it's a dynamic data structure which never has to 
  * expand its capacity to accommodate new elements. The main

@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * <p><tt>LinkedBinarySearchTree</tt> is an implementation of a BinarySearchTree using links.
+ * <p>LinkedBinarySearchTree is an implementation of a BinarySearchTree using links.
  * It is by far the most commonly encountered binary tree implementation. Compared to
  * an array-based implementation, there is always memory waste (even in the case of a perfect binary tree,
  * since the leaf level still has <i>2&#94;(h+1)</i> (where <i>h</i> is the tree's height) pointers
- * to <tt>null</tt>.</p>
+ * to null.</p>
  *
  * <p>You should <b>not</b> edit this class! It is given to you as a resource for your project.</p>
  *
@@ -48,9 +48,9 @@ public class LinkedBinarySearchTree<T extends Comparable<T>>  implements BinaryS
 	 * Standard equals() method. Returns true if the parameter object
 	 * is a carbon copy of the current object.
 	 * 
-	 * @param other the Object to compare with <tt>this</tt>.
+	 * @param other the Object to compare with this.
 	 * 
-	 * @return <tt>true</tt> if <tt>other</tt> and <tt>this</tt>
+	 * @return true if other and this
 	 * are carbon copies of one another.
 	 */
 	@Override

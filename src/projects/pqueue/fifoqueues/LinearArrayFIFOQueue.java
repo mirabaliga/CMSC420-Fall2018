@@ -6,7 +6,7 @@ import projects.pqueue.InvalidCapacityException;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 /**
- *<p> <tt>LinearArrayFIFOQueue</tt> is a {@link FIFOQueue} based on a simple linear array.
+ *<p> LinearArrayFIFOQueue is a {@link FIFOQueue} based on a simple linear array.
  * It is a very inefficient queue implementation, because depending on whether we choose the
  * getKey or last "filled-in" cell of the array to hold the "front" element of the queue, either
  * enqueuing or dequeuing will take linear time. In this queue, we will assume a queue where enqueuings

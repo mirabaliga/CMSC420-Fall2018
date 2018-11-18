@@ -2,13 +2,11 @@ package projects.pqueue.priorityqueues;
 
 import projects.pqueue.InvalidCapacityException;
 import projects.pqueue.InvalidPriorityException;
-import projects.pqueue.fifoqueues.*;
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
+
 import java.util.Iterator;
 
 /**
- * <p> Model implementation of <tt>LinearPriorityQueue</tt> for the first project of
+ * <p> Model implementation of LinearPriorityQueue for the first project of
  *  CMSC420: Data Structures, CS UMD, Fall 2018. </p>
  *
  * @param <T> The type held by the container.

@@ -13,11 +13,11 @@ package projects.phonebook.hashes;
 public interface HashTable {
 
     /**
-     * Inserts the pair &lt;key, value&gt; into <tt>this</tt>. The container should <b>not</b> allow for <tt>null</tt>
+     * Inserts the pair &lt;key, value&gt; into this. The container should <b>not</b> allow for null
      * keys and values, and we <b>will</b> test if you are throwing a {@link IllegalArgumentException} from your code
-     * if this method is given <tt>null</tt> arguments! It is important that we establish that no <tt>null</tt> entries
+     * if this method is given null arguments! It is important that we establish that no null entries
      * can exist in our database because the semantics of {@link #get(String)} and {@link #remove(String)} are that they
-     * return <tt>null</tt> if, and only if, their <tt>key</tt> parameter is null. This method is expected to run in <em>amortized
+     * return null if, and only if, their key parameter is null. This method is expected to run in <em>amortized
      * constant time</em>.
      * @param key The record's key.
      * @param value The record's value.
@@ -26,43 +26,43 @@ public interface HashTable {
     void put(String  key, String  value);
 
     /**
-     * Get the value associated with <tt>key</tt> in the {@link HashTable}. If <tt>key</tt> does not exist in the database
-     * or if <tt>key = null</tt>, this method returns <tt>null</tt>. This method is expected to run in <em>amortized constant time</em>.
+     * Get the value associated with key in the {@link HashTable}. If key does not exist in the database
+     * or if key = null, this method returns null. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
-     * @return The associated value if <tt>key</tt> is non-<tt>null</tt> <b>and</b> exists in our database, <tt>null</tt>
+     * @return The associated value if key is non-null <b>and</b> exists in our database, null
      * otherwise.
      */
     String get(String  key);
 
     /**
-     * <b>Return</b> and <b>remove</b> the value associated with <tt>key</tt> in the {@link HashTable}. If <tt>key</tt> does not exist in the database
-     * or if <tt>key = null</tt>, this method returns <tt>null</tt>. This method is expected to run in <em>amortized constant time</em>.
+     * <b>Return</b> and <b>remove</b> the value associated with key in the {@link HashTable}. If key does not exist in the database
+     * or if key = null, this method returns null. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
-     * @return The associated value if <tt>key</tt> is non-<tt>null</tt> <b>and</b> exists in our database, <tt>null</tt>
+     * @return The associated value if key is non-null <b>and</b> exists in our database, null
      * otherwise.
      */
     String  remove(String  key);
 
     /**
-     * Queries the {@link HashTable} about the existence of the key <tt>key</tt> in its internal storage. This method is expected to run in <em>amortized constant time</em>.
+     * Queries the {@link HashTable} about the existence of the key key in its internal storage. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
-     * @return <tt>true</tt> if <tt>key</tt> is the key of some record in our hash table, <tt>false</tt> otherwise.
+     * @return true if key is the key of some record in our hash table, false otherwise.
      */
     boolean containsKey(String  key);
 
     /**
-     * Queries the {@link HashTable} about the existence of the value <tt>value</tt> in its internal storage. This method is expected to run in <em>linear time</em> (i.e
+     * Queries the {@link HashTable} about the existence of the value value in its internal storage. This method is expected to run in <em>linear time</em> (i.e
      * containsValue() is expected to be an <b>inneficient</b> operation. This is to be expected, since this {@link HashTable} hashes \
      * keys, not values.
      * @param value The value to search for.
-     * @return <tt>true</tt> if <tt>key</tt> is the key of some record in our hash table, <tt>false</tt> otherwise.
+     * @return true if key is the key of some record in our hash table, false otherwise.
      */
     boolean containsValue(String  value);
 
     /**
      * Returns the number of records in this {@link HashTable}. Please note that this is <b>not</b> the same as returning the hash table's <b>capacity</b>
      * in Open Addressing collision resolution schemes (like Linear Probing)!
-     * @return The number of records stored in <tt>this</tt>.
+     * @return The number of records stored in this.
      */
     int size();
 

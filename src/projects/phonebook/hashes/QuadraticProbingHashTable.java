@@ -65,11 +65,11 @@ public class QuadraticProbingHashTable implements HashTable{
     }
 
     /**
-     * Inserts the pair &lt;key, value&gt; into <tt>this</tt>. The container should <b>not</b> allow for <tt>null</tt>
+     * Inserts the pair &lt;key, value&gt; into this. The container should <b>not</b> allow for null
      * keys and values, and we <b>will</b> test if you are throwing a {@link IllegalArgumentException} from your code
-     * if this method is given <tt>null</tt> arguments! It is important that we establish that no <tt>null</tt> entries
+     * if this method is given null arguments! It is important that we establish that no null entries
      * can exist in our database because the semantics of {@link #get(String)} and {@link #remove(String)} are that they
-     * return <tt>null</tt> if, and only if, their <tt>key</tt> parameter is null. This method is expected to run in <em>amortized
+     * return null if, and only if, their key parameter is null. This method is expected to run in <em>amortized
      * constant time</em>.
      *
      * Instances of {@link QuadraticProbingHashTable} will follow the writeup's guidelines about how to internally resize
@@ -90,13 +90,13 @@ public class QuadraticProbingHashTable implements HashTable{
 
 
     /**
-     * <b>Return</b> and <b>remove</b> the value associated with <tt>key</tt> in the {@link HashTable}. If <tt>key</tt> does not exist in the database
-     * or if <tt>key = null</tt>, this method returns <tt>null</tt>. This method is expected to run in <em>amortized constant time</em>.
+     * <b>Return</b> and <b>remove</b> the value associated with key in the {@link HashTable}. If key does not exist in the database
+     * or if key = null, this method returns null. This method is expected to run in <em>amortized constant time</em>.
      *
      * Instances of {@link QuadraticProbingHashTable} will follow the writeup's guidelines about how to internally resize
      * the hash table when the capacity drops below 50&#37;
      * @param key The key to search for.
-     * @return The associated value if <tt>key</tt> is non-<tt>null</tt> <b>and</b> exists in our database, <tt>null</tt>
+     * @return The associated value if key is non-null <b>and</b> exists in our database, null
      * otherwise.
      */
     @Override

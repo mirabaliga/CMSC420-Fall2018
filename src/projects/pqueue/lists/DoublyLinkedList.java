@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /** 
- * <p>A <tt>DoublyLinkedList</tt> is a {@link LinkedList} whose nodes have two references,
+ * <p>A DoublyLinkedList is a {@link LinkedList} whose nodes have two references,
  * one pointing to the previous and one to the next nodes.</p>
  *
  * <p>You should <b>not</b> edit this class! It is given to you as a resource for your project.</p>

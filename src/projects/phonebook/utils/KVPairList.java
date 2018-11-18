@@ -87,8 +87,8 @@ public class KVPairList implements Iterable<KVPair>{
     }
 
     /**
-     * Updates the value of the pair &lt; key, value &gt; based on the provided <tt>key</tt>. If <tt>key</tt> does not exist
-     * in <tt>this</tt>, this method has <b>no effect</b>.
+     * Updates the value of the pair &lt; key, value &gt; based on the provided key. If key does not exist
+     * in this, this method has <b>no effect</b>.
      * @param key The &quot;key&quot; {@link String} that we are searching for.
      * @param value The new &quot;value&quot; {@link String} to update the old value {@link String} with.
      */
@@ -102,8 +102,8 @@ public class KVPairList implements Iterable<KVPair>{
     }
 
     /**
-     * Updates the key of the pair &lt; key, value &gt; based on the provided <tt>value</tt>. If <tt>value</tt> does not exist
-     * in <tt>this</tt>, this method has <b>no effect</b>.
+     * Updates the key of the pair &lt; key, value &gt; based on the provided value. If value does not exist
+     * in this, this method has <b>no effect</b>.
      * @param key The &quot;key&quot; {@link String} that we are searching for.
      * @param value The new &quot;value&quot; {@link String} to update the old value {@link String} with.
      */
@@ -118,7 +118,7 @@ public class KVPairList implements Iterable<KVPair>{
 
 
     /**
-     * Removes the <b>first</b> entry with key <tt>key</tt> from the list. If <tt>key</tt> does not exist in the list,
+     * Removes the <b>first</b> entry with key key from the list. If key does not exist in the list,
      * this method has <b>no effect</b>.
      * @param key The &quot; key &quot; {@link String} to match with entries.
      */
@@ -146,7 +146,7 @@ public class KVPairList implements Iterable<KVPair>{
         }
     }
     /**
-     * Removes the <b>first</b> entry with value <tt>value</tt> from the list. If <tt>value</tt> does not exist in the list,
+     * Removes the <b>first</b> entry with value value from the list. If value does not exist in the list,
      * this method has <b>no effect</b>.
      * @param value The &quot; value &quot; {@link String} to match with entries.
      */
@@ -209,8 +209,8 @@ public class KVPairList implements Iterable<KVPair>{
      * more than one occurrences of &lt; key, value &gt; in the list: this method searches for <b>at least one</b>.
      * @param key The key {@link String} in the pair.
      * @param value The value {@link String} in the pair.
-     * @return <tt>true</tt> if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
-     *              <tt>false</tt> otherwise.
+     * @return true if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
+     *              false otherwise.
      */
     public boolean containsKVPair(String key, String value){
         Node current = head;
@@ -223,12 +223,12 @@ public class KVPairList implements Iterable<KVPair>{
     }
 
     /**
-     * Searches the {@link KVPairList} for a pair that has <tt>key</tt> as the first component of a pair &lt; key, value &gt;
+     * Searches the {@link KVPairList} for a pair that has key as the first component of a pair &lt; key, value &gt;
      * and reports if it found it. There might be   more than one occurrences of &lt; key, value &gt; in the list: this method
      * searches for <b>at least one</b>.
      * @param key The &quot;key&quot;{@link String} in the pair.
-     * @return <tt>true</tt> if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
-     *              <tt>false</tt> otherwise.
+     * @return true if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
+     *              false otherwise.
      */
     public boolean containsKey(String key){
         Node current = head;
@@ -241,12 +241,12 @@ public class KVPairList implements Iterable<KVPair>{
     }
 
     /**
-     * Searches the {@link KVPairList} for a pair that has <tt>value</tt> as the second component of a pair &lt; key, value &gt;
+     * Searches the {@link KVPairList} for a pair that has value as the second component of a pair &lt; key, value &gt;
      * and reports if it found it. There might be   more than one occurrences of &lt; key, value &gt; in the list: this method
      * searches for <b>at least one</b>.
      * @param value The &quot; value &quot; {@link String} in the pair.
-     * @return <tt>true</tt> if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
-     *              <tt>false</tt> otherwise.
+     * @return true if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
+     *              false otherwise.
      */
     public boolean containsValue(String value){
         Node current = head;
@@ -261,7 +261,7 @@ public class KVPairList implements Iterable<KVPair>{
     /**
      * Simple getter for values based on keys.
      * @param key the &quot;value&quot; {@link String} to search for.
-     * @return The &quot;key&quot; {@link String} or <tt>null</tt> if <tt>key</tt> could not be found in <tt>this</tt>.
+     * @return The &quot;key&quot; {@link String} or null if key could not be found in this.
      */
     public String getValue(String key){
         Node current = head;
@@ -277,7 +277,7 @@ public class KVPairList implements Iterable<KVPair>{
     /**
      * Simple getter for keys based on values.
      * @param value the value {@link String} to search for.
-     * @return The &quot; key &quot; {@link String} or <tt>null</tt> if <tt>value</tt> could not be found in <tt>this</tt>.
+     * @return The &quot; key &quot; {@link String} or null if value could not be found in this.
      */
     public String getKey(String value){
         Node current = head;
@@ -301,7 +301,7 @@ public class KVPairList implements Iterable<KVPair>{
 
     /**
      * Queries the {@link KVPairList} for emptiness.
-     * @return <tt>true</tt> if, and only if, the {@link KVPairList} has a {@link #size()} of 0 (zero), <tt>false</tt> otherwise.
+     * @return true if, and only if, the {@link KVPairList} has a {@link #size()} of 0 (zero), false otherwise.
      */
     public boolean isEmpty(){
         return size() == 0;

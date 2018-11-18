@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * <p>{@link KVPairList} is a small <tt>jUnit</tt> - based test suite for {@link KVPairList}.</p>
+ * <p>{@link KVPairList} is a small jUnit - based test suite for {@link KVPairList}.</p>
  *
  *  @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  *

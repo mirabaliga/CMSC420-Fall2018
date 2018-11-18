@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
-/** <p> <tt>BinarySearchTree</tt> is a simple container class of <a href ="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html"><tt>Comparable</tt></a>s. It is likely going to be used
+/** <p> BinarySearchTree is a simple container class of <a href ="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">Comparable</a>s. It is likely going to be used
  * in the second lecture, to illustrate some points about inorder traversal. </p>
  * @author Jason
  */
@@ -49,7 +49,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * A recursive implementation of inorder traversal.
-     * @param visited A <tt>List</tt> that will store the nodes as they are being visited.
+     * @param visited A List that will store the nodes as they are being visited.
      * @see #inorderTraversalWithStack(List)
      */
     public void inorderTraversalRec(List<T> visited){
@@ -66,7 +66,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * A non-recursive implementation of inorder traversal, which uses a user-provided stack.
-     * @param visited A <tt>List</tt> that will store the nodes as they are being visited.
+     * @param visited A List that will store the nodes as they are being visited.
      * @see #inorderTraversalRec(List)
      */
     public void inorderTraversalWithStack(List<T> visited){
@@ -127,9 +127,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     /**
-     * Search for <tt>key</tt> in the binary search tree. Non-recursive.
+     * Search for key in the binary search tree. Non-recursive.
      * @param key The key to search for in the tree.
-     * @return <tt>key</tt>, if it is found, <tt>null</tt> otherwise.
+     * @return key, if it is found, null otherwise.
      */
     public T search(T key){
         Node curr = root;
@@ -146,7 +146,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * Performs a range search on the binary tree. The search is <b>inclusive</b> on both ends and is implemented
-     * recursively. If <tt>min</tt> and  <tt>max</tt> are the same, {@link #search(Comparable)} is called.
+     * recursively. If min and  max are the same, {@link #search(Comparable)} is called.
      * @param min the left end of the range search.
      * @param max the right end of the range search.
      * @return An {@link Iterator} that exposes the elements that satisfy the search in <b>ascending order</b>.
@@ -188,7 +188,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     /**
-     * Deletes <tt>key</tt> from the tree if it's there, otherwise does nothing.
+     * Deletes key from the tree if it's there, otherwise does nothing.
      * @param key The {@link java.lang.Comparable} key to deleteRec from the tree.
      */
     public void delete(T key){

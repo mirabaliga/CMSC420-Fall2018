@@ -11,7 +11,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * A small utility that creates a zip file off of the entire project directory,
- * <b>erasing the <tt>.git</tt> directory which might make the submission too heavy for submit.cs.</b>
+ * <b>erasing the .git directory which might make the submission too heavy for submit.cs.</b>
  * Execute as Java application. Tested on Eclipse and IntelliJ.
  *
  * Do <b>not</b> edit this file! It is provided to you as a script that you should run as a Java application

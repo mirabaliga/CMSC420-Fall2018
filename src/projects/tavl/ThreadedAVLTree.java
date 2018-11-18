@@ -47,7 +47,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
     }
 
      /**
-     * Insert <tt>key</tt> in the tree.
+     * Insert key in the tree.
      * @param key The key to insert in the tree.
      */
     public void insert(T key){
@@ -59,7 +59,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * Delete the key from the data structure and return it to the caller. Note that it is assumed that there are no
      * duplicate keys in the tree. That is, if a key is deleted from the tree, it should no longer be found in it.
      * @param key The key to deleteRec from the structure.
-     * @return The key that was removed, or <tt>null</tt> if the key was not found.
+     * @return The key that was removed, or null if the key was not found.
      */
     public T delete(T key){
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
@@ -67,10 +67,10 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
     }
 
     /**
-     * Search for <tt>key</tt> in the tree. Return a reference to it if it's in there,
-     * or <tt>null</tt> otherwise.
+     * Search for key in the tree. Return a reference to it if it's in there,
+     * or null otherwise.
      * @param key The key to look for in the tree.
-     * @return <tt>key</tt> if <tt>key</tt> is in the tree, or <tt>null</tt> otherwise.
+     * @return key if key is in the tree, or null otherwise.
      */
     public T search(T key){
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
@@ -90,7 +90,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
 
     /**
      * Query the tree for emptiness. A tree is empty iff it has zero keys stored.
-     * @return <tt>true</tt> if the tree is empty, <tt>false</tt> otherwise.
+     * @return true if the tree is empty, false otherwise.
      */
     public boolean isEmpty()   {
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
@@ -98,7 +98,7 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
 
     /**
      * Return the key at the tree's root node.
-     * @return The key at the tree's root node, or <tt>null</tt> if the tree is empty.
+     * @return The key at the tree's root node, or null if the tree is empty.
      */
     public T getRoot(){
         throw UNIMPL_METHOD; // <--- ERASE THIS LINE WHEN YOU IMPLEMENT THE METHOD!
@@ -111,9 +111,9 @@ public class ThreadedAVLTree<T extends Comparable<T>> {
      * IN PARTICULAR, TO GET ANY CREDIT FOR THIS METHOD, YOUR CODE <b>MUST</b> PASS THE RELEVANT UNIT TESTS AND
      * YOU MUST BE MAKING NO CALLS TO ANY STACK, YOURS OR THE SYSTEM'S!
      *
-     * @return An {@link Iterator} over <tt>T</tt>s, which exposes the elements in
+     * @return An {@link Iterator} over Ts, which exposes the elements in
      * ascending order. If the tree is empty, the {@link Iterator}'s first call to {@link Iterator#hasNext()}
-     * will return <tt>false</tt>. The behavior of {@link Iterator#remove()} is <b>undefined</b>; we do <b>not</b> test
+     * will return false. The behavior of {@link Iterator#remove()} is <b>undefined</b>; we do <b>not</b> test
      * for removal of elements through the returned {@link Iterator}, so you can implement {@link Iterator#remove()} in
      * <b>any way you please</b>.
      */

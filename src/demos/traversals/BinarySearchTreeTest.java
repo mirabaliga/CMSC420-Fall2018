@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 
-/** A jUnit4 (not Arquillian) testing framework for {@link BinarySearchTree}s. All <tt>public</tt> methods
+/** A jUnit4 (not Arquillian) testing framework for {@link BinarySearchTree}s. All public methods
  * will be tested.
  * @author Jason
  * @see BSTClient

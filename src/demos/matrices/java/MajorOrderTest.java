@@ -3,7 +3,7 @@ package demos.matrices.java;
 import java.util.Random;
 import static demos.matrices.java.Dimension.*;
 
-/**<p><tt>MajorOrderTest</tt> is a simple app that tests the efficiency
+/**<p>MajorOrderTest is a simple app that tests the efficiency
  * of performing operations across rows and columns in Java.</p>
  * @author Jason
  */
@@ -18,7 +18,7 @@ public class MajorOrderTest {
 
 
     /**
-     * <p><tt>main()</tt> is the routine that executes the experiment.</p>
+     * <p>main() is the routine that executes the experiment.</p>
      * @param args Arguments provided by the shell on the command line. This application ignores all command-line arguments.
      */
     public static void main(String[] args){

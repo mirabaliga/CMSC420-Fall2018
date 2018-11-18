@@ -3,7 +3,7 @@ package demos.traversals;
 import java.util.LinkedList;
 import java.util.Random;
 
-/**<p><tt>BSTClient</tt> is a client program for {@link BinarySearchTree}. It will be used mostly for timing
+/**<p>BSTClient is a client program for {@link BinarySearchTree}. It will be used mostly for timing
  * and for benchmarking.</p>
  * @author Jason
  */

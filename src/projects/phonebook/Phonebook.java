@@ -6,7 +6,7 @@ import projects.phonebook.hashes.*;
  * <p>{@link Phonebook} is an abstraction over phonebooks: databases of &lt; Full Name,
  * Phone Number&gt; pairs. It allows for <b>both</b> phone <b>and</b> name search, both in
  * <em>amortized constant</em> time. The efficiency of either search will be dependent on
- * the nature of the underlying hash table. No <tt>null</tt> entries are allowed. </p>
+ * the nature of the underlying hash table. No null entries are allowed. </p>
  *
  * <p>{@link Phonebook} only allows for <b>unique</b> Person / Phone pairs. That is, every person will have
  * <b>exactly one</b> phone number associated with them, and every phone number will be associated with
@@ -74,9 +74,9 @@ public class Phonebook {
     }
 
     /** Retrieves the phone number associated with the provided full name. If the name is not in the database,
-     * this method returns <tt>null</tt>.
+     * this method returns null.
      * @param name The full name of the owner of the phone number that is being searched for.
-     * @return The phone number associated with <tt>name</tt>, or <tt>null</tt> if <tt>name</tt> is null or if <tt>name</tt>
+     * @return The phone number associated with name, or null if name is null or if name
      * is not in the {@link Phonebook}.
      */
     public String getNumberOf(String name) {
@@ -84,20 +84,20 @@ public class Phonebook {
     }
 
     /** Retrieves the full name of the owner of the provided phone number. If the phone number is not in the database,
-     * this method returns <tt>null</tt>.
+     * this method returns null.
      * @param number The phone number whose owner is being searched for.
-     * @return The full name of the owner of <tt>number</tt>, or <tt>null</tt> if <tt>number</tt> is null or if <tt>number</tt>
+     * @return The full name of the owner of number, or null if number is null or if number
      * is not in the {@link Phonebook}.
      */
     public String getOwnerOf(String number) {
         return (number == null) ? null : numbersToNames.get(number);
     }
 
-    /** Adds the tuple &lt; <tt>name</tt>, <tt>number</tt> &gt; in the {@link Phonebook}. If either <tt>name</tt> or
-     * <tt>number</tt> are already in the collection, then the entire entry is <b>updated</b>.
+    /** Adds the tuple &lt; name, number &gt; in the {@link Phonebook}. If either name or
+     * number are already in the collection, then the entire entry is <b>updated</b>.
      * @param name The full name of the number's owner.
      * @param number The phone number of the person.
-     * @throws IllegalArgumentException if either <tt>name</tt> or <tt>number</tt> is <tt>null</tt>.
+     * @throws IllegalArgumentException if either name or number is null.
      */
     public void addEntry(String name, String number) {
         if(name == null || number == null)
@@ -106,8 +106,8 @@ public class Phonebook {
         numbersToNames.put(number, name);
     }
 
-    /** Deletes the entry characterized by the arguments provided. If either argument is <tt>null</tt>, or if the
-     * entry is <b>not</b> contained by <tt>this</tt> {@link Phonebook} instance, this method has <b>no effect</b>.
+    /** Deletes the entry characterized by the arguments provided. If either argument is null, or if the
+     * entry is <b>not</b> contained by this {@link Phonebook} instance, this method has <b>no effect</b>.
      * @param name The &quot;owner&quot; part of the &lt; owner, phone number &gt; tuple.
      * @param number The &quot;number&quot; part of the &lt; owner, phone number &gt; tuple.
      */
@@ -130,7 +130,7 @@ public class Phonebook {
     }
 
     /** Queries the phonebook for emptiness.
-     * @return <tt>true</tt> if, and only if, there are 0 entries in this {@link Phonebook}, <tt>false</tt> otherwise.
+     * @return true if, and only if, there are 0 entries in this {@link Phonebook}, false otherwise.
      */
     public boolean isEmpty() {
         return size() == 0;

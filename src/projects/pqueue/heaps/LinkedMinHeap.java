@@ -1,10 +1,8 @@
 package projects.pqueue.heaps;
 
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 /**
- * <p>Model implementation of <tt>LinkedMinHeap</tt> for the first project of
+ * <p>Model implementation of LinkedMinHeap for the first project of
  * CMSC420: Data Structures, CS UMD, Fall 2018. </p>
  *
  * @author <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>

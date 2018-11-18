@@ -1,11 +1,10 @@
 package projects.pqueue.heaps;
 
 import projects.pqueue.InvalidCapacityException;
-import java.util.ConcurrentModificationException;
+
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 /**
- * <p>Model implementation of <tt>ArrayMinHeap</tt> for the first project of
+ * <p>Model implementation of ArrayMinHeap for the first project of
  * CMSC420: Data Structures, CS UMD, Fall 2018. </p>
  *
  * @author <a href = "mailto:jasonfil@cs.umd.edu">Jason Filippou</a>

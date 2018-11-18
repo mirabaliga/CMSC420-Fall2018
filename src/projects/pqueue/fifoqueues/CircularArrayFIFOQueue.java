@@ -8,7 +8,7 @@ import projects.pqueue.InvalidCapacityException;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
-/** <p>A <tt>CircularArrayFIFOQueue</tt> is a {@link FIFOQueue} based on a one-dimensional
+/** <p>A CircularArrayFIFOQueue is a {@link FIFOQueue} based on a one-dimensional
  * array which can wrap around. That is, it is possible for the front of the queue
  * to be at index <i>n</i> and the back of the queue at index <i>m</i>, where <i>n &#62; m</i>. Compared to
  * {@link LinearArrayFIFOQueue}, this implementation provides for <b>constanttime </b> enqueueing and
